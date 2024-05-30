@@ -2,8 +2,10 @@ import axios from "axios";
 import Cookies from "js-cookie";
 
 
-//const token =Cookies.get('jwt');
+const token =Cookies.get('jwt');
+
 const axioinstance = axios.create(
+  
   {
   baseURL : 'https://f70c-43-250-241-122.ngrok-free.app/api/',
   headers: {

@@ -6,7 +6,7 @@ import Dashboard from './Component/Dashboard';
 function page() {
   return (
     <div>
-          <Dashboard />
+          {/* <Dashboard /> */}
     </div>
   )
 }

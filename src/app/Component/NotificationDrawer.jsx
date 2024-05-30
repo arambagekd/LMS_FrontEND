@@ -1,4 +1,4 @@
-'use state'
+'use client'
 import { Button, Card, Divider, Drawer, Flex, Radio, Space, Spin } from 'antd'
 import React, { useEffect, useState } from 'react'
 import axioinstance from '../Instance/api_instance';

@@ -1,7 +1,6 @@
 'use client'
 
-import React, { useState, useEffect } from 'react';
-import ReactDOM from 'react-dom';
+import React from 'react';
 import { Line } from '@ant-design/plots';
 import { Card } from 'antd';
 

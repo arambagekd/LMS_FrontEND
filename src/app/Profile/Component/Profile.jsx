@@ -190,7 +190,7 @@ function Profile() {
       <Card bordered style={{borderWidth:3,width:'80%'}}>
       <Flex justify='space-between'>
         <div>
-        <AddUserModal open1={open} open={showModal1} close={closeModal}/>
+        {/* <AddUserModal open1={open} open={showModal1} close={closeModal}/> */}
       {/* <Button type='primary' danger style={{margin:" 0 20px 20px 0"}} shape='round'>Patron</Button> */}
       <Button type='primary' shape='round'onClick={openModal}>Extend due date</Button>
       </div>

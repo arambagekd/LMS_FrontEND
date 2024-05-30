@@ -1,8 +1,7 @@
 'use client'
 import React, { useState } from 'react';
 import { Card, Space, Col, Row, Image, Flex, Button, ConfigProvider, Popconfirm, message } from 'antd';
-import { UserDeleteOutlined, MoreOutlined } from '@ant-design/icons';
-import myLocalImage from './Book.jpg';
+
 import Link from 'next/link';
 import IssueModal from '../../../Reservations/Component/IssueModal';
 import { UserContext } from '../../../Context/Context';

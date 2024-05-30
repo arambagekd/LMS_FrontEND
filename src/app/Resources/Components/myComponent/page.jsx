@@ -4,7 +4,8 @@ import { Card, Space,Image,Descriptions} from 'antd';
 function page() {
   return (
     <div>
-      <CardResource/>
+      sadsadsda
+      {/* <CardResource/> */}
     </div>
   )
 }

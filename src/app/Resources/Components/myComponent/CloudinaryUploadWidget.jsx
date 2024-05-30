@@ -1,3 +1,4 @@
+'use client'
 import { createContext, useEffect, useState } from "react";
 import { UploadOutlined } from "@ant-design/icons";
 import { Button, Upload } from "antd";

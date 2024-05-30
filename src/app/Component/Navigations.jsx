@@ -258,16 +258,15 @@ function Navigations(props) {
   ];
 
   useEffect(() => {
-    ()=>{
-    GetUser();}
-  }, []);
+    GetUser();
+  }, [GetUser]);
 
   useEffect(() => {
-    ()=>{
+  
     if(user.userName!=undefined){
      setAuthenticated(true);
      setLoading(false);
-    }}
+    }
   }, [user.userName]);
 
   return rootPath != "LogIN" && rootPath != "ErrorPage" ? (

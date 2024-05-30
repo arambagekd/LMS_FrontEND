@@ -92,7 +92,7 @@ function Loginform({spinning,setSpinning}) {
             getUser();
           }
           setSpinning(false);}
-        }, []);
+        }, [setLogin,getUser]);
 
         useEffect(() => {})
 

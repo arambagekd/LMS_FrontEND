@@ -32,7 +32,7 @@ function Loginform({spinning,setSpinning}) {
   
     useEffect(() => {
       setSpinning(false);
-    }, []);
+    }, [setSpinning]);
 
     
     const onFinish=async()=>{

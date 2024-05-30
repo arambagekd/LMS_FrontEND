@@ -70,7 +70,7 @@ function ChangePassword({spinning,setSpinning}) {
 
   useEffect(() => {
     setSpinning(false);
-  }, []);
+  }, [setSpinning]);
 
   return (
     <div>

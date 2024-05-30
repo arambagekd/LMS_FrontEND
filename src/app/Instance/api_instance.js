@@ -7,8 +7,7 @@ const token =Cookies.get('jwt');
 const axioinstance = axios.create(
   
   {
-    baseURL : 'https://xdfdfvfv/api/',
-  //baseURL : 'https://f70c-43-250-241-122.ngrok-free.app/api/',
+  baseURL : 'https://f70c-43-250-241-122.ngrok-free.app/api/',
   headers: {
     'Authorization': `Bearer ${token}`,
     'Content-Type': "application/json",

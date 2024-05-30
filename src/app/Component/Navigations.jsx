@@ -263,7 +263,7 @@ function Navigations(props) {
 
   useEffect(() => {
     if(user.userName!=undefined){
-    setAuthenticated(true);
+     setAuthenticated(true);
      setLoading(false);
     }
   }, [user.userName]);

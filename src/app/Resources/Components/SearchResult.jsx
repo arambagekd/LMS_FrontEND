@@ -9,7 +9,7 @@ import axios from 'axios';
 
 function SearchResult() {
 
-  const [books,setBooks]=useState([]);
+  const [books,setBooks]=useState([{id:1,Title:"Book1",Author:"Author1",Description:"Description1",Image:"https://images-na.ssl-images-amazon.com/images/I/51Zymoq7UnL._AC_SY400.jpg"},]);
 
 
 

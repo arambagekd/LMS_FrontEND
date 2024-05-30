@@ -1,3 +1,4 @@
+'use client'
 import { Button, DatePicker, Flex, Form, Input } from 'antd'
 import Modal from 'antd/es/modal/Modal'
 import React, { useState } from 'react'

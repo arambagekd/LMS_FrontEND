@@ -1,3 +1,4 @@
+'use client'
 import { Card, Table } from 'antd'
 import React from 'react'
 

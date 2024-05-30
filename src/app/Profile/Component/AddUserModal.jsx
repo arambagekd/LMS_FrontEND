@@ -1,4 +1,4 @@
-
+'use client'
 import React, { useState } from 'react';
 import { Button, Modal } from 'antd';
 import UserAddForm from './UserAddForm';

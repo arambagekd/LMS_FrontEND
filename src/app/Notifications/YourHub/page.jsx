@@ -3,7 +3,7 @@ import React, { Children, useEffect, useState } from "react";
 import {
   HubConnectionBuilder,
   LogLevel,
-} from "@aspnet/signalr";
+} from "@microsoft/signalr";
 import TextArea from "antd/es/input/TextArea";
 import { Button } from "antd";
 import { UserContext } from "../../Context/Context";

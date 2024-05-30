@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { Modal, Button, Form, Input, Select, DatePicker } from 'antd';
 import { UserContext } from '../../Context/Context';
-import { HubConnectionBuilder,LogLevel } from '@aspnet/signalr';
+import { HubConnectionBuilder,LogLevel } from '@microsoft/signalr';
 const { Option } = Select;
 
 const AddNotification = ({ visible, onCreate, onCancel,fetchData }) => {

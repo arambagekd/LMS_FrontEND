@@ -83,17 +83,15 @@ function Loginform({spinning,setSpinning}) {
         }
         }
 
-      
-        useEffect(() => {
+          useEffect(() => {
           const token=Cookies.get("jwt");
           if(token){
             setLogin(true);
             getUser();
           }
           setSpinning(false);
-        }, []);
+        });
 
-        useEffect(() => {})
 
 
   return (

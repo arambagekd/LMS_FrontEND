@@ -23,7 +23,7 @@ function EditModal({open,close1}) {
                 open={open}
                 onOk={open}
                 onCancel={close1}
-                footer={[
+                footer={
                     <Flex wrap='wrap' gap="5px">
                         <Button style={{ flex: 1 }} size='small' shape='round' key="submit" type="primary" disabled={formState ? false : true}  >
                             Save
@@ -33,7 +33,7 @@ function EditModal({open,close1}) {
                         </Button>
 
                     </Flex>
-                ]}
+                }
             >
 
                 <div style={{

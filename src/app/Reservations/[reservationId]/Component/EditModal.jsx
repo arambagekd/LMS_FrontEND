@@ -62,7 +62,7 @@ function EditModal({reservationId,modalState,closeModal,fetchData}) {
                 open={modalState}
                 onCancel={closeModal}
                 
-                footer={[
+                footer={
                     <Flex wrap='wrap' gap="5px">
                         <Button style={{ flex: 1 }} size='small' shape='round' key="submit" type="primary" disabled={(formState||date=="" )}  onClick={extend} loading={loading}>
                             Save
@@ -72,7 +72,7 @@ function EditModal({reservationId,modalState,closeModal,fetchData}) {
                         </Button>
 
                     </Flex>
-                ]}
+                }
             >
 
                 <div style={{

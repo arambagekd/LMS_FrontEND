@@ -3,6 +3,7 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import Cookies from "js-cookie";
 import React, { useEffect } from 'react'
 
+
 function SetToken() {
 
     const searchParams = useSearchParams()
@@ -20,6 +21,7 @@ function SetToken() {
 
   return (
     <a href='/LogIN/ResetPassword'>Click Here to Reset Password..............</a>
+    
   )
 }
 

@@ -160,7 +160,7 @@ function Navigations(props) {
     } catch (error) {
       setLoading(false);
     }
-    
+  }
   ;
 
   const selectPatron=async(usertype)=>{

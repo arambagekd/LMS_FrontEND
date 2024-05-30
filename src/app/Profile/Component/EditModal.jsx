@@ -2,8 +2,9 @@ import { Button, DatePicker, Flex, Form, Input } from 'antd'
 import Modal from 'antd/es/modal/Modal'
 import React, { useState } from 'react'
 
-function EditModal(props) {
+function EditModal( {open,close1}) {
 
+   
     const [formState, changeFormState] = useState(false);
 
     const changeInForm = () => {
@@ -17,15 +18,15 @@ function EditModal(props) {
             <Modal
                 title="Extend Due Date"
                 width="300px"
-                open={props.open}
-                onOk={props.open}
+                open={open}
+                onOk={open}
                 onCancel={props.close1}
                 footer={[
                     <Flex wrap='wrap' gap="5px">
                         <Button style={{ flex: 1 }} size='small' shape='round' key="submit" type="primary" disabled={formState ? false : true}  >
                             Save
                         </Button>
-                        <Button style={{ flex: 1 }} size='small' shape='round' key="back" onClick={props.close1}>
+                        <Button style={{ flex: 1 }} size='small' shape='round' key="back" onClick={close1}>
                             Cancel
                         </Button>
 

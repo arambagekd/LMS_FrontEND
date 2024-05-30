@@ -1,11 +1,11 @@
-import { Button, DatePicker, Flex, Form, Input,message } from 'antd'
-import Modal from 'antd/es/modal/Modal'
+import { Button, DatePicker, Flex, Form, Input,Modal,message } from 'antd'
 import moment from 'moment';
 
 import React, { useState } from 'react'
 import axioinstance from '../../../Instance/api_instance';
 
-function EditModal(props) {
+function EditModal({reservationId,modalState,closeModal,fetchData}) {
+    
     const [messageApi, contextHolder] = message.useMessage();
     const success = () => {
         messageApi.open({
@@ -32,13 +32,13 @@ function EditModal(props) {
             try{
                 
                 setLoading(true);
-                const response=await axioinstance.put(`http://localhost:5164/api/Reservation/ExtendDue?id=${props.reservationId}&due=${date}`);
+                const response=await axioinstance.put(`http://localhost:5164/api/Reservation/ExtendDue?id=${reservationId}&due=${date}`);
                 setTimeout(() => {
                     setLoading(false);
-                    props.closeModal();
+                    closeModal();
                     form.resetFields();
                     setDate("");
-                    props.fetchData()
+                    fetchData()
                     success();
                 }, 3000);
                 
@@ -59,15 +59,15 @@ function EditModal(props) {
                 
                 title="Extend Due Date"
                 width="300px"
-                open={props.modalState}
-                onCancel={props.closeModal}
+                open={modalState}
+                onCancel={closeModal}
                 
                 footer={[
                     <Flex wrap='wrap' gap="5px">
                         <Button style={{ flex: 1 }} size='small' shape='round' key="submit" type="primary" disabled={(formState||date=="" )}  onClick={extend} loading={loading}>
                             Save
                         </Button>
-                        <Button style={{ flex: 1 }} size='small' shape='round' key="back" onClick={props.closeModal}>
+                        <Button style={{ flex: 1 }} size='small' shape='round' key="back" onClick={closeModal}>
                             Cancel
                         </Button>
 

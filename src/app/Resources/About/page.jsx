@@ -35,7 +35,7 @@ const PageRoot = [
 function page(props) {
   return (
     <div>
-         <AdressBar  topic="About Resource"  pageroot={PageRoot}/>
+        
         <AboutCartModel/>
         
     </div>

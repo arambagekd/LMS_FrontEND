@@ -7,7 +7,7 @@ import moment from 'moment';
 import dayjs from 'dayjs';
 const dateFormat = 'YYYY/MM/DD';
 
-const AAA = (props) => {
+const AAA = () => {
 
   const [save, setDetails] = useState(false);
 

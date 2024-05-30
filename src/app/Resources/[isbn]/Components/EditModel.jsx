@@ -1,14 +1,11 @@
 import { Button, DatePicker, Flex, Form, Input,message,InputNumber,Row,Col,TextArea,ConfigProvider,Drawer,Space} from 'antd'
-import Modal from 'antd/es/modal/Modal'
-import moment from 'moment';
-import UploadImage from '../../Components/myComponent/UploadImage';
 import React, { useState,useEffect} from 'react'
 import axios from 'axios';
-import axioinstance from '../../../Instance/api_instance';
-import { useParams } from 'next/navigation';
 import { CloseCircleOutlined} from '@ant-design/icons';
 
-function EditModal(props) {
+function EditModal({ open, close,data,fetchData}) {
+
+
     const [messageApi, contextHolder] = message.useMessage();
     const success = () => {
         messageApi.open({
@@ -25,32 +22,30 @@ function EditModal(props) {
 
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(false);
-  //console.log(props.data.description);
-
-  // Initialize form with data
+  
   useEffect(() => {
     form.setFieldsValue({
-      isbn: props.data.isbn,
-      title: props.data.title,
-      author: props.data.author,
-      type: props.data.type,
-      quantity: props.data.total,
-      price: props.data.price,
-      description: props.data.description,
-      pages: props.data.pages,
-      addededOn: props.data.addedon,
-      location: props.data.location,
+      isbn: data.isbn,
+      title: data.title,
+      author: data.author,
+      type: data.type,
+      quantity: data.total,
+      price: data.price,
+      description: data.description,
+      pages: data.pages,
+      addededOn: data.addedon,
+      location: data.location,
       addedByID: 'sasindu',
       imagePath: 'hello.lk',
       url: 'hello.lk'
     });
     
-  }, [props.data, form]);
+  }, [data, form]);
   
     
   const handleInputChange = (fieldName, value) => {
     form.setFieldsValue({ [fieldName]: value });
-    console.log(props.data.isbn);
+    console.log(data.isbn);
   };
   const handleFormSubmit= async ()=>{
     const formData = form.getFieldsValue();
@@ -65,7 +60,7 @@ function EditModal(props) {
         setTimeout(() => {
             setLoading(false);
             // showSuccessModal();
-            props.fetchData();
+            fetchData();
         }, 3000);
         alert(response.data.isbn);
      },(error)=>{
@@ -97,14 +92,14 @@ function EditModal(props) {
                 closable={false}
                 style={{ maxWidth: '100%' }}
                 width='65%'
-                open={props.open}
+                open={open}
                 centered
                 title={<span style={{ fontSize: '18px' }}>Edit Resource Details</span>} 
                 
-                onClose={props.close}
+                onClose={close}
                 extra={
                   <Space>
-                    <CloseCircleOutlined onClick={props.close} style={{ fontSize: '22px'}}/>
+                    <CloseCircleOutlined onClick={close} style={{ fontSize: '22px'}}/>
                     {/* <Button >Cancel</Button> */}
                   </Space>
                 }
@@ -114,7 +109,7 @@ function EditModal(props) {
                         <Button style={{ height:'30px',width:'120px'}} size='small' shape='round' key="submit" type="primary"   onClick={handleFormSubmit} loading={loading}>
                             Save
                         </Button>
-                        <Button style={{ height:'30px',width:'120px' }} size='small' shape='round' key="back" onClick={props.close}>
+                        <Button style={{ height:'30px',width:'120px' }} size='small' shape='round' key="back" onClick={close}>
                             Cancel
                         </Button>
 

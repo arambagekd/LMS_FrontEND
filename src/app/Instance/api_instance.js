@@ -11,9 +11,8 @@ const axioinstance = axios.create(
   headers: {
     'Authorization': `Bearer ${token}`,
     'Content-Type': "application/json",
-    'timeout' : 1000,
   }, 
-  
+  timeout: 1000,
 });
 
 // axioinstance.interceptors.request.use(

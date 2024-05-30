@@ -259,7 +259,7 @@ function Navigations(props) {
 
   useEffect(() => {
     GetUser();
-  }, [GetUser]);
+  }, []);
 
   useEffect(() => {
   

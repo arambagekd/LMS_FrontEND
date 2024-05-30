@@ -1,4 +1,4 @@
-'use client'
+
 import Navigations from '../Component/Navigations'
 import ContentBox from '../Component/ContentBox'
 import { HomeOutlined } from '@ant-design/icons';
@@ -25,10 +25,10 @@ function page() {
         <div>
             <div>
                                    
-                   <Link href={'/Resources/AddResources'}><FloatButton  icon={<PlusOutlined/>} tooltip="Add a resource" type='primary'/></Link>
+                   {/* <Link href={'/Resources/AddResources'}><FloatButton  icon={<PlusOutlined/>} tooltip="Add a resource" type='primary'/></Link>
                        <SearchResources/>
                        <br />
-                       <SearchResult data={data} />
+                       <SearchResult data={data} /> */}
             </div>
         </div>
     )

@@ -1,5 +1,4 @@
-
-import React, { useState } from 'react'
+'use client'
 import Navigations from '../Component/Navigations'
 import ContentBox from '../Component/ContentBox'
 import { HomeOutlined } from '@ant-design/icons';
@@ -11,35 +10,7 @@ import {PlusOutlined } from '@ant-design/icons';
 import Link from 'next/link';
 
 
-const PageRoot = [
-    {
-        href: '/Dashboard',
-        title: <HomeOutlined />,
-    },
-    {
-        href: '',
-        title: (
-            <>
-                <HomeOutlined />
-                <span>Resources</span>
-            </>
-        ),
-    },
-    {
-        href: '',
-        title: (
-            <>
-                <HomeOutlined />
-                <span> Search Resources</span>
-            </>
-        ),
-    },
-]
-const data =  [
-    { userId: '1', name: 'John Doe', email: 'john@example.com', role: 'Admin', description: '' },
-  ];
 
-  
 
 function page() {
     // eslint-disable-next-line react-hooks/rules-of-hooks
@@ -58,8 +29,6 @@ function page() {
                        <SearchResources/>
                        <br />
                        <SearchResult data={data} />
-                       {/* <AddResourceModel open1={open} open={showModal} close={closeModal}/> */}
-                
             </div>
         </div>
     )

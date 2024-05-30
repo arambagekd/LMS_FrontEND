@@ -130,10 +130,10 @@ function Navigations(props) {
   const router = useRouter();
   const [user, setUser] = useState({});
   const [email, setEmail] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const[Notifications,setNotification]=useState([]);
   const[open,setOpen]=useState(false);
-  const[authenticated,setAuthenticated]=useState(true);
+  const[authenticated,setAuthenticated]=useState(false);
 
   const logout = async () => {
     try {

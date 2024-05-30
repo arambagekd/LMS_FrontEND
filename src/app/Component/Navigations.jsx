@@ -150,7 +150,7 @@ function Navigations(props) {
     }
   };
 
-  const GetUser = useCallback(async () => {
+  const GetUser = async () => {
     try {
       const response = await axioinstance.get("User/GetMyData");
       const response1 = await axioinstance.get("User/GetEmail");
@@ -161,7 +161,7 @@ function Navigations(props) {
       setLoading(false);
     }
     
-  },[]);
+  ;
 
   const selectPatron=async(usertype)=>{
     try{

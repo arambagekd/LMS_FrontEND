@@ -56,7 +56,7 @@ function Loginform({spinning,setSpinning}) {
       setLoading(true);
       setSpinning(true);
         try{
-            const response =await axios.post('http://localhost:5164/api/Auth/login', 
+            const response =await axios.post('https://f70c-43-250-241-122.ngrok-free.app/api/Auth/login', 
               {
                 userName: String(form.getFieldValue('username')),
                 password: String(form.getFieldValue('password')),

@@ -28,7 +28,7 @@ const Chat = ({children}) => {
     
     useEffect(() => {
       const connect = new HubConnectionBuilder()
-        .withUrl("http://localhost:5164/Hubs/MyHub")
+        .withUrl("https://f70c-43-250-241-122.ngrok-free.app/Hubs/MyHub")
         .withAutomaticReconnect()
         .configureLogging(LogLevel.Information)
         .build();

@@ -15,7 +15,7 @@ function UserTypeSelect({spinning,setSpinning}) {
     const selectPatron=async(usertype)=>{
         try{
         Cookies.remove('jwt');
-        const response = await axios.post(`http://localhost:5164/api/Auth/selectusertype?userType=${usertype}`,{},
+        const response = await axios.post(`https://f70c-43-250-241-122.ngrok-free.app/Auth/selectusertype?userType=${usertype}`,{},
         { withCredentials: true ,
           headers: {
                 'Authorization': `Bearer ${token}`,

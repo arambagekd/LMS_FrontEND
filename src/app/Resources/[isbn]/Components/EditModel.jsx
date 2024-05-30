@@ -104,7 +104,8 @@ function EditModal({ open, close,data,fetchData}) {
                   </Space>
                 }
                 
-                footer={[
+                footer={
+                  
                     <Flex wrap='wrap' gap="5px" style={{ height:'30px',justifyContent:'flex-end',paddingRight:'30px'}}>
                         <Button style={{ height:'30px',width:'120px'}} size='small' shape='round' key="submit" type="primary"   onClick={handleFormSubmit} loading={loading}>
                             Save
@@ -114,7 +115,7 @@ function EditModal({ open, close,data,fetchData}) {
                         </Button>
 
                     </Flex>
-                ]}
+                }
             >
 
                 <div style={{

@@ -20,7 +20,7 @@ function EditModal( {open,close1}) {
                 width="300px"
                 open={open}
                 onOk={open}
-                onCancel={props.close1}
+                onCancel={close1}
                 footer={[
                     <Flex wrap='wrap' gap="5px">
                         <Button style={{ flex: 1 }} size='small' shape='round' key="submit" type="primary" disabled={formState ? false : true}  >
@@ -47,47 +47,18 @@ function EditModal( {open,close1}) {
 
                        >
 
-                        {/* <Form.Item
-                            name="userID"
-                            label="Borrower Id"
-                            rules={[
-                                {
-                                    required: true,
-                                },
-                            ]}
-                        >
-                            <Input />
-                        </Form.Item>
-                        <Form.Item
-                            name='issuerId'
-                            label="Issued by"
-                            rules={[
-                                {
-                                    required: true,
-                                },
-                            ]}
-                        ><Input />
-                        </Form.Item> */}
+                       
                         <Form.Item
                             name='dueDate'
                            
                             rules={[
                                 {
+                                    key: 'dueDate',
                                     required: true,
                                 },
                             ]}
                         ><DatePicker  onChange={changeInForm} />
                         </Form.Item>
-                        {/* <Form.Item
-                            name='penaltyStatus'
-                            label="Penalty"
-                            rules={[
-                                {
-                                    required: true,
-                                },
-                            ]}
-                        ><Input />
-                        </Form.Item> */}
                     </Form>
                 </div>
 

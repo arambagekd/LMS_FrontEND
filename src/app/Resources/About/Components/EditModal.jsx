@@ -52,6 +52,7 @@ function EditModal({ open, close1}) {
                            
                             rules={[
                                 {
+                                    key: 'dueDate',
                                     required: true,
                                 },
                             ]}

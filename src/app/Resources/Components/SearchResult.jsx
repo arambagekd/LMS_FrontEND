@@ -37,7 +37,7 @@ function SearchResult() {
     <Row style={{width:"100%"}}   gutter={[15,20]} justify="center">
    
     {books.slice((page-1)*9,(page-1)*9+ 9).map((item) => (
-        <CardResource  dataset={item} />
+        <CardResource key={item}  dataset={item} />
       ))}
   
     </Row>

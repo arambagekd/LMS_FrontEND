@@ -94,6 +94,7 @@ function EditModal({reservationId,modalState,closeModal,fetchData}) {
                            
                             rules={[
                                 {
+                                    key: 'dueDate',
                                     required: true,
                                 },
                             ]}

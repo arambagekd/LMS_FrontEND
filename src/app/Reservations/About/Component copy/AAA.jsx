@@ -56,7 +56,7 @@ const AAA = () => {
         }
         {save?
               
-              <><Modal></Modal><Button onClick={saveMe}>Save</Button></>:null}
+              <><Button onClick={saveMe}>Save</Button></>:null}
               
       </div>
 

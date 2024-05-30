@@ -1,5 +1,5 @@
 "use client";
-import React, { use, useEffect, useState } from "react";
+import React, { use, useEffect, useState,useCallback } from "react";
 import {
   ArrowLeftOutlined,
   UserOutlined,
@@ -150,7 +150,7 @@ function Navigations(props) {
     }
   };
 
-  const GetUser = async () => {
+  const GetUser = useCallback(async () => {
     try {
       const response = await axioinstance.get("User/GetMyData");
       const response1 = await axioinstance.get("User/GetEmail");
@@ -161,7 +161,7 @@ function Navigations(props) {
       setLoading(false);
     }
     
-  };
+  },[]);
 
   const selectPatron=async(usertype)=>{
     try{
@@ -259,7 +259,7 @@ function Navigations(props) {
 
   useEffect(() => {
     GetUser();
-  }, []);
+  }, [GetUser]);
 
   useEffect(() => {
   

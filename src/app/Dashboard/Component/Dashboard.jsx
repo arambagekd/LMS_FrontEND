@@ -96,7 +96,7 @@ function Dashboard() {
           </Row> */}
           <Row style={{ width: "100%" ,margin:'30px 0'}}  gutter={[5, 5]}>
             <Col xs={24} sm={10}><RecentNoti/></Col>
-            <Col xs={24} sm={14}><OverdueTable data={data} /></Col>
+            <Col xs={24} sm={14}><OverdueTable /></Col>
           </Row>
 
          

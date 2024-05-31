@@ -147,7 +147,7 @@ function SearchResult() {
 
   async function mydata(){
     try{
-      const response = await axios.get('User/GetMyData');
+      const response = await axios.post('User/GetMyData');
       console.log(response.data);
   }catch(error){
     console.log(error.data);

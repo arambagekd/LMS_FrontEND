@@ -155,10 +155,9 @@ function SearchResult() {
 
   const search = () => {
     fetchData(type);
-    mydata();
   } // Function to trigger search
 
-  useEffect(() => { fetchData(type); }, [user.userType]); // Fetch data on component mount
+  useEffect(() => { fetchData(type);mydata() }, [user.userType]); // Fetch data on component mount
 
   return (
 

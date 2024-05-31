@@ -153,9 +153,10 @@ function Navigations(props) {
     async function GetUser(){
     try {
       const response = await axioinstance.get("User/GetMyData");
-      const response1 = await axioinstance.get("User/GetEmail");
+    //  const response1 = await axioinstance.get("User/GetEmail");
+      console.log(response.data);
       setUser(response.data);
-      setEmail(response1.data);
+      //setEmail(response1.data);
     } catch (error) {
       console.log(error);
       setLoading(false);

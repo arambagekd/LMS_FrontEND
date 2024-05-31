@@ -134,7 +134,6 @@ function SearchResult() {
         userId: type === "userId" || type === "*",
         reservationId: type === "reservationId" || type === "*"
       },);
-
       const data = response.data.reverse(); // Extracting data from response
       console.log(data);
       setLoading(false); // Setting loading to false after data is fetched

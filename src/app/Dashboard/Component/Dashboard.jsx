@@ -90,10 +90,17 @@ function Dashboard() {
             <Col xs={24} sm={6}><DashboardCard title="Requests" value={statics.requests} icon={<AuditOutlined style={iconStyle}/>} /></Col>
             <Col xs={24} sm={6}><DashboardCard title="Overdue" value={statics.overDue} icon={<WarningOutlined style={iconStyle}/>} /></Col>
           </Row>
-          {/* <Row style={{ width: "100%" ,margin:'30px 0'}}  gutter={[5, 5]}>
+
+          {typeof window !== "undefined" && (
+                
+                    <Row style={{ width: "100%", margin: '30px 0' }} gutter={[5, 5]}>
+                        <Col xs={24} sm={12}><Chart topic="This week transitions" data={chart1} /></Col>
+                        <Col xs={24} sm={12}><Chart topic="Ebook Views" data={chart2} /></Col>
+                    </Row>)}
+           {/* <Row style={{ width: "100%" ,margin:'30px 0'}}  gutter={[5, 5]}>
             <Col xs={24} sm={12}><Chart topic="This week transitions" data={chart1}/></Col>
             <Col xs={24} sm={12}><Chart topic="Ebook Views" data={chart2}/></Col>
-          </Row> */}
+          </Row>  */}
           <Row style={{ width: "100%" ,margin:'30px 0'}}  gutter={[5, 5]}>
             <Col xs={24} sm={10}><RecentNoti/></Col>
             <Col xs={24} sm={14}><OverdueTable /></Col>

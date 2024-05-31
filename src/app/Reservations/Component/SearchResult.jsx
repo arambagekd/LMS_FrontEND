@@ -147,7 +147,7 @@ function SearchResult() {
 
   async function mydata(){
     try{
-      const response = await axioinstance.post('User/GetMyData',{});
+      const response = await axioinstance.post('User/GetMyData',null);
       console.log(response.data);
   }catch(error){
     console.log(error.data);

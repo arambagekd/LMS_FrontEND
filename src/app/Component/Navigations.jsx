@@ -152,8 +152,8 @@ function Navigations(props) {
 
   const GetUser = async () => {
     try {
-      const response = await axioinstance.get("User/GetMyData");
-      const response1 = await axioinstance.get("User/GetEmail");
+      const response = await axios.get("https://4878-61-245-161-144.ngrok-free.app/api/User/GetMyData");
+      const response1 = await axios.get("https://4878-61-245-161-144.ngrok-free.app/api/User/GetEmail");
       setUser(response.data);
       console.log(response.data);
       setEmail(response1.data);

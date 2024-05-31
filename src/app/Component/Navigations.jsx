@@ -158,6 +158,7 @@ function Navigations(props) {
       console.log(response.data);
       setEmail(response1.data);
     } catch (error) {
+      console.log(error);
       setLoading(false);
     }
   };

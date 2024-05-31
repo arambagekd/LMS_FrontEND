@@ -154,11 +154,13 @@ function Navigations(props) {
       console.log("ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff")
     try {
       const response = await axioinstance.get("User/GetMyData");
+      console.log("ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff")
     //  const response1 = await axioinstance.get("User/GetEmail");
       console.log(response.data);
       setUser(response.data);
       //setEmail(response1.data);
     } catch (error) {
+      console.log("eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee")
       console.log(error);
       setLoading(false);
     }

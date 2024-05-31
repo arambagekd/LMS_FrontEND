@@ -151,6 +151,7 @@ function Navigations(props) {
   };
 
     async function GetUser(){
+      console.log("ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff")
     try {
       const response = await axioinstance.get("User/GetMyData");
     //  const response1 = await axioinstance.get("User/GetEmail");

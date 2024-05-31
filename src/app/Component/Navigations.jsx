@@ -1,5 +1,5 @@
 "use client";
-import React, { use, useEffect, useState,useCallback } from "react";
+import React, { use, useEffect, useState, useCallback } from "react";
 import {
   ArrowLeftOutlined,
   UserOutlined,
@@ -47,7 +47,7 @@ import axioinstance from "../Instance/api_instance";
 import { UserContext, EmailContext } from "../Context/Context";
 import MyHub from "../Notifications/MyHub/page";
 import ErrorPage from "../ErrorPage/page";
-import NotificationDrawer from "./NotificationDrawer"
+import NotificationDrawer from "./NotificationDrawer";
 import { get } from "http";
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -131,9 +131,9 @@ function Navigations(props) {
   const [user, setUser] = useState({});
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
-  const[Notifications,setNotification]=useState([]);
-  const[open,setOpen]=useState(false);
-  const[authenticated,setAuthenticated]=useState(true);
+  const [Notifications, setNotification] = useState([]);
+  const [open, setOpen] = useState(false);
+  const [authenticated, setAuthenticated] = useState(true);
 
   const logout = async () => {
     try {
@@ -160,28 +160,29 @@ function Navigations(props) {
     } catch (error) {
       setLoading(false);
     }
-  }
-  ;
-
-  const selectPatron=async(usertype)=>{
-    try{
-    const token =Cookies.get('jwt');
-    Cookies.remove('jwt');
-    console.log(token);
-    const response = await axios.post(`http://localhost:5164/api/Auth/selectusertype?userType=${usertype}`,null,
-    { withCredentials: true ,
-      headers: {
-            'Authorization': `Bearer ${token}`,
-            'Content-Type': "application/json",
-            'timeout' : 1000,
+  };
+  const selectPatron = async (usertype) => {
+    try {
+      const token = Cookies.get("jwt");
+      Cookies.remove("jwt");
+      console.log(token);
+      const response = await axios.post(
+        `http://localhost:5164/api/Auth/selectusertype?userType=${usertype}`,
+        null,
+        {
+          withCredentials: true,
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+            timeout: 1000,
+          },
+        }
+      );
+      GetUser();
+    } catch (e) {
+      console.log(e);
     }
-    
-    });
-    GetUser();
-    }catch(e){
-        console.log(e);
-    }
-}
+  };
 
   const [collapsed, setCollapsed] = useState(false);
   // const {
@@ -198,9 +199,7 @@ function Navigations(props) {
       key: "1",
 
       label: (
-        
-          <Avatar onClick={()=>setOpen(true)} icon={<MessageOutlined />} />
-        
+        <Avatar onClick={() => setOpen(true)} icon={<MessageOutlined />} />
       ),
     },
     {
@@ -262,10 +261,9 @@ function Navigations(props) {
   }, []);
 
   useEffect(() => {
-  
-    if(user.userName!=undefined){
-     setAuthenticated(true);
-     setLoading(false);
+    if (user.userName != undefined) {
+      setAuthenticated(true);
+      setLoading(false);
     }
   }, [user.userName]);
 
@@ -278,9 +276,8 @@ function Navigations(props) {
           <ErrorPage />
         ) : (
           <Layout style={{ minHeight: "100vh" }}>
+            <NotificationDrawer open={open} setOpen={setOpen} />
 
-            <NotificationDrawer open={open} setOpen={setOpen}/>
-            
             <Sider
               collapsible
               collapsed={collapsed}
@@ -334,7 +331,6 @@ function Navigations(props) {
                   background: "rgb(255,255,255)",
                 }}
               >
-                
                 <ConfigProvider
                   theme={{
                     components: {
@@ -344,26 +340,45 @@ function Navigations(props) {
                     },
                   }}
                 >
-                  <Flex justify={user.actualType=="admin"?"space-between":"right"} align="center">
+                  <Flex
+                    justify={
+                      user.actualType == "admin" ? "space-between" : "right"
+                    }
+                    align="center"
+                  >
+                    {user.actualType == "admin" ? (
+                      <>
+                        {user.userType == "admin" ? (
+                          <Button
+                            onClick={() => selectPatron("patron")}
+                            style={{ margin: "0 0 0 15px" }}
+                          >
+                            Patron View
+                          </Button>
+                        ) : null}
+                        {user.userType == "patron" ? (
+                          <Button
+                            onClick={() => selectPatron("admin")}
+                            style={{ margin: "0 0 0 15px" }}
+                          >
+                            Admin View
+                          </Button>
+                        ) : null}
+                      </>
+                    ) : null}
 
-                    {user.actualType=="admin"?
-                    <>
-                    {user.userType=="admin"?<Button onClick={()=>selectPatron("patron")} style={{margin:"0 0 0 15px"}}>Patron View</Button>:null}
-                    {user.userType=="patron"?<Button onClick={()=>selectPatron("admin")} style={{margin:"0 0 0 15px"}}>Admin View</Button>:null}
-                    </>:null}
-                
-                  <Menu
-                    triggerSubMenuAction="click"
-                    style={{
-                      position: "sticky",
-                      top: 0,
-                      justifyContent: "end",
-                    }}
-                    theme="light"
-                    mode="horizontal"
-                    defaultSelectedKeys={["."]}
-                    items={items}
-                  />
+                    <Menu
+                      triggerSubMenuAction="click"
+                      style={{
+                        position: "sticky",
+                        top: 0,
+                        justifyContent: "end",
+                      }}
+                      theme="light"
+                      mode="horizontal"
+                      defaultSelectedKeys={["."]}
+                      items={items}
+                    />
                   </Flex>
                 </ConfigProvider>
               </Header>

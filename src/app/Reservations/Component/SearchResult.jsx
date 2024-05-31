@@ -27,6 +27,7 @@ function SearchResult() {
   const [items, setItems] = useState([]); // State for items (search results)
   const [loading, setLoading] = useState(true); // Loading state
   const user = React.useContext(UserContext).user;
+  
 
   const showModal = (record) => {
     setRecord(record);
@@ -144,8 +145,17 @@ function SearchResult() {
     }
   }
 
+  async function mydata(){
+    try{
+      const response = await axios.get('User/GetMyData');
+      console.log(response.data);
+  }catch(error){
+    console.log(error.data);
+  }}
+
   const search = () => {
     fetchData(type);
+    mydata();
   } // Function to trigger search
 
   useEffect(() => { fetchData(type); }, [user.userType]); // Fetch data on component mount

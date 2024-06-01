@@ -9,7 +9,7 @@ import axios from 'axios';
 
 function SearchResult() {
 
-  const [books,setBooks]=useState([{id:1,Title:"Book1",Author:"Author1",Description:"Description1",Image:"https://images-na.ssl-images-amazon.com/images/I/51Zymoq7UnL._AC_SY400.jpg"},]);
+  const [books,setBooks]=useState([]);
 
 
 
@@ -21,7 +21,7 @@ function SearchResult() {
 
   const handleSearch = async () => {
     try {
-      const response = await axios.get(`http://localhost:5164/api/Resource/GetAllResource`);
+      const response = await axios.post(`http://localhost:5164/api/Resource/GetAllResource`);
       const searchData = response.data;
       setBooks(searchData);
       console.log(searchData);

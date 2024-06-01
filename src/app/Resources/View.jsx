@@ -17,7 +17,7 @@ function View() {
                    <Link href={'/Resources/AddResources'}><FloatButton  icon={<PlusOutlined/>} tooltip="Add a resource" type='primary'/></Link>
                        <SearchResources/>
                        <br />
-                       <SearchResult data={data} />
+                       <SearchResult />
             </div>
        
     )

@@ -130,10 +130,10 @@ function Navigations(props) {
   const router = useRouter();
   const [user, setUser] = useState({});
   const [email, setEmail] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [Notifications, setNotification] = useState([]);
   const [open, setOpen] = useState(false);
-  const [authenticated, setAuthenticated] = useState(true);
+  const [authenticated, setAuthenticated] = useState(false);
 
   const logout = async () => {
     try {
@@ -151,15 +151,15 @@ function Navigations(props) {
   };
 
     async function GetUser(){
-      console.log("ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff")
+     
     try {
       const response = await axioinstance.post("User/GetMyData");
-    //  const response1 = await axioinstance.get("User/GetEmail");
+     const response1 = await axioinstance.post("User/GetEmail");
       console.log(response.data);
       setUser(response.data);
-      //setEmail(response1.data);
+      setEmail(response1.data);
     } catch (error) {
-      console.log("eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee")
+      
       console.log(error);
       setLoading(false);
     }
@@ -170,7 +170,7 @@ function Navigations(props) {
       Cookies.remove("jwt");
       console.log(token);
       const response = await axios.post(
-        `http://localhost:5164/api/Auth/selectusertype?userType=${usertype}`,
+        `http://https://fb10-61-245-161-144.ngrok-free.app/api/Auth/selectusertype?userType=${usertype}`,
         null,
         {
           withCredentials: true,

@@ -49,7 +49,7 @@ function OverdueTable() {
 
   const GetReservations = async () => {
     try{
-      const response = await axioinstance.get('Dashboard/getOverDueList');
+      const response = await axioinstance.post('Dashboard/getOverDueList');
       setReservation(response.data);
     }catch{
       console.log("Can't fetch data");

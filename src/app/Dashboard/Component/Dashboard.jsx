@@ -52,24 +52,24 @@ function Dashboard() {
     const[loading,setLoading]=useState(true);
     const[chart1,setChart1]=useState([]);
 
-    // const fetchData=async()=>{
-    //   try{
-    //     const response1 = await axioinstance.get("Dashboard/getAdminDashboradData");
-    //     const response2 = await axioinstance.get("Dashboard/getLastWeekReservations");
-    //     setStatics(response1.data);
-    //     setChart1(response2.data);
-    //   }
-    //   catch(err){ 
-    //     console.log(err);
-    //   }
-    // }
+    const fetchData=async()=>{
+      try{
+        const response1 = await axioinstance.post("Dashboard/getAdminDashboradData");
+        const response2 = await axioinstance.post("Dashboard/getLastWeekReservations");
+        setStatics(response1.data);
+        setChart1(response2.data);
+      }
+      catch(err){ 
+        console.log(err);
+      }
+    }
 
 
-    // useEffect(() => {
-    //     fetchData();
-    // }, [])
+    useEffect(() => {
+        fetchData();
+    }, [])
 
-    // useEffect(() => {()=>setLoading(false);}, [statics])
+    useEffect(() => {()=>setLoading(false);}, [statics])
 
 
     return (
@@ -100,10 +100,10 @@ function Dashboard() {
             <Col xs={24} sm={12}><Chart topic="This week transitions" data={chart1}/></Col>
             <Col xs={24} sm={12}><Chart topic="Ebook Views" data={chart2}/></Col>
           </Row>  */}
-          {/* <Row style={{ width: "100%" ,margin:'30px 0'}}  gutter={[5, 5]}>
+          <Row style={{ width: "100%" ,margin:'30px 0'}}  gutter={[5, 5]}>
             <Col xs={24} sm={10}><RecentNoti/></Col>
             <Col xs={24} sm={14}><OverdueTable /></Col>
-          </Row> */}
+          </Row>
 
          
            

@@ -33,7 +33,7 @@ function AboutCard({reservationId}) {
   const fetchData=async()=>{
     setLoading(true);
     try{
-      const response = await axioinstance.get(`Reservation/About?resId=${reservationId}`);
+      const response = await axioinstance.post(`Reservation/About?resId=${reservationId}`);
       console.log(response.data);
       setStatus(response.data.status);
       const items = [
@@ -57,18 +57,13 @@ function AboutCard({reservationId}) {
       
         {
           key: '2',
-          label: 'Username',
-          children: response.data.userName,
-        },
-        {
-          key: '3',
           label: 'User Name',
-          children: "response.name",
+          children: response.data.userName,
         },
         {
           key: '4',
           label: 'Issuer',
-          children: 'issuer',
+          children: response.data.issuer,
         },
       
         {

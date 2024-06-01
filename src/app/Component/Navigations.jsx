@@ -154,7 +154,7 @@ function Navigations(props) {
      
     try {
       const response = await axioinstance.post("User/GetMyData");
-     const response1 = await axioinstance.post("User/GetEmail");
+      const response1 = await axioinstance.post("User/GetEmail");
       console.log(response.data);
       setUser(response.data);
       setEmail(response1.data);
@@ -170,7 +170,7 @@ function Navigations(props) {
       Cookies.remove("jwt");
       console.log(token);
       const response = await axios.post(
-        `http://https://fb10-61-245-161-144.ngrok-free.app/api/Auth/selectusertype?userType=${usertype}`,
+        `https://fb10-61-245-161-144.ngrok-free.app/api/Auth/selectusertype?userType=${usertype}`,
         null,
         {
           withCredentials: true,

@@ -83,7 +83,7 @@ function SearchResult(props) {
   async function fetchData() { // Function to fetch data from server
     setLoading(true); // Set loading to true while fetching
     try {
-      const response = await axioinstance.get("Request/DisplayRequest");
+      const response = await axioinstance.post("Request/DisplayRequest");
       const data = response.data; // Extracting data from response
       console.log(data);
       setLoading(false); // Setting loading to false after data is fetched

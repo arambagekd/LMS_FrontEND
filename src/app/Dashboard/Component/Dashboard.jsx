@@ -52,25 +52,24 @@ function Dashboard() {
     const[loading,setLoading]=useState(true);
     const[chart1,setChart1]=useState([]);
 
-    const fetchData=async()=>{
-      try{
-        const response1 = await axioinstance.get("Dashboard/getAdminDashboradData");
-        const response2 = await axioinstance.get("Dashboard/getLastWeekReservations");
-        console.log(response1.data);
-        setStatics(response1.data);
-        setChart1(response2.data);
-      }
-      catch(err){ 
-        console.log(err);
-      }
-    }
+    // const fetchData=async()=>{
+    //   try{
+    //     const response1 = await axioinstance.get("Dashboard/getAdminDashboradData");
+    //     const response2 = await axioinstance.get("Dashboard/getLastWeekReservations");
+    //     setStatics(response1.data);
+    //     setChart1(response2.data);
+    //   }
+    //   catch(err){ 
+    //     console.log(err);
+    //   }
+    // }
 
 
-    useEffect(() => {
-        fetchData();
-    }, [])
+    // useEffect(() => {
+    //     fetchData();
+    // }, [])
 
-    useEffect(() => {()=>setLoading(false);}, [statics])
+    // useEffect(() => {()=>setLoading(false);}, [statics])
 
 
     return (

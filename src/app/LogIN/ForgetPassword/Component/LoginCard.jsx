@@ -10,7 +10,7 @@ import { useMediaQuery } from 'react-responsive';
 const Login = () => {
 
   const[spinning,setSpinning]=useState(true);
-  const isDesktop = useMediaQuery({ query: '(min-width: 600px)',defaultValue:true });
+  const isDesktop = useMediaQuery({ query: '(min-width: 600px)',defaultValue:true ,initializeWithValue:true});
   
 
   const containerStyle = {

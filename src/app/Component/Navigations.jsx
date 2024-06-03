@@ -282,8 +282,8 @@ function Navigations(props) {
             <NotificationDrawer open={open} setOpen={setOpen} />
 
             <Sider
-              collapsible
-              collapsed={collapsed}
+              collapsible={window.innerWidth>600?true:false}
+              collapsed={window.innerWidth>600?collapsed:true}
               onCollapse={(value) => setCollapsed(value)}
               style={{ height: "auto" }}
             >

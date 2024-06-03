@@ -39,7 +39,7 @@ function Loginform({spinning,setSpinning}) {
       setLoading(true);
       setSpinning(true);
         try{
-            const response =await axios.get(`https://fb10-61-245-161-144.ngrok-free.app/api/User/forgetPassword?email=${form.getFieldValue('email')}`);
+            const response =await axios.get(`https://ac89-212-104-231-166.ngrok-free.app/api/User/forgetPassword?email=${form.getFieldValue('email')}`);
             successModal();
             router.push('/LogIN');
         }catch(error){

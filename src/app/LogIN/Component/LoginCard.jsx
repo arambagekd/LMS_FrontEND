@@ -8,10 +8,10 @@ import { Spin } from 'antd';
 
 const LoginCard = () => {
   const containerStyle = {
+    height:window.innerWidth>600?'auto':'100vh',
     fontFamily: "Arial, sans-serif",
     display: 'flex',
     flexWrap: 'wrap',
-    width: '800px',
     minHeight: '350px',
     boxShadow: '0 0 20px rgba(0, 0, 0, 0.1)',
     borderRadius: '10px',
@@ -21,8 +21,10 @@ const LoginCard = () => {
   const loginFormStyle = {
     background: 'white',
     flexWrap: 'wrap',
-    flex: 1,
+    flex: 1.5,
     minWidth: '300px',
+    flexWrap:'wrap',
+    height:window.innerWidth>600?'auto':window.innerHeight
   };
 
  
@@ -34,13 +36,13 @@ const LoginCard = () => {
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: 'rgb(0,20,41)',	
+    height:window.innerWidth>600?'auto':150
   };
-
   const[spinning,setSpinning]=useState(true);
 
   return (
    
-    <div style={{height:"100vh",display:"flex",alignItems:"center",justifyContent:"center",background:"#f8f8f8"}}>
+    <div style={{height:"100vh",display:"flex",alignItems:"center",justifyContent:"center",background:"#f8f8f8",flexWrap:'wrap',overflowx:'hidden'}}>
      <Spin  spinning={spinning} >
     <div style={containerStyle}>
     <div style={imageSectionStyle}>

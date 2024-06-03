@@ -15,7 +15,7 @@ const AddNotification = ({ visible, onCreate, onCancel,fetchData }) => {
     
     useEffect(() => {
       const connect = new HubConnectionBuilder()
-        .withUrl("https://fb10-61-245-161-144.ngrok-free.app/Hubs/MyHub")
+        .withUrl("https://ac89-212-104-231-166.ngrok-free.app/Hubs/MyHub")
         .withAutomaticReconnect()
         .configureLogging(LogLevel.Information)
         .build();

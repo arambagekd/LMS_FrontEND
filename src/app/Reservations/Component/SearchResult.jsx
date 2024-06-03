@@ -129,12 +129,14 @@ function SearchResult() {
     setLoading(true); // Set loading to true while fetching
     try {
       // Sending POST request to fetch data based on search parameters
-      const response = await axioinstance.post('Reservation/SearchReservation', {
+      const response = await axioinstance.post('Reservation/SearchReservation', 
+      {
         keywords: keyword,
         resourceId: type === "resourceId" || type === "*",
         userId: type === "userId" || type === "*",
         reservationId: type === "reservationId" || type === "*"
-      },);
+      }
+    );
       const data = response.data.reverse(); // Extracting data from response
       console.log(data);
       setLoading(false); // Setting loading to false after data is fetched

@@ -7,6 +7,10 @@ import { Spin } from 'antd';
 
 
 const LoginCard = () => {
+
+  const[spinning,setSpinning]=useState(true);
+  const [window, setWindowObject] = React.useState(null);
+
   const containerStyle = {
     height:window.innerWidth>600?'auto':'100vh',
     fontFamily: "Arial, sans-serif",
@@ -38,8 +42,7 @@ const LoginCard = () => {
     backgroundColor: 'rgb(0,20,41)',	
     height:window.innerWidth>600?'auto':150
   };
-  const[spinning,setSpinning]=useState(true);
-  const [window, setWindowObject] = React.useState(null);
+ 
 
   useEffect(() => {
     setWindowObject(window);

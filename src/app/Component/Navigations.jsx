@@ -134,6 +134,7 @@ function Navigations(props) {
   const [Notifications, setNotification] = useState([]);
   const [open, setOpen] = useState(false);
   const [authenticated, setAuthenticated] = useState(false);
+  const [window, setWindowObject] = React.useState(null);
 
   const logout = async () => {
     try {
@@ -259,9 +260,10 @@ function Navigations(props) {
     },
   ];
 
-  useEffect(() => {
-    GetUser();
-  }, []);
+    useEffect(() => {
+      GetUser();
+      setWindowObject(window);
+    }, []);
 
   useEffect(() => {
     if (user.userName != undefined) {

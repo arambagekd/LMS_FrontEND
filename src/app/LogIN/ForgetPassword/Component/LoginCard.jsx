@@ -1,5 +1,5 @@
 'use client'
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import LoginForm from './Loginform';
 import Image from 'next/image';
 import { Spin } from 'antd';
@@ -44,6 +44,12 @@ const Login = () => {
 
 
   const[spinning,setSpinning]=useState(true);
+  const [window, setWindowObject] = React.useState(null);
+
+  useEffect(() => {
+    setWindowObject(window);
+  }, []);
+  
   return (
     <div style={{height:"100vh",display:"flex",alignItems:"center",justifyContent:"center",background:"#f8f8f8",overflowX:"hidden",flexWrap:'wrap'}}>
         <Spin spinning={spinning} >

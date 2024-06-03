@@ -1,5 +1,5 @@
 'use client'
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import LoginForm from './Loginform';
 import Image from 'next/image';
 import { Spin } from 'antd';
@@ -39,6 +39,11 @@ const LoginCard = () => {
     height:window.innerWidth>600?'auto':150
   };
   const[spinning,setSpinning]=useState(true);
+  const [window, setWindowObject] = React.useState(null);
+
+  useEffect(() => {
+    setWindowObject(window);
+  }, []);
 
   return (
    

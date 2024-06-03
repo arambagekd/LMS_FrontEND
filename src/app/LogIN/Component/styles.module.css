@@ -20,6 +20,7 @@
     flex: 1;
     align-items: center;
     justify-content: center;
+    min-width: 250;
     background-color: rgb(0, 20, 41);
 }
 
@@ -27,5 +28,12 @@
     .container {
         height: 100vh;
         border-radius: 0;
+        width: 100vw;
+    }
+    .imageSection{
+        height: 150;
+    }
+    .loginForm{
+        height: 100%;
     }
 }

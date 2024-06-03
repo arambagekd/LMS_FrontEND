@@ -47,12 +47,6 @@ const Login = () => {
   };
 
 
-
- 
-
-  useEffect(() => {
-    setWindowObject(window);
-  }, []);
   return (
     <div style={{height:"100vh",display:"flex",alignItems:"center",justifyContent:"center",background:"#f8f8f8",overflowX:"hidden",flexWrap:'wrap'}}>
         <Spin spinning={spinning} >

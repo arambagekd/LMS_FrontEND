@@ -46,9 +46,7 @@ const LoginCard = () => {
   };
  
 
-  useEffect(() => {
-    setWindowObject(window);
-  }, []);
+ 
 
   return (
    

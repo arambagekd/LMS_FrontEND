@@ -1,0 +1,40 @@
+.container {
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-wrap: wrap;
+    width: 800px;
+    min-height: 350px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  
+  .loginForm {
+    background: white;
+    flex-wrap: wrap;
+    flex: 1;
+    min-width: 300px;
+  }
+  
+  .imageSection {
+    flex-wrap: wrap;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(0, 20, 41);
+  }
+  
+  .pageContainer {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f8f8f8;
+  }
+  
+  .title {
+    margin: 30px 0;
+    text-align: center;
+  }
+  

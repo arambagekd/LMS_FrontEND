@@ -2,7 +2,7 @@
     font-family: Arial, sans-serif;
     display: flex;
     flex-wrap: wrap;
-    min-height: 350px;
+    min-height: 150px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
     overflow: hidden;
@@ -31,7 +31,6 @@
     background:#f8f8f8;
     overflow-x:hidden;
     flex-wrap:wrap}
-
 
 @media (max-width: 600px) {
     .container {

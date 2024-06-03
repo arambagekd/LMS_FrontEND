@@ -1,0 +1,48 @@
+/* Style for the layout */
+.layout {
+    min-height: 100vh;
+  }
+  
+  /* Style for the header */
+  .header {
+    z-index: 2;
+    position: sticky;
+    top: 0;
+    padding: 0;
+    background: rgb(255, 255, 255);
+  }
+  
+  /* Style for the content */
+  .content {
+    margin: 24px 5%;
+  }
+  
+  /* Style for the footer */
+  .footer {
+    text-align: center;
+  }
+  
+  /* Style for the sider logo */
+  .siderLogo {
+    color: white;
+    width: 100%;
+    text-align: center;
+    padding: 20px 10px;
+  }
+  
+  /* Style for the back button */
+  .backButton {
+    margin: 0 20px 0 0;
+  }
+  
+  /* Style for the title */
+  .title {
+    font-size: 25px;
+    font-weight: 600;
+  }
+  
+  /* Style for the address bar container */
+  .addressBarContainer {
+    margin: 10px 0 0 0;
+  }
+  

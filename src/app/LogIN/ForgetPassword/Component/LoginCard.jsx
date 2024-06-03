@@ -11,8 +11,8 @@ const Login = () => {
 
   const[spinning,setSpinning]=useState(true);
   const[isDesktop,setdesktop]=useState(true);
-
-  useEffect(()=>{setdesktop(useMediaQuery({ query: '(min-width: 601px)' }))},[])
+  const isDesktop = useMediaQuery({ query: '(min-width: 600px)',defaultValue:true });
+  
 
   const containerStyle = {
     fontFamily: "Arial, sans-serif",

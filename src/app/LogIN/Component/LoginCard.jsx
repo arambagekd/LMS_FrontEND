@@ -10,10 +10,12 @@ import { useMediaQuery } from 'react-responsive';
 const LoginCard = () => {
 
    const[spinning,setSpinning]=useState(true);
-   const[isDesktop,setdesktop]=useState(true);
+   const isDesktop = useMediaQuery('(min-width: 600px)');
 
-  useEffect(()=>{setdesktop(useMediaQuery({ query: '(min-width: 601px)' }))},[])
-
+   useEffect(()=>{
+    isDesktop = useMediaQuery('(min-width: 600px)');
+   },[])
+ 
   const containerStyle = {
     height:isDesktop?'auto':'100vh',
     fontFamily: "Arial, sans-serif",

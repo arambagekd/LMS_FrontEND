@@ -4,13 +4,7 @@
   }
   
   /* Style for the header */
-  .header {
-    z-index: 2;
-    position: sticky;
-    top: 0;
-    padding: 0;
-    background: rgb(255, 255, 255);
-  }
+
   
   /* Style for the content */
   .content {

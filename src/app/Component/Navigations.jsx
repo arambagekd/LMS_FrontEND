@@ -149,7 +149,7 @@ function Navigations(props) {
       const token = Cookies.get("jwt");
       Cookies.remove("jwt");
       const response = await axios.post(
-        `https://fb10-61-245-161-144.ngrok-free.app/api/Auth/selectusertype?userType=${usertype}`,
+        `https://ac89-212-104-231-166.ngrok-free.app/api/Auth/selectusertype?userType=${usertype}`,
         null,
         {
           withCredentials: true,
@@ -283,7 +283,11 @@ function Navigations(props) {
               </div>
             </Sider>
             <Layout>
-              <Header className={styles.header}>
+              <Header style={{zIndex: 2,
+                  position: 'sticky',
+                  top: 0,
+                  padding: 0,
+                  background: 'rgb(255, 255, 255)'}}>
                 <ConfigProvider
                   theme={{
                     components: {

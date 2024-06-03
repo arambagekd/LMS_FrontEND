@@ -10,7 +10,9 @@ import { useMediaQuery } from 'react-responsive';
 const Login = () => {
 
   const[spinning,setSpinning]=useState(true);
-  const isDesktop = useMediaQuery({ query: '(min-width: 601px)' });
+  const[isDesktop,setdesktop]=useState(true);
+
+  useEffect(()=>{setdesktop(useMediaQuery({ query: '(min-width: 601px)' }))},[])
 
   const containerStyle = {
     fontFamily: "Arial, sans-serif",

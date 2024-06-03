@@ -22,3 +22,10 @@
     justify-content: center;
     background-color: rgb(0, 20, 41);
 }
+
+@media (max-width: 600px) {
+    .container {
+        height: 100vh;
+        border-radius: 0;
+    }
+}

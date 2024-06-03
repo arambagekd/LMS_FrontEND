@@ -10,39 +10,6 @@ import styles from './styles.module.css'
 const LoginCard = () => {
 
    const[spinning,setSpinning]=useState(true);
- 
-  // const containerStyle = {
-  //   fontFamily: "Arial, sans-serif",
-  //   display: 'flex',
-  //   flexWrap: 'wrap',
-  //   minHeight: '350px',
-  //   boxShadow: '0 0 20px rgba(0, 0, 0, 0.1)',
-  //   borderRadius: '10px',
-  //   overflow: 'hidden',
-    
-  // };
-
-  // const loginFormStyle = {
-  //   background: 'white',
-  //   flexWrap: 'wrap',
-  //   flex: 1.5,
-  //   minWidth: '300px',
-  //   flexWrap:'wrap',
-  // };
-
- 
-
-  // const imageSectionStyle = {
-  //   flexWrap: 'wrap',
-  //   flex: 1,
-  //   display: 'flex',	
-  //   alignItems: 'center',
-  //   justifyContent: 'center',
-  //   backgroundColor: 'rgb(0,20,41)',	
-  // };
- 
-
- 
 
   return (
    

@@ -1,0 +1,24 @@
+.container {
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-wrap: wrap;
+    min-height: 350px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.loginForm {
+    background: white;
+    flex: 1.5;
+    min-width: 300px;
+    flex-wrap: wrap;
+}
+
+.imageSection {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(0, 20, 41);
+}

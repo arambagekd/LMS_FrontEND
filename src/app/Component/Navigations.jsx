@@ -134,7 +134,6 @@ function Navigations(props) {
   const [Notifications, setNotification] = useState([]);
   const [open, setOpen] = useState(false);
   const [authenticated, setAuthenticated] = useState(false);
-  const [window, setWindowObject] = React.useState(null);
 
   const logout = async () => {
     try {
@@ -262,7 +261,6 @@ function Navigations(props) {
 
     useEffect(() => {
       GetUser();
-      setWindowObject(window);
     }, []);
 
   useEffect(() => {
@@ -284,8 +282,8 @@ function Navigations(props) {
             <NotificationDrawer open={open} setOpen={setOpen} />
 
             <Sider
-              collapsible={window.innerWidth>600?true:false}
-              collapsed={window.innerWidth>600?collapsed:true}
+              collapsible
+              collapsed={collapsed}
               onCollapse={(value) => setCollapsed(value)}
               style={{ height: "auto" }}
             >

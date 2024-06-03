@@ -3,17 +3,15 @@ import React, { useEffect, useState } from 'react';
 import LoginForm from './Loginform';
 import Image from 'next/image';
 import { Spin } from 'antd';
-import { useMediaQuery } from 'react-responsive';
+
 
 
 
 const LoginCard = () => {
 
    const[spinning,setSpinning]=useState(true);
-   const isDesktop = useMediaQuery({ query: '(min-width: 600px)',defaultValue:true,initializeWithValue:false });
  
   const containerStyle = {
-    height:isDesktop?'auto':'100vh',
     fontFamily: "Arial, sans-serif",
     display: 'flex',
     flexWrap: 'wrap',
@@ -29,7 +27,6 @@ const LoginCard = () => {
     flex: 1.5,
     minWidth: '300px',
     flexWrap:'wrap',
-    height:isDesktop?'auto':'100vh'
   };
 
  
@@ -41,7 +38,6 @@ const LoginCard = () => {
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: 'rgb(0,20,41)',	
-    height:isDesktop?'auto':150
   };
  
 

@@ -3,14 +3,14 @@ import React, { useEffect, useState } from 'react';
 import LoginForm from './Loginform';
 import Image from 'next/image';
 import { Spin } from 'antd';
-import { useMediaQuery } from 'react-responsive';
+
 
 
 
 const Login = () => {
 
   const[spinning,setSpinning]=useState(true);
-  const isDesktop = useMediaQuery({ query: '(min-width: 600px)',defaultValue:true ,initializeWithValue:false});
+ 
   
 
   const containerStyle = {
@@ -18,7 +18,6 @@ const Login = () => {
     display: 'flex',
     flexWrap: 'wrap',
     minHeight: '150px',
-    height:isDesktop?'auto':'100vh',
     boxShadow: '0 0 20px rgba(0, 0, 0, 0.1)',
     borderRadius: '10px',
     overflow: 'hidden',
@@ -31,8 +30,6 @@ const Login = () => {
     flex: 1.5,
     minWidth: '300px',
     flexWrap:'wrap',
-    height:isDesktop?'auto':'100vh'
-   
   };
 
  
@@ -44,7 +41,6 @@ const Login = () => {
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: 'rgb(0,20,41)',
-    height:isDesktop?'auto':150	
   };
 
 

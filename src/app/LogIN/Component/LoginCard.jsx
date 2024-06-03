@@ -42,7 +42,7 @@ const LoginCard = () => {
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: 'rgb(0,20,41)',	
-    height:isDesktop>600?'auto':150
+    height:isDesktop?'auto':150
   };
  
 

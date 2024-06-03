@@ -9,10 +9,11 @@ import { Spin } from 'antd';
 const LoginCard = () => {
 
    const[spinning,setSpinning]=useState(true);
-  const [window, setWindowObject] = React.useState({innerWidth:600,innerHeight:600});
+   const isDesktop = useMediaQuery({ query: '(min-width: 601px)' });
+ //  const isMobile = useMediaQuery({ query: '(max-width: 600px)' });
 
   const containerStyle = {
-    height:window.innerWidth>600?'auto':'100vh',
+    height:isDesktop?'auto':'100vh',
     fontFamily: "Arial, sans-serif",
     display: 'flex',
     flexWrap: 'wrap',
@@ -28,7 +29,7 @@ const LoginCard = () => {
     flex: 1.5,
     minWidth: '300px',
     flexWrap:'wrap',
-    height:window.innerWidth>600?'auto':window.innerHeight
+    height:isDesktop?'auto':'100vh'
   };
 
  
@@ -40,7 +41,7 @@ const LoginCard = () => {
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: 'rgb(0,20,41)',	
-    height:window.innerWidth>600?'auto':150
+    height:isDesktop>600?'auto':150
   };
  
 

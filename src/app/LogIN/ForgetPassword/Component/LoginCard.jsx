@@ -9,14 +9,14 @@ import { Spin } from 'antd';
 const Login = () => {
 
   const[spinning,setSpinning]=useState(true);
-  const [window, setWindowObject] = React.useState({innerWidth:600,innerHeight:600});
+  const isDesktop = useMediaQuery({ query: '(min-width: 601px)' });
 
   const containerStyle = {
     fontFamily: "Arial, sans-serif",
     display: 'flex',
     flexWrap: 'wrap',
     minHeight: '150px',
-    height:window.innerWidth>600?'auto':'100vh',
+    height:isDesktop?'auto':'100vh',
     boxShadow: '0 0 20px rgba(0, 0, 0, 0.1)',
     borderRadius: '10px',
     overflow: 'hidden',
@@ -29,7 +29,7 @@ const Login = () => {
     flex: 1.5,
     minWidth: '300px',
     flexWrap:'wrap',
-    height:window.innerWidth>600?'auto':window.innerHeight
+    height:isDesktop?'auto':'100vh'
    
   };
 
@@ -42,7 +42,7 @@ const Login = () => {
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: 'rgb(0,20,41)',
-    height:window.innerWidth>600?'auto':150	
+    height:isDesktop?'auto':150	
   };
 
 

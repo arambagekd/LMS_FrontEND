@@ -9,7 +9,7 @@ import { Spin } from 'antd';
 const Login = () => {
 
   const[spinning,setSpinning]=useState(true);
-  const [window, setWindowObject] = React.useState(null);
+  const [window, setWindowObject] = React.useState({innerWidth:600,innerHeight:600});
 
   const containerStyle = {
     fontFamily: "Arial, sans-serif",

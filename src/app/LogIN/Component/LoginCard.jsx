@@ -8,8 +8,8 @@ import { Spin } from 'antd';
 
 const LoginCard = () => {
 
-  const[spinning,setSpinning]=useState(true);
-  const [window, setWindowObject] = React.useState(null);
+   const[spinning,setSpinning]=useState(true);
+  const [window, setWindowObject] = React.useState({innerWidth:600,innerHeight:600});
 
   const containerStyle = {
     height:window.innerWidth>600?'auto':'100vh',

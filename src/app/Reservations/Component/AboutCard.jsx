@@ -8,15 +8,14 @@ function AboutCard({ reservationId }) {
   const [items, setItem] = useState([]);
   const [error, seterror] = useState(false);
   const [loading, setLoading] = useState(true);
-
+  const [imagePath,setImagePath]=useState("");
   const fetchData = async () => {
     setLoading(true);
     try {
-      const response = await axioinstance.get(
+      const response = await axioinstance.post(
         `Reservation/About?resId=${reservationId}`
       );
-      console.log(response.data);
-      //setStatus(response.data.status);
+      setImagePath(response.data.imagePath);
       const items = [
         {
           key: "1",
@@ -41,14 +40,9 @@ function AboutCard({ reservationId }) {
           children: response.data.userName,
         },
         {
-          key: "3",
-          label: "User Name",
-          children: "response.name",
-        },
-        {
           key: "4",
           label: "Issuer",
-          children: "issuer",
+          children: response.data.issuer,
         },
 
         {
@@ -97,13 +91,14 @@ function AboutCard({ reservationId }) {
                 <Row gutter={[30, 30]} align="middle">
                   <Col md={6} sm={6} xs={6}>
                     <Image
-                      src="https://5.imimg.com/data5/HX/TD/MY-14344381/nootan-physics-xii-book-500x500.png"
-                      alt="Picture of the author"
-                      width="100%"
-                      style={{ borderRadius: "10%" }}
+                      src={imagePath}
+                      alt="Image loading is failed"
+                      width="140px"
+                      style={{ borderRadius: "5px" }}
                     />
                   </Col>
                   <Col md={18} sm={24} xs={24}>
+                    
                     <Descriptions
                       title={
                         <div>

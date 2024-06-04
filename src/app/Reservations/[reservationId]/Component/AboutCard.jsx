@@ -20,6 +20,7 @@ function AboutCard({reservationId}) {
   const [error,seterror]=useState(false);
   const [loading,setLoading]=useState(true);
   const[status,setStatus]=useState("")
+  const [imagePath,setImagePath]=useState("")
   
   const openModal = () => {
     
@@ -36,6 +37,7 @@ function AboutCard({reservationId}) {
       const response = await axioinstance.post(`Reservation/About?resId=${reservationId}`);
       console.log(response.data);
       setStatus(response.data.status);
+      setImagePath(response.data.imagePath)
       const items = [
         {
           key: '1',
@@ -121,8 +123,8 @@ function AboutCard({reservationId}) {
               <Row gutter={[30, 30]} align="middle" justify="center">
                 <Col md={6} sm={24} xs={24}>
                   <Image
-                    src="https://5.imimg.com/data5/HX/TD/MY-14344381/nootan-physics-xii-book-500x500.png"
-                    alt="Picture of the author"
+                    src={imagePath}
+                    alt="Image loading is Failed"
                     width="100%"
                     style={{ borderRadius: '10%' }}
                   />

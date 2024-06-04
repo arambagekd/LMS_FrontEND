@@ -1,13 +1,16 @@
 'use client'
-import { Pagination, Row } from 'antd'
+import { Button, Flex, Pagination, Row, Space, Table,Col} from 'antd'
 import React, { useEffect, useState } from 'react'
+import { UserDeleteOutlined ,MoreOutlined} from '@ant-design/icons';
+import ResultTable from '../../Component/ResultTable';
 import CardResource from './myComponent/CardResource'
+import Link from 'next/link';
 import Card from 'antd/es/card/Card';
 import axios from 'axios';
+import axioinstance from '@/app/Instance/api_instance';
 
 
-
-function SearchResult() {
+function SearchResult(props) {
 
   const [books,setBooks]=useState([]);
 
@@ -21,12 +24,12 @@ function SearchResult() {
 
   const handleSearch = async () => {
     try {
-      const response = await axios.post(`http://localhost:5164/api/Resource/GetAllResource`);
+      const response = await axioinstance.post(`Resource/GetAllResource`);
       const searchData = response.data;
       setBooks(searchData);
-      console.log(searchData);
+      
     } catch (error) { 
-      console.error('Error searching data:', error);
+      alert('Error searching data:');
     }
   };
 
@@ -34,15 +37,15 @@ function SearchResult() {
   
   return(
     <Card title="List of Books">
-    <Row style={{width:"100%"}}   gutter={[15,20]} justify="center">
+    <Row style={{width:"100%"}}   gutter={[15,15]} justify="center">
    
     {books.slice((page-1)*9,(page-1)*9+ 9).map((item) => (
-        <CardResource key={item}  dataset={item} />
+        <CardResource  dataset={item} />
       ))}
   
     </Row>
     <br></br>
-    <center><Pagination defaultCurrent={1} total={books.length} onChange={changingPage} pageSize={9} hideOnSinglePage/></center>
+    <center><Pagination defaultCurrent={1} total={books.length} onChange={changingPage} pageSize={9}/></center>
     </Card>
   )
 }

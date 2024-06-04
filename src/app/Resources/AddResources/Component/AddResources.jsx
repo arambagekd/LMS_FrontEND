@@ -10,7 +10,7 @@ function AddResources({close}) {
    const [loading, setLoading] = useState(false);
    const [form] = Form.useForm();
     
-    const submitForm= async ()=>{console.log('hi')
+    const submitForm= async ()=>{
         axios.post('http://localhost:5164/api/Resource/AddResource',{
             isbn:form.getFieldValue('isbn'),
             title:form.getFieldValue('title'),
@@ -27,7 +27,7 @@ function AddResources({close}) {
             imagePath:'gwsxyqj',
             url:'hvhjbkjh',
             location:form.getFieldValue('location'),
-           //description:form.getFieldsValue('description'),
+            description:form.getFieldsValue('description'),
          })
          .then((response)=>{
             setTimeout(() => {

@@ -134,6 +134,7 @@ function Navigations(props) {
   const [Notifications, setNotification] = useState([]);
   const [open, setOpen] = useState(false);
   const [authenticated, setAuthenticated] = useState(false);
+  const [collapsed, setCollapsed] = useState(true);
 
   const logout = async () => {
     try {
@@ -187,7 +188,7 @@ function Navigations(props) {
     }
   };
 
-  const [collapsed, setCollapsed] = useState(false);
+
   // const {
   //   token: { colorBgContainer, borderRadiusLG },
   // } = theme.useToken();

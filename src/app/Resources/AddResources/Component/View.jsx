@@ -6,7 +6,7 @@ import axios from 'axios';
 import axioinstance from '@/app/Instance/api_instance';
 
 
-function page(props) {
+function View(props) {
 
    const [loading, setLoading] = useState(false);
    const [form] = Form.useForm();
@@ -107,4 +107,4 @@ const handleCancel = () => {
   );
 }
 
-export default page
+export default View

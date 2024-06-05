@@ -11,6 +11,9 @@ function page(props) {
    const [loading, setLoading] = useState(false);
    const [form] = Form.useForm();
    const [imageurl,setImageURL]=useState("");
+   const[cupboard,selectCupboard]=useState('');
+    const[shelf,selectShelf]=useState('');
+
    const submitForm = async () => {
    await axioinstance.post('Resource/AddResource', {
         isbn: form.getFieldValue('isbn'),
@@ -23,8 +26,8 @@ function page(props) {
         imagePath: imageurl,
         year:2020,
         url: 'rvtfe',
-        cupboardId: form.getFieldValue('cupboard'),
-        shelfNo: form.getFieldValue('shelf'),
+        cupboardId: cupboard,
+        shelfNo: shelf,
         description: form.getFieldValue('description'),
     })
     .then((response) => {
@@ -75,6 +78,7 @@ const handleOk = () => {
 const handleCancel = () => {
   props.close();
   form.resetFields();
+  setImageURL("");
 }
   return (
     <div>
@@ -83,7 +87,7 @@ const handleCancel = () => {
           <font>Add New Resource</font>
         </div>
       </Flex>
-      <ResourcesAddForm form={form} setImageURL={setImageURL} imageurl={imageurl}/>
+      <ResourcesAddForm form={form} setImageURL={setImageURL} imageurl={imageurl} selectCupboard={selectCupboard} selectShelf={selectShelf} cupboard={cupboard} shelf={shelf}/>
       <Flex justify="end">
         <Button
           key="submit"

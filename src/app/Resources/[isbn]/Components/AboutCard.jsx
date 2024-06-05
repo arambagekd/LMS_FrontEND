@@ -8,17 +8,22 @@ import React, { useState,useEffect} from 'react'
 import EditModal from './EditModel'
 import { EditOutlined,DeleteOutlined ,LeftCircleOutlined} from '@ant-design/icons';
 import axioinstance from '../../../Instance/api_instance';
+import IssueModal from '../../../Reservations/Component/IssueModal';
+import { useRouter } from 'next/navigation';
 
 
 
 
 function AboutCard(props) {
   const [open, setOpen] = useState(false);
+  const [issue, setIssue] = useState(false);
   const [items,setItem]=useState([]);
   const [error,seterror]=useState(false);
   const [loading,setLoading]=useState(true);
   const[status,setStatus]=useState("")
   const [responseData,setresponseData]=useState([]);
+  const[collapse,setCollapse]=useState(true);
+  const router=useRouter();
 
   const showModal = () => {
   
@@ -26,6 +31,14 @@ function AboutCard(props) {
   };
   const closeModal = () => {
     setOpen(false);
+  };
+
+  const showIssue = () => {
+  
+    setIssue(true);
+  };
+  const closeIssue = () => {
+    setIssue(false);
   };
 
   const fetchData=async()=>{
@@ -94,7 +107,7 @@ function AboutCard(props) {
     <div>
       <Flex justify="space-between" style={{marginBottom:'20px'}}>
         <div>
-          <font style={{ fontSize: '17px',fontWeight:'500'}}>Resources Details of Recource {responseData.title}</font>
+          <font style={{ fontSize: '17px',fontWeight:'500'}}>{responseData.title} by {responseData.author}</font>
         </div>
       </Flex>
        <Row gutter={[30, 30]}>
@@ -145,19 +158,24 @@ function AboutCard(props) {
 
                   </Col>
 
-                </Row><br /><br />
+                </Row>
                 
-                <Collapse>
-                    <Panel header={`Description about ${responseData.title}`}  key="1" style={{backgroundColor: '#f5f5f5',fontWeight: '600'}}>
+                <Collapse ghost onChange={()=>{setCollapse(!collapse)}}>
+                    <Panel header={collapse?`Read more..`:`Read less..`}  key="1" style={{fontWeight: '600'}}>
                      <div dangerouslySetInnerHTML={{__html:responseData.description}}></div>
                     </Panel>
-                </Collapse></>
+                </Collapse>
+                <Flex  justify='right'>
+                <Link href={`/Reservations/Reservationbybook/${responseData.isbn}`}><Button type='primary' size='medium' style={{margin:'0 20px 0 0'}}>See Reservations</Button></Link>
+                <Button type='primary' size='medium' onClick={showIssue}>Isuue</Button></Flex></>
+                
                 
         )}
       </Card> 
       </Col>
       </Row> 
      <EditModal  fetchData={fetchData} open={open} openFuntion={showModal} close={closeModal} data={responseData}/> 
+     <IssueModal open={issue} openFuntion={setIssue} close={closeIssue} data={responseData.isbn} />
       </div>
       </ConfigProvider>
   )

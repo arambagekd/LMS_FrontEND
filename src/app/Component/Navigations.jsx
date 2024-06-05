@@ -16,6 +16,7 @@ import {
   SettingOutlined,
   EditOutlined,
   QuestionCircleOutlined,
+  HomeOutlined,
 } from "@ant-design/icons";
 import {
   Button,
@@ -49,9 +50,15 @@ import MyHub from "../Notifications/MyHub/page";
 import ErrorPage from "../ErrorPage/page";
 import NotificationDrawer from "./NotificationDrawer";
 import { get } from "http";
+import { title } from "process";
 const { Header, Content, Footer, Sider } = Layout;
 
 const sideitems = [
+  {
+    key: "Home",
+    icon: React.createElement(HomeOutlined),
+    label: <Link href="/Home">Home</Link>,
+  },
   {
     key: "Dashboard",
     icon: React.createElement(DashboardOutlined),
@@ -135,6 +142,7 @@ function Navigations(props) {
   const [open, setOpen] = useState(false);
   const [authenticated, setAuthenticated] = useState(false);
   const [collapsed, setCollapsed] = useState(true);
+ 
 
   const logout = async () => {
     try {
@@ -262,8 +270,10 @@ function Navigations(props) {
 
     useEffect(() => {
       GetUser();
+
     }, []);
 
+   
   useEffect(() => {
     if (user.userName != undefined) {
       setAuthenticated(true);
@@ -271,7 +281,7 @@ function Navigations(props) {
     }
   }, [user.userName]);
 
-  return rootPath != "LogIN" && rootPath != "ErrorPage" ? (
+  return rootPath != "LogIN" && rootPath != "ErrorPage" && rootPath!="Home" ?  (
     <UserContext.Provider value={{ user, GetUser }}>
       <EmailContext.Provider value={{ email, setEmail }}>
         {loading ? (
@@ -320,7 +330,7 @@ function Navigations(props) {
                     theme="dark"
                     mode="inline"
                     items={user.userType == "admin" ? sideitems : sideitems2}
-                    defaultSelectedKeys={rootPath}
+                    selectedKeys={rootPath}
                   />
                 </ConfigProvider>
               </div>
@@ -403,7 +413,7 @@ function Navigations(props) {
                       {rootPath}
                     </Flex>
                     <div>
-                      <AdressBar item={props.pageroot} />
+                      <AdressBar item={location.split("/").map((item,index) => ({ title: <Link href={`/${location.split("/").slice(1, index + 1).join('/')}`}>{item}</Link> })).slice(1)} />
                     </div>
                   </Flex>
                   <Divider />

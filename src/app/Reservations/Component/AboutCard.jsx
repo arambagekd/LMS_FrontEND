@@ -3,6 +3,7 @@ import {  Col, Descriptions, Flex, Image, Row, Spin } from "antd";
 import Card from "antd/es/card/Card";
 import React, { useEffect, useState } from "react";
 import axioinstance from "../../Instance/api_instance";
+import Link from "next/link";
 
 function AboutCard({ reservationId }) {
   const [items, setItem] = useState([]);
@@ -26,7 +27,7 @@ function AboutCard({ reservationId }) {
           key: "7",
           label: "Resource ID (ISBN)",
           span: 2,
-          children: response.data.isbn,
+          children: <Link href={`/Resources/${response.data.isbnisbn}`}>{response.data.isbn}</Link>,
         },
         {
           key: "5",

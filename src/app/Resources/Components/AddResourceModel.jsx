@@ -8,6 +8,7 @@ import ResourcesAddForm from './ResourcesAddForm';
 
 function ReturnModal(props) {
     const [loading, setLoading] = useState(false);
+    
     const [form] = Form.useForm();
     
     const submitForm= ()=>{

@@ -2,12 +2,15 @@
 import React from 'react'
 import { Breadcrumb } from 'antd';
 import { HomeOutlined, UserOutlined } from '@ant-design/icons';
+import { title } from 'process';
 
 function AdressBar(props) {
   return (
-    <div>
+    <div >
       <Breadcrumb
-    items={props.item}
+
+      items={[{ title: "easyLibro" }, ...props.item]}
+      style={{fontSize:16}}
   />
     </div>
   )

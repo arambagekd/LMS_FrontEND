@@ -38,7 +38,7 @@ function IssueForam({ form, data, email, setEmail, setDate }) {
         <Form.Item
           name="resourceId"
           label="Resource/ISBN"
-          initialValue={data.isbn}
+          initialValue={data}
         >
           <Input size="medium" disabled />
         </Form.Item>

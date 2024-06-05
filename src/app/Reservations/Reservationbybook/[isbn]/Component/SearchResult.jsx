@@ -3,25 +3,24 @@ import ResultTable from '../Component/ResultTable'
 import React, { useEffect, useState } from 'react'
 import { UserDeleteOutlined, MoreOutlined } from '@ant-design/icons';
 import { Button, ConfigProvider, Space, Spin, Tag } from 'antd';
-import ReturnModal from './ReturnModal'
+import ReturnModal from '../../../Component/ReturnModal'
 import Link from 'next/link';
 import SeachReservations from './SeachReservations';
 import axios from 'axios';
 import Cookies from 'js-cookie';
-import axioinstance from '../../Instance/api_instance';
-import { UserContext } from '../../Context/Context';
+import axioinstance from '../../../../Instance/api_instance';
+import { UserContext } from '../../../../Context/Context';
 
 
 
 
 
-function SearchResult() {
+function SearchResult({isbn}) {
 
 
   const token = Cookies.get('jwt');
   const [recordData, setRecord] = useState([]);
   const [open, setOpen] = useState(false);
-  const [keyword, setKeyword] = useState(""); // State for keyword
   const [status, setStatus] = useState("*"); // State for status
   const [type, setType] = useState("*"); // State for type
   const [items, setItems] = useState([]); // State for items (search results)
@@ -48,7 +47,6 @@ function SearchResult() {
       title: 'Resource',
       dataIndex: 'resource',
       key: 'resource',
-      render: (isbn,record) => (<Link href={`/Resources/${isbn}`}>{isbn}</Link>)
     },
     {
       title: 'User',
@@ -126,16 +124,16 @@ function SearchResult() {
   ];
 
 
-  async function fetchData(type) { // Function to fetch data from server
+  async function fetchData() { // Function to fetch data from server
     setLoading(true); // Set loading to true while fetching
     try {
       // Sending POST request to fetch data based on search parameters
       const response = await axioinstance.post('Reservation/SearchReservation', 
       {
-        keywords: keyword,
-        resourceId: type === "resourceId" || type === "*",
-        userId: type === "userId" || type === "*",
-        reservationId: type === "reservationId" || type === "*"
+        keywords: isbn,
+        resourceId:true,
+        userId: false,
+        reservationId: false
       }
     );
       const data = response.data.reverse(); // Extracting data from response
@@ -144,28 +142,22 @@ function SearchResult() {
       setItems(data); // Updating items state with fetched data
     } catch (error) {
       setLoading(false); // Setting loading to false if there's an error
-      console.error('Error fetching data:', error); // Logging error to console
+      console.log('Error fetching data:', error); // Logging error to console
     }
   }
 
-  async function mydata(){
-    try{
-      const response = await axioinstance.post('User/GetMyData',null);
-      console.log(response.data);
-  }catch(error){
-    console.log(error.data);
-  }}
+
 
   const search = () => {
-    fetchData(type);
+    fetchData();
   } // Function to trigger search
 
-  useEffect(() => { fetchData(type);mydata() }, [user.userType]); // Fetch data on component mount
+  useEffect(() => { fetchData() }, [user.userType]); // Fetch data on component mount
 
   return (
 
     <div>
-      <SeachReservations func1={setStatus} func2={setType} func3={setKeyword} search={search} />
+      <SeachReservations func1={setStatus} func2={setType} isbn={isbn}/>
       <ResultTable loading={loading} nodata={false} dataset={status === "*" ? items : items.filter(book => book.status === status)} columnset={user.userType=="admin"?columnsAdimn:columnsUser} pagination={{ pageSize: 20 }} />
         <ReturnModal fetchData={fetchData}  open={open} openFuntion={showModal} close={closeModal} recordData={recordData} />
     </div>

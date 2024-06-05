@@ -6,6 +6,7 @@ import EditModal from './EditModal'
 import {  EditOutlined,BellOutlined} from '@ant-design/icons';
 import axioinstance from '../../../Instance/api_instance';
 import DeleteModal from './DeleteModal';
+import Link from 'next/link'
 
 
 
@@ -48,7 +49,7 @@ function AboutCard({reservationId}) {
           key: '7',
           label: 'Resource ID (ISBN)',
           span: 2,
-          children: response.data.isbn,
+          children: <Link href={`/Resources/${response.data.isbnisbn}`}>{response.data.isbn}</Link>,
         },
         {
           key: '5',

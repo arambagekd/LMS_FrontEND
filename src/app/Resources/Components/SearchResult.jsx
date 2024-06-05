@@ -12,7 +12,6 @@ import axioinstance from '@/app/Instance/api_instance';
 
 function SearchResult(props) {
 
-  const [books,setBooks]=useState([]);
 
 
 
@@ -22,30 +21,18 @@ function SearchResult(props) {
         changepage(pnumber);
   }
 
-  const handleSearch = async () => {
-    try {
-      const response = await axioinstance.post(`Resource/GetAllResource`);
-      const searchData = response.data;
-      setBooks(searchData);
-      
-    } catch (error) { 
-      alert('Error searching data:');
-    }
-  };
-
-  useEffect(()=>{handleSearch()},[]);
-  
+ 
   return(
     <Card title="List of Books">
     <Row style={{width:"100%"}}   gutter={[15,15]} justify="center">
    
-    {books.slice((page-1)*9,(page-1)*9+ 9).map((item) => (
+    {props.data.slice((page-1)*9,(page-1)*9+ 9).map((item) => (
         <CardResource  key={item.isbn}  dataset={item} />
       ))}
   
     </Row>
     <br></br>
-    <center><Pagination defaultCurrent={1} total={books.length} onChange={changingPage} pageSize={9}/></center>
+    <center><Pagination defaultCurrent={1} total={props.data.length} onChange={changingPage} pageSize={9}/></center>
     </Card>
   )
 }

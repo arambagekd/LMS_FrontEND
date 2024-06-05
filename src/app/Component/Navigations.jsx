@@ -398,10 +398,11 @@ function Navigations(props) {
               </Header>
               <Content style={{ margin: "24px 5%" }}>
                 <Card>
-                  <Flex al justify="space-between" align="center" wrap="">
+                  <Flex  justify="space-between" align="center" wrap="wrap">
                     <Flex
                       style={{ fontSize: "25px", fontWeight: "600" }}
                       align="center"
+                      flex={1}
                     >
                       {" "}
                       <Button
@@ -412,9 +413,11 @@ function Navigations(props) {
                       />
                       {rootPath}
                     </Flex>
-                    <div>
+                    <Flex style={{ minWidth:300}} justify="right">
+                    
                       <AdressBar item={location.split("/").map((item,index) => ({ title: <Link href={`/${location.split("/").slice(1, index + 1).join('/')}`}>{item}</Link> })).slice(1)} />
-                    </div>
+                      
+                    </Flex>
                   </Flex>
                   <Divider />
                   <Flex a vertical style={{ margin: "10px 0 0 0 " }}>
@@ -424,7 +427,7 @@ function Navigations(props) {
               </Content>
 
               <Footer style={{ textAlign: "center" }}>
-                Ant Design ©{new Date().getFullYear()} Created by Ant UED
+                EasyLibro ©{new Date().getFullYear()} Created by ChicoCodes
               </Footer>
             </Layout>
           </Layout>

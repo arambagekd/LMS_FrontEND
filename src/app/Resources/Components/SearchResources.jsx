@@ -8,6 +8,7 @@ const dateFormat = 'YYYY-MM-DD'
 import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat'
 import SearchResult from './SearchResult';
+import { SortAscendingOutlined, SortDescendingOutlined } from '@ant-design/icons';
 
 
 
@@ -21,12 +22,32 @@ const handleChange = (value) => {
 };
 
 
-function SearchResources() {
+function SearchResources({ func1, func2, func3,func4,ascending, search }) {
 
-    const [placement, SetPlacement] = useState('*');
-    const placementChange = (e) => {
-        SetPlacement(e.target.value);
+    const [placement, setPlacement] = useState('title');
+    
+
+    // Handler for placement change
+    const handlePlacementChange = (e) => {
+        setPlacement(e.target.value);
+        func1(e.target.value);
     };
+    
+    // Handler for type change
+    const handleTypeChange = (v) => {
+        func2(v);
+    }
+  
+    // Handler for search
+    const handleSearch = (value, _e, info) => {
+        search();
+    }
+
+    // Handler for keyword change
+    const handleKeywordChange = (e) => {
+        func3(e.target.value);
+    }
+  
 
     return (
         <div>
@@ -35,15 +56,13 @@ function SearchResources() {
                 <Col xs={24} sm={14}>
 
                     <Flex wrap='wrap' align='center'>
-                        <Radio.Group value={placement} onChange={placementChange} style={{ margin: ' 0 15px 0 0' }}>
-                            <Radio.Button value="*">All</Radio.Button>
-                            <Radio.Button value="year">Latest</Radio.Button>
-                            <Radio.Button value="noPages">Popular</Radio.Button>
-                            {/* <Radio.Button value="reserved"></Radio.Button> */}
+                        <Radio.Group value={placement} onChange={handlePlacementChange} style={{ margin: ' 0 15px 0 0' }}>
+                            <Radio.Button value="title">Title</Radio.Button>
+                            <Radio.Button value="latest">Latest</Radio.Button>
+                            <Radio.Button value="popular">Popular</Radio.Button>
                         </Radio.Group>
-                        <RangePicker
-                            style={{ width: '150px' }}
-                        />
+                        <Button onClick={()=>func4(!ascending)} icon={ascending?<SortDescendingOutlined />:<SortAscendingOutlined />}></Button>
+                        
                     </Flex>
                 </Col>
                 <Col xs={24} sm={10}>
@@ -55,7 +74,7 @@ function SearchResources() {
                             style={{
                                 width: 100,
                             }}
-                            onChange={handleChange}
+                          //  onChange={handleChange}
                             options={[
                                 {
                                     value: 'none',
@@ -85,7 +104,7 @@ function SearchResources() {
                             style={{
                                 width: 100,
                             }}
-                            onChange={handleChange}
+                            onChange={handleTypeChange}
                             options={[
                                 {
                                     value: 'none',
@@ -108,6 +127,7 @@ function SearchResources() {
                             placeholder="input search text"
                             allowClear
                             onSearch={onSearch}
+                            onChange={handleKeywordChange}
                         />
                     </Space.Compact>
 

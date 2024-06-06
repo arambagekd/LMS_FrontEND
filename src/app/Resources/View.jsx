@@ -13,12 +13,19 @@ function View() {
 
   const [keyword, setKeyword] = useState(""); // State for keyword
   const [sort, setsort] = useState("title"); // State for status
-  const [type, setType] = useState("*"); // State for type
+  const [type, setType] = useState("all"); // State for type
+  const [tag, setTag] = useState("all"); // State for tag
   const [ascending,setAscending] = useState(false); // State for items (search results)
 
   const search = async () => {
     try {
-      const response = await axioinstance.post(`Resource/GetAllResource`);
+      const response = await axioinstance.post(`Resource/SearchResources`,
+        {
+          keyword: keyword,
+          type: type,
+          tag: tag
+        }
+      );
       const searchData = response.data;
       setBooks(searchData);
     } catch (error) {
@@ -41,9 +48,10 @@ function View() {
       </Link>
       <SearchResources
         func1={setsort}
-        func2={setType}
+        func2={setTag}
         func3={setKeyword}
         func4={setAscending}
+        func5={setType}
         ascending={ascending}
         search={search}
       />

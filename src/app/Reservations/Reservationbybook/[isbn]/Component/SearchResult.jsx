@@ -2,7 +2,7 @@
 import ResultTable from '../Component/ResultTable'
 import React, { useEffect, useState } from 'react'
 import { UserDeleteOutlined, MoreOutlined } from '@ant-design/icons';
-import { Button, ConfigProvider, Space, Spin, Tag } from 'antd';
+import { Button, ConfigProvider, Space, Spin, Tag, Tooltip } from 'antd';
 import ReturnModal from '../../../Component/ReturnModal'
 import Link from 'next/link';
 import SeachReservations from './SeachReservations';
@@ -22,7 +22,6 @@ function SearchResult({isbn}) {
   const [recordData, setRecord] = useState([]);
   const [open, setOpen] = useState(false);
   const [status, setStatus] = useState("*"); // State for status
-  const [type, setType] = useState("*"); // State for type
   const [items, setItems] = useState([]); // State for items (search results)
   const [loading, setLoading] = useState(true); // Loading state
   const user = React.useContext(UserContext).user;
@@ -49,15 +48,11 @@ function SearchResult({isbn}) {
       key: 'resource',
     },
     {
-      title: 'User',
-      dataIndex: 'userName',
-      key: 'userName',
+      title: 'User Id',
+      dataIndex: 'userId',
+      key: 'userId',
+      render: (borrowerName,record) => (<Tooltip title={borrowerName}>{record.userId}</Tooltip>)
     },
-   // {
-     // title: 'User Name',
-      //dataIndex: 'borrowerName',
-      //key: 'borrowerName',
-    //},
     {
       title: 'Due Date',
       dataIndex: 'dueDate',
@@ -90,16 +85,6 @@ function SearchResult({isbn}) {
       key: 'reservationNo',
     },
     {
-      title: 'Resource',
-      dataIndex: 'resource',
-      key: 'resource',
-    },
-  
-     // title: 'User Name',
-      //dataIndex: 'borrowerName',
-      //key: 'borrowerName',
-    //},
-    {
       title: 'Due Date',
       dataIndex: 'dueDate',
       key: 'dueDate',
@@ -131,9 +116,7 @@ function SearchResult({isbn}) {
       const response = await axioinstance.post('Reservation/SearchReservation', 
       {
         keywords: isbn,
-        resourceId:true,
-        userId: false,
-        reservationId: false
+        type: 'resourceId',
       }
     );
       const data = response.data.reverse(); // Extracting data from response
@@ -157,7 +140,7 @@ function SearchResult({isbn}) {
   return (
 
     <div>
-      <SeachReservations func1={setStatus} func2={setType} isbn={isbn}/>
+      <SeachReservations func1={setStatus} isbn={isbn}/>
       <ResultTable loading={loading} nodata={false} dataset={status === "*" ? items : items.filter(book => book.status === status)} columnset={user.userType=="admin"?columnsAdimn:columnsUser} pagination={{ pageSize: 20 }} />
         <ReturnModal fetchData={fetchData}  open={open} openFuntion={showModal} close={closeModal} recordData={recordData} />
     </div>

@@ -1,0 +1,46 @@
+/* LocationCard.module.css */
+
+.card {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  width: 250px;
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: scale(1.01); /* Corrected hover effect */
+}
+
+.cupboardName {
+  font-size: 1.5em;
+  margin-bottom: 10px;
+}
+
+.details {
+  font-size: 1em;
+  color: #555;
+}
+
+.container {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding:20px 30px;
+  background-color: #f4f4f9;
+  font-family: Arial, sans-serif;
+}
+
+@media (max-width: 800px) {
+  .card {
+    width: 100%;
+  }
+}
+
+

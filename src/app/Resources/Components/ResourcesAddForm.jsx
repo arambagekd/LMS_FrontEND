@@ -34,7 +34,10 @@ function ResourcesAddForm({
 
   const getlocation = async () => {
     try {
-      const response = await axioinstance.post("Location/GetAllLocation");
+      const response = await axioinstance.post(`Location/GetAllLocation`,  
+      {
+        cupboardName: ""
+      });
       setLocation(response.data);
       console.log(response.data);
     } catch (error) {

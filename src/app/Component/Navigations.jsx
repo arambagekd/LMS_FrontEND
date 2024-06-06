@@ -17,6 +17,7 @@ import {
   EditOutlined,
   QuestionCircleOutlined,
   HomeOutlined,
+  CloudServerOutlined,
 } from "@ant-design/icons";
 import {
   Button,
@@ -70,6 +71,11 @@ const sideitems = [
     label: <Link href="/Resources">Resources</Link>,
   },
   {
+    key: "Locations",
+    icon: React.createElement(CloudServerOutlined),
+    label: <Link href="/Locations">Locations</Link>,
+  },
+  {
     key: "Users",
 
     icon: React.createElement(UserOutlined),
@@ -112,6 +118,11 @@ const sideitems2 = [
     key: "Resources",
     icon: React.createElement(ReadOutlined),
     label: <Link href="/Resources">Resources</Link>,
+  },
+  {
+    key: "Locations",
+    icon: React.createElement(CloudServerOutlined),
+    label: <Link href="/Locations">Locations</Link>,
   },
 
   {

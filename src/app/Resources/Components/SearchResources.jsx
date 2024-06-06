@@ -22,7 +22,7 @@ const handleChange = (value) => {
 };
 
 
-function SearchResources({ func1, func2, func3,func4,ascending, search }) {
+function SearchResources({ func1, func2, func3,func4,func5,ascending, search }) {
 
     const [placement, setPlacement] = useState('title');
     
@@ -35,6 +35,10 @@ function SearchResources({ func1, func2, func3,func4,ascending, search }) {
     
     // Handler for type change
     const handleTypeChange = (v) => {
+        func5(v);
+    }
+
+    const handleTagChange = (v) => {
         func2(v);
     }
   
@@ -70,15 +74,15 @@ function SearchResources({ func1, func2, func3,func4,ascending, search }) {
                     <Space.Compact>
                         <Select
 
-                            defaultValue="Type"
+                            defaultValue="all"
                             style={{
                                 width: 100,
                             }}
-                          //  onChange={handleChange}
+                          onChange={handleTypeChange}
                             options={[
                                 {
-                                    value: 'none',
-                                    label: 'Type',
+                                    value: 'all',
+                                    label: 'All',
                                 },
                                 {
                                     value: 'books',
@@ -91,42 +95,39 @@ function SearchResources({ func1, func2, func3,func4,ascending, search }) {
                                 {
                                     value: 'ebooks',
                                     label: 'Ebooks',
-                                },
-                                {
-                                    value: 'others',
-                                    label: 'Others',
-                                },
+                                }
                                 ]}>
                         </Select>
                         <Select
 
-                            defaultValue="None"
+                            defaultValue="all"
                             style={{
                                 width: 100,
                             }}
-                            onChange={handleTypeChange}
+                            onChange={handleTagChange}
                             options={[
                                 {
-                                    value: 'none',
-                                    label: 'None',
+                                    value: 'all',
+                                    label: 'All',
                                 },
                                 {
-                                    value: 'ISBN',
-                                    label: 'By ISBN',
+                                    value: 'isbn',
+                                    label: 'ISBN',
+                                },
+                                {
+                                    value: 'title',
+                                    label: 'Title',
                                 },
                                 {
                                     value: 'author',
-                                    label: 'By Author',
+                                    label: 'Author',
                                 },
-                                {
-                                    value: 'publisher',
-                                    label: 'By Publisher',
-                                },]}>
+                                ]}>
                         </Select>
                         <Search
                             placeholder="input search text"
                             allowClear
-                            onSearch={onSearch}
+                            onSearch={handleSearch}
                             onChange={handleKeywordChange}
                         />
                     </Space.Compact>

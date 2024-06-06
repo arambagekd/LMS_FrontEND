@@ -62,22 +62,11 @@ function SearchReservations({ func1, func2, func3, search }) {
                     <Space.Compact>
                         
                         <Select
-                            defaultValue="Type"
-                            style={{ width: 100 }}
-                            options={[
-                                { value: "", label: 'All' },
-                                { value: 'books', label: 'Books' },
-                                { value: 'journals', label: 'Journals' },
-                                { value: 'ebooks', label: 'Ebooks' },
-                                { value: 'others', label: 'Others' },
-                            ]}
-                        />
-                        <Select
-                            defaultValue="*"
+                            defaultValue="all"
                             style={{ width: 100 }}
                             onChange={handleTypeChange}
                             options={[
-                                { value: '*', label: 'All' },
+                                { value: 'all', label: 'All' },
                                 { value: 'reservationId', label: 'Reservation' },
                                 { value: 'userId', label: 'User' },
                                 { value: 'resourceId', label: 'Resource' },

@@ -2,7 +2,7 @@
 import ResultTable from '../Component/ResultTable'
 import React, { useEffect, useState } from 'react'
 import { UserDeleteOutlined, MoreOutlined } from '@ant-design/icons';
-import { Button, ConfigProvider, Space, Spin, Tag } from 'antd';
+import { Button, ConfigProvider, Space, Spin, Tag, Tooltip } from 'antd';
 import ReturnModal from './ReturnModal'
 import Link from 'next/link';
 import SeachReservations from './SeachReservations';
@@ -23,7 +23,7 @@ function SearchResult() {
   const [open, setOpen] = useState(false);
   const [keyword, setKeyword] = useState(""); // State for keyword
   const [status, setStatus] = useState("*"); // State for status
-  const [type, setType] = useState("*"); // State for type
+  const [type, setType] = useState("all"); // State for type
   const [items, setItems] = useState([]); // State for items (search results)
   const [loading, setLoading] = useState(true); // Loading state
   const user = React.useContext(UserContext).user;
@@ -51,15 +51,11 @@ function SearchResult() {
       render: (isbn,record) => (<Link href={`/Resources/${isbn}`}>{isbn}</Link>)
     },
     {
-      title: 'User',
-      dataIndex: 'userName',
-      key: 'userName',
+      title: 'User ID',
+      dataIndex: 'userId',
+      key: 'userId',
+      render: (useid,record) => (<Tooltip  title={record.userName}>{record.userId}</Tooltip>)
     },
-   // {
-     // title: 'User Name',
-      //dataIndex: 'borrowerName',
-      //key: 'borrowerName',
-    //},
     {
       title: 'Due Date',
       dataIndex: 'dueDate',
@@ -126,16 +122,14 @@ function SearchResult() {
   ];
 
 
-  async function fetchData(type) { // Function to fetch data from server
+  async function fetchData() { // Function to fetch data from server
     setLoading(true); // Set loading to true while fetching
     try {
       // Sending POST request to fetch data based on search parameters
       const response = await axioinstance.post('Reservation/SearchReservation', 
       {
         keywords: keyword,
-        resourceId: type === "resourceId" || type === "*",
-        userId: type === "userId" || type === "*",
-        reservationId: type === "reservationId" || type === "*"
+        type: type,
       }
     );
       const data = response.data.reverse(); // Extracting data from response
@@ -157,7 +151,7 @@ function SearchResult() {
   }}
 
   const search = () => {
-    fetchData(type);
+    fetchData();
   } // Function to trigger search
 
   useEffect(() => { fetchData(type);mydata() }, [user.userType]); // Fetch data on component mount

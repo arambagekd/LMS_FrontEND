@@ -27,17 +27,6 @@ function SearchReservations({ func1, func2,isbn }) {
         func1(e.target.value);
     };
     
-    // Handler for type change
-    const handleTypeChange = (v) => {
-        func2(v);
-    }
-  
-   
-
-    // Handler for keyword change
-    
-  
-    
     return (
         <div>
             <Row style={{ margin: "0 0 20px 0" }} gutter={[10, 10]}>

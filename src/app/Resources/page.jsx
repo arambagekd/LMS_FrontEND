@@ -3,7 +3,7 @@ import View from './View'
 
 function page() {
   return (
-    <div><View></View></div>
+    <div><View location="no"></View></div>
   )
 }
 

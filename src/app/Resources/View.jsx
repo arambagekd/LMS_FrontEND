@@ -8,7 +8,7 @@ import { PlusOutlined } from "@ant-design/icons";
 import Link from "next/link";
 import axioinstance from "../Instance/api_instance";
 
-function View() {
+function View({location}) {
   const [books, setBooks] = useState([]);
 
   const [keyword, setKeyword] = useState(""); // State for keyword
@@ -19,7 +19,8 @@ function View() {
 
   const search = async () => {
     try {
-      const response = await axioinstance.post(`Resource/SearchResources`,
+      if(location=="no"){
+        const response = await axioinstance.post(`Resource/SearchResources`,
         {
           keyword: keyword,
           type: type,
@@ -28,6 +29,19 @@ function View() {
       );
       const searchData = response.data;
       setBooks(searchData);
+      }
+      else{
+        const response = await axioinstance.post(`Location/SearchResources`,
+        {
+          keyword: keyword,
+          type: type,
+          tag: tag,
+          location: location
+        }
+      );
+      const searchData = response.data;
+      setBooks(searchData);
+    }  
     } catch (error) {
       alert("Error searching data:");
     }
@@ -39,13 +53,14 @@ function View() {
 
   return (
     <div>
-      <Link href={"/Resources/AddResources"}>
+      {location=="no"?<Link href={"/Resources/AddResources"}>
         <FloatButton
           icon={<PlusOutlined />}
           tooltip="Add a resource"
           type="primary"
         />
-      </Link>
+      </Link>:
+      null}
       <SearchResources
         func1={setsort}
         func2={setTag}

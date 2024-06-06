@@ -1,16 +1,16 @@
+import View from '@/app/Resources/View'
 import { Collapse } from 'antd'
 import React from 'react'
 
-function CollapseCard() {
+function CollapseCard({shelfNo, cupboardId}) {
   return (
-    <div>
+    <>
         <Collapse
-        items={[{ key: '1', label: `Shelf No - ${5}`, children: <>
-     
-      </>
+        items={[{ key: '1', label: `Shelf No - ${shelfNo}`, children:<><View location={cupboardId+"-"+shelfNo}/></>
       }]}
       />
-    </div>
+      <br/>
+    </>
   )
 }
 

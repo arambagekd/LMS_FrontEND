@@ -28,7 +28,7 @@ function LocationCard() {
   return (
     <div className={styles.container}>
       {cupboards.map((cupboard, index) => (
-        <div className={styles.card}>
+        <div className={styles.card} key={index}>
           <Link href={`/Locations/${cupboard.cupboardName}`} key={index}>
             <h2 className={styles.cupboardName}>Cupboard {cupboard.cupboardId}-{cupboard.cupboardName}</h2>
             <p className={styles.details}>

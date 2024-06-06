@@ -28,7 +28,7 @@ const [cupboardid, setCupboard] = useState("");
     return (
     <div>
         {shelves.map(shelf => (
-            <CollapseCard shelfNo={shelf} cupboardId={cupboardid}/>
+            <CollapseCard key={shelf} shelfNo={shelf} cupboardId={cupboardid}/>
         ))}
     </div>
   )

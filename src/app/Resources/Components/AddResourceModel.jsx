@@ -25,7 +25,7 @@ function ReturnModal(props) {
             addedByID:form.getFieldsValue('addedByID'),
             category:form.getFieldsValue('category'),
             imageURL:form.getFieldsValue('imageURL'),
-            location:form.getFieldsValue('location'),
+            location:form.getFieldsValue('cupboard')+form.getFieldsValue('shelfNo'),
             description:form.getFieldsValue('description'),
          })
          .then((response)=>{
@@ -52,6 +52,7 @@ function ReturnModal(props) {
     };
 
     const handleOk = () => {
+        
         form.validateFields()
             .then(() => {
                 setLoading(true);
@@ -61,6 +62,7 @@ function ReturnModal(props) {
             })
 
             .catch(() => {
+                console.log(form.getFieldsValue('cupboard')+form.getFieldsValue('shelfNo'))
                 console.log("Validate Failed:");
             });
 

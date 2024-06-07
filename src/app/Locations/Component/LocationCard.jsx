@@ -4,26 +4,8 @@ import React, { useEffect, useState } from "react";
 import styles from "./LocationCard.module.css";
 import axioinstance from "@/app/Instance/api_instance";
 
-function LocationCard() {
-  const [cupboards, setCupboards] = useState([]);
-
-  async function getLocations() {
-    try {
-      const response = await axioinstance.post(
-        `Location/GetAllLocation`,
-        {
-            cupboardName: ""
-          }
-         
-      );
-      console.log(response.data)
-      setCupboards(response.data);
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  useEffect(() => {getLocations()}, []);
+function LocationCard({cupboards}) {
+  
 
   return (
     <div className={styles.container}>

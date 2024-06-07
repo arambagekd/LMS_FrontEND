@@ -3,7 +3,7 @@ import ShelfList from './Component/ShelfList'
 
 function page({params}) {
   return (
-    <div>{params.cupid}
+    <div><h3>Cupboard - {params.cupid}</h3>
     <ShelfList cupboardName={params.cupid}/>
     </div>
   )

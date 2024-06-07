@@ -20,6 +20,7 @@ import EditModal from "../[isbn]/Components/EditModel";
 import TextArea from "antd/es/input/TextArea";
 import moment from "moment";
 import axioinstance from "@/app/Instance/api_instance";
+import { useSearchParams } from "next/navigation";
 
 function ResourcesAddForm({
   form,
@@ -28,9 +29,13 @@ function ResourcesAddForm({
   selectShelf,
   cupboard,
   shelf,
-}) {
+}){
+
+  const searchParams = useSearchParams()
   const [location, setLocation] = useState([]);
   const [options, setOptions] = useState([]);
+  const cupNo = searchParams.get('cupboardId');
+  const shelfNo = searchParams.get('shelfNo');
 
   const getlocation = async () => {
     try {
@@ -179,6 +184,8 @@ function ResourcesAddForm({
                       rules={[{ required: true }]}
                     >
                       <Select
+                        defaultValue={cupNo!=undefined?cupNo:""}
+                        disabled={cupNo!=undefined?true:false}
                         showSearch
                         onChange={(value) => selectCupboard(value)}
                         options={location.map((item) => ({
@@ -195,6 +202,7 @@ function ResourcesAddForm({
                       rules={[{ required: true }]}
                     >
                       <Select
+                        defaultValue={shelfNo!=undefined?shelfNo:""}
                         disabled={cupboard == "" ? true : false}
                         showSearch
                         onChange={(value) => selectShelf(value)}

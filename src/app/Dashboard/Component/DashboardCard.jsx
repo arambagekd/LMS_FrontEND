@@ -19,7 +19,7 @@ function DashboardCard(props) {
 
   return (
     <div>
-      <Card   >
+      <Card  >
         <Flex wrap='wrap'>
          
         <Flex style={iconStyle } align='center' ><div  >{props.icon}</div></Flex>

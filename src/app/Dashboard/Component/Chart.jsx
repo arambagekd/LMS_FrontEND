@@ -50,7 +50,7 @@ function Chart(props) {
 
 return (
   <div >
-    <Card>
+    <Card >
 
       <center>
         <h4>{props.topic}</h4>

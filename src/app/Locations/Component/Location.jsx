@@ -1,5 +1,5 @@
 'use client'
-import { Button, Card, Col, Flex, Row } from 'antd'
+import { Button, Card, Col, Row } from 'antd'
 import Search from 'antd/es/input/Search'
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
@@ -9,6 +9,7 @@ import axioinstance from '@/app/Instance/api_instance'
 function Location() {
     const [cupboards, setCupboards] = useState([]);
     const [keyword, setKeyword] = useState(""); 
+ 
 
   async function getLocations() {
     try {
@@ -29,8 +30,10 @@ function Location() {
   useEffect(() => {getLocations()}, []);
   return (
     <>
-    <Row style={{ margin: "0 0 20px 0" }} gutter={[10, 10]}>
-        <Col xs={24} sm={18}>
+   
+    <Row justify="space-between" style={{ margin: "0 0 20px 0" }} gutter={[10, 10]}>
+        
+        <Col xs={24} sm={6}>
         <Link href="/Locations/AddLocation"><Button >Add a Location</Button></Link>
         </Col>
         <Col xs={24} sm={6}>
@@ -43,8 +46,11 @@ function Location() {
                             onSearch={()=>getLocations()}
                         /></Col>
     </Row>
-
-     <LocationCard cupboards={cupboards}/>
+    <Card title="List of Cupborads">
+    <Row style={{width:"100%"}}   gutter={[15,15]} justify="center">
+     <LocationCard cupboards={cupboards}/></Row>
+    
+     </Card>
    
     </>
   )

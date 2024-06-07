@@ -31,13 +31,15 @@ function AddLocations() {
       });
       setTimeout(() => {
         successModal();
-        setLoading(false)
+        setLoading(false);
+        form.resetFields();
       }, 3000);
       
     } catch (error) {
       console.log(error);
       errorModal();
       setLoading(false)
+      form.resetFields();
     }
     
   }

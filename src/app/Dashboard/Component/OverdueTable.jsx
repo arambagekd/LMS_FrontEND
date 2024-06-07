@@ -60,10 +60,10 @@ function OverdueTable() {
   useEffect(() => {GetReservations()},[])
 
   return (
-    <Card >
+    <Card>
     <div >
         <h4>Overdue List</h4>
-        <ResultTable loading={loading} dataset={reservation} columnset={columns} pagination={false}/>
+        <ResultTable  loading={loading} dataset={reservation} columnset={columns} pagination={false}/>
     </div>
     </Card>
   )

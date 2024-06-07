@@ -56,12 +56,13 @@ function CardResource(props) {
            <div style={{lineHeight:2}}><b>{props.dataset.title.length < 12 ? props.dataset.title: props.dataset.title.substring(0, 12) + "...."}</b> <br/>    
             {props.dataset.isbn.length < 14 ? props.dataset.isbn: props.dataset.isbn.substring(0, 14) + "..."}<br/> 
             {props.dataset.author.length < 14 ? props.dataset.author: props.dataset.author.substring(0, 14) + "..."}<br/> 
-            No of Books: {props.dataset.noOfBooks}</div>
+            No of Books: {props.dataset.noOfBooks}
+            </div>
 
             <Flex style={{ fontWeight: 600, }} justify='space-between'>
                 <Link href={`/Resources/${props.dataset.isbn}`}>More..</Link>  
             </Flex>
-            <Button  type='primary' size="small" block onClick={showModal} >Issue</Button>
+            <Button disabled={props.dataset.remain<1}  type='primary' size="small" block onClick={showModal} >Issue</Button>
           </Col>
 
         </Row>

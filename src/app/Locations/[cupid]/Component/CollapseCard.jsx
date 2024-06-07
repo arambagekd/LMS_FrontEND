@@ -10,7 +10,7 @@ function CollapseCard({ shelfNo, cupboardId }) {
         items={[
           {
             key: "1",
-            extra:<Link href={`/Resources/AddResources?cupboardId=${cupboardId}&shelfNo=${shelfNo}`}><Button onClick={(e)=>e.stopPropagation()}>Add a Book</Button></Link>,
+            extra:<Button onClick={(e)=>e.stopPropagation()}><Link href={`/Resources/AddResources?cupboardId=${cupboardId}&shelfNo=${shelfNo}`}>Add a Book</Link></Button>,
             label: (
               <Flex align="center" justify="space-between">
                 <div>Shelf - {shelfNo}</div>

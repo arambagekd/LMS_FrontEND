@@ -192,7 +192,7 @@ function ResourcesAddForm({
                         onChange={(value) => selectCupboard(value)}
                         options={location.map((item) => ({
                           value: item.cupboardId,
-                          label: item.cupboardName,
+                          label: item.cupboardId+"-"+item.cupboardName,
                         }))}
                       />
                     </Form.Item>

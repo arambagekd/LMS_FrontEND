@@ -187,6 +187,7 @@ function ResourcesAddForm({
                         defaultValue={cupNo!=undefined?cupNo:""}
                         disabled={cupNo!=undefined?true:false}
                         filterOption={true}
+                        showSearch
                         optionFilterProp="label"
                         onChange={(value) => selectCupboard(value)}
                         options={location.map((item) => ({

@@ -52,6 +52,11 @@ function ResourcesAddForm({
 
   useEffect(() => {
     getlocation();
+    if(cupNo!=undefined && shelfNo!=undefined)
+    {
+      selectCupboard(cupNo);
+      selectShelf(shelfNo);
+    }
   }, []);
 
   useEffect(() => {
@@ -182,9 +187,10 @@ function ResourcesAddForm({
                       name="cupboard"
                       label="Cupboard"
                       rules={[{ required: true }]}
+                      initialValue={cupNo!=undefined?cupNo:""}
                     >
                       <Select
-                        defaultValue={cupNo!=undefined?cupNo:""}
+                       // defaultValue={cupNo!=undefined?cupNo:""}
                         disabled={cupNo!=undefined?true:false}
                         filterOption={true}
                         showSearch
@@ -202,10 +208,11 @@ function ResourcesAddForm({
                       name="shelf"
                       label="Shelf"
                       rules={[{ required: true }]}
+                      initialValue={shelfNo!=undefined?shelfNo:""}
                     >
                       <Select
-                        defaultValue={shelfNo!=undefined?shelfNo:""}
-                        disabled={cupboard == "" ? true : false}
+                        //defaultValue={shelfNo!=undefined?shelfNo:""}
+                        disabled={cupboard == ""|| cupboard!=undefined ? true : false}
                         showSearch
                         onChange={(value) => selectShelf(value)}
                         options={options}

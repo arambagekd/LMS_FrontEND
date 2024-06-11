@@ -116,7 +116,7 @@ function NotificationCard() {
         //etLoading(true); // Set loading to true while fetching
         try {
             // Sending POST request to fetch data based on search parameters
-            const response = await axioinstance.get('Notification/GetNotificatons?username=all');
+            const response = await axioinstance.post('Notification/GetNotificatons');
             const data = response.data.reverse(); // Extracting data from response
             changeSize(data.length);
             //setLoading(false); // Setting loading to false after data is fetched
@@ -128,8 +128,6 @@ function NotificationCard() {
     }
     useEffect(() => { fetchData(); }, []);
 
-    console.log(notifications)
-    console.log(size);
     return (
 
         <div>

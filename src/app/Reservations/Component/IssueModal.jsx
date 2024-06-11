@@ -47,7 +47,7 @@ function IssueModal({ open, close, data }) {
       }, 3000);
     } catch (error) {
       setLoading(false);
-      errorModal(String(error.response.data).split("\n")[0]);
+      errorModal(error.response.data);
     }
   }
 

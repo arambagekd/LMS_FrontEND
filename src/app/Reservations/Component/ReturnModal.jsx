@@ -55,7 +55,7 @@ function ReturnModal(props) {
     } catch (error) {
       setLoading(false);
       console.log(error);
-      errorModal(String(error.response.data).split("\n")[0]);
+      errorModal(error.message);
     }
   }
 

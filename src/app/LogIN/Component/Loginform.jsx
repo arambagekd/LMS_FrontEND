@@ -7,6 +7,8 @@ import { useRouter } from 'next/navigation';
 import { UserContext } from '../../Context/Context';
 import Link from 'next/link';
 import Cookies from "js-cookie";
+import { getFirebaseToken, onMessageListener } from '../../Yes/firebase-config';
+import { get } from 'http';
 
 
 function Loginform({spinning,setSpinning}) {
@@ -14,12 +16,12 @@ function Loginform({spinning,setSpinning}) {
     const [form] = Form.useForm();
     const getUser = React.useContext(UserContext).GetUser;
     const user = React.useContext(UserContext).user;
-    
     const [loading,setLoading]=useState(false);
     const [loading1,setLoading1]=useState(false);
     const [loading2,setLoading2]=useState(false);
     const [messageApi, contextHolder] = message.useMessage();
     const [login,setLogin]=useState(false);
+    const [firebasetoken,setFireBaseToken]=useState("no");
     
 
     const successModal = () => {
@@ -56,7 +58,8 @@ function Loginform({spinning,setSpinning}) {
       setLoading(true);
       setSpinning(true);
         try{
-            const response =await axios.post('https://e796-43-250-242-105.ngrok-free.app/api/Auth/login', 
+            const user=String(form.getFieldValue('username'));
+            const response =await axios.post('http://localhost:5164/api/Auth/login', 
               {
                 userName: String(form.getFieldValue('username')),
                 password: String(form.getFieldValue('password')),
@@ -69,8 +72,11 @@ function Loginform({spinning,setSpinning}) {
               console.log(response.data);
               console.log(response.data);
               //redirect(`/Dashboard`)
-            
               getUser();
+              const response2 =await axios.post('http://localhost:5164/api/Notification/SetFireBaseToken',{
+                token:firebasetoken,
+                userName:user
+              })
               // console.log(user);
               router.push( "/Dashboard")	;
               //user.userName=="admin"?router.push('/Dashboard'):router.push('/LogIN/Userselect');
@@ -90,7 +96,33 @@ function Loginform({spinning,setSpinning}) {
             setLogin(true);
             getUser();
           }
+          
           setSpinning(false);
+          
+        }, []);
+
+        
+
+        useEffect(() => {
+          const fetchToken = async () => {
+            try{
+            const token = await getFirebaseToken();
+            console.log(token);
+            setFireBaseToken(token);
+            const permission = await Notification.requestPermission();
+            if (permission === 'granted') {
+            console.log('Notification permission granted.');
+             await getFirebaseToken();
+            } else {
+            console.log('Unable to get permission to notify.');
+            }
+          }catch(error){
+            console.log(error);
+          }
+          };
+      
+          fetchToken();
+      
         }, []);
 
         useEffect(() => {})

@@ -4,6 +4,7 @@ import { Card, Space, Col, Row, Image, Flex, Button, ConfigProvider } from 'antd
 import Link from 'next/link';
 import IssueModal from '../../../Reservations/Component/IssueModal';
 import AboutCard from '../../[isbn]/Components/AboutCard';
+import { UserContext } from '@/app/Context/Context';
 
 
 
@@ -11,7 +12,7 @@ import AboutCard from '../../[isbn]/Components/AboutCard';
 function CardResource(props) {
   const [open, setOpen] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
-
+  const user = React.useContext(UserContext).user;
   const showModal = () => {
   
     setOpen(true);
@@ -62,7 +63,11 @@ function CardResource(props) {
             <Flex style={{ fontWeight: 600, }} justify='space-between'>
                 <Link href={`/Resources/${props.dataset.isbn}`}>More..</Link>  
             </Flex>
-            <Button disabled={props.dataset.remain<1}  type='primary' size="small" block onClick={showModal} >Issue</Button>
+            {user.userType === 'admin' ?
+            <Button disabled={props.dataset.remain<1}  type='primary' size="small" block onClick={showModal} >Issue</Button>:
+            <Button disabled={props.dataset.remain<1}  type='primary' size="small" block onClick={showModal} >Request</Button>
+            }
+            
           </Col>
 
         </Row>

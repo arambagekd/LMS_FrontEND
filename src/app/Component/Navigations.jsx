@@ -38,7 +38,6 @@ import Link from "next/link";
 import AdressBar from "./AdressBar";
 import MenuItem from "antd/es/menu/MenuItem";
 import { usePathname, useRouter } from "next/navigation";
-import { image1 } from "../../../public/lib1.jpg";
 import Image from "next/image";
 
 import axios from "axios";
@@ -52,6 +51,7 @@ import ErrorPage from "../ErrorPage/page";
 import NotificationDrawer from "./NotificationDrawer";
 import { get } from "http";
 import { title } from "process";
+import { onMessageListener } from "../Yes/firebase-config";
 const { Header, Content, Footer, Sider } = Layout;
 
 const sideitems = [
@@ -153,6 +153,7 @@ function Navigations(props) {
   const [open, setOpen] = useState(false);
   const [authenticated, setAuthenticated] = useState(false);
   const [collapsed, setCollapsed] = useState(true);
+  const [unreadCount, setUnreadCount] = useState(0);
  
 
   const logout = async () => {
@@ -170,8 +171,7 @@ function Navigations(props) {
     }
   };
 
-    async function GetUser(){
-     
+    const GetUser=async()=>{
     try {
       const response = await axioinstance.post("User/GetMyData");
       const response1 = await axioinstance.post("User/GetEmail");
@@ -206,6 +206,15 @@ function Navigations(props) {
       console.log(e);
     }
   };
+  const getUnreadCount=async()=>{
+    try {
+      const response = await axioinstance.get("Notification/UnreadCount");
+      console.log(response.data);
+      setUnreadCount(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
 
   // const {
@@ -222,7 +231,9 @@ function Navigations(props) {
       key: "1",
 
       label: (
-        <Avatar onClick={() => setOpen(true)} icon={<MessageOutlined />} />
+        <Badge count={unreadCount>10?unreadCount.toString()+"+":unreadCount}>
+        <Avatar  onClick={() => setOpen(true)} icon={<MessageOutlined />} />
+        </Badge>
       ),
     },
     {
@@ -281,9 +292,25 @@ function Navigations(props) {
 
     useEffect(() => {
       GetUser();
-
+    
+      onMessageListener()
+            .then((payload) => {
+              console.log('Message received. ', payload);
+            })
+            .catch((err) => console.log('Failed to receive message. ', err));
+        
     }, []);
 
+    useEffect(() => {
+      // Fetch unread count immediately on component mount
+      getUnreadCount();
+
+      // Set up the interval to fetch unread count every 10 seconds
+      const intervalId = setInterval(getUnreadCount, 10000); // 10000ms = 10 seconds
+
+      // Clean up the interval on component unmount
+      return () => clearInterval(intervalId);
+  }, []); // E
    
   useEffect(() => {
     if (user.userName != undefined) {
@@ -293,7 +320,7 @@ function Navigations(props) {
   }, [user.userName]);
 
   return rootPath != "LogIN" && rootPath != "ErrorPage" && rootPath!="Home" ?  (
-    <UserContext.Provider value={{ user, GetUser }}>
+    <UserContext.Provider value={{ user, GetUser ,setUser}}>
       <EmailContext.Provider value={{ email, setEmail }}>
         {loading ? (
           <Spin spinning={loading} fullscreen />
@@ -301,7 +328,7 @@ function Navigations(props) {
           <ErrorPage />
         ) : (
           <Layout style={{ minHeight: "100vh" }}>
-            <NotificationDrawer open={open} setOpen={setOpen} />
+            <NotificationDrawer getUnreadCount={getUnreadCount} open={open} setOpen={setOpen} />
 
             <Sider
               collapsible

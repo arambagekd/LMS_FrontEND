@@ -3,9 +3,19 @@ import { CheckCircleTwoTone, CheckOutlined } from "@ant-design/icons";
 import { Button } from "antd";
 import Image from "next/image";
 import React, { useState } from "react";
+import axioinstance from "../Instance/api_instance";
 
-const Notifications = ({ subject, description }) => {
+const Notifications = ({id, subject, description,ago,status,GetNotification }) => {
   const [more, setMore] = useState(false);
+  async function markRead(id){
+    try{
+      console.log(id);
+    const response = await axioinstance.get(`Notification/MarkAsRead?id=${id}`);
+    GetNotification();
+    }catch(error){
+     console.log(error);
+    }
+  }
   return (
     <div>
       <div
@@ -41,7 +51,7 @@ const Notifications = ({ subject, description }) => {
           ) : more ? (
             <p style={{ margin: 0 }}>
               <strong>{subject}</strong>
-              <br />
+              <br /><br/>
               {String(description)}
               <br></br>
               <Button
@@ -66,13 +76,16 @@ const Notifications = ({ subject, description }) => {
               fontSize: "0.9em",
             }}
           >
-            a day ago
+
+            
+           {ago===0?"Today":ago===1?"Yesterday":ago+" days ago"} 
           </span>
         </div>
         <div style={{display:"flex",flex:1}}>
-            <Button type="link" style={{ padding: 0 }}>
+          {status==="unread" &&
+            <Button type="link" style={{ padding: 0 }} onClick={()=>markRead(id)}>
             <CheckCircleTwoTone />
-            </Button>
+            </Button>}
         </div>
       </div>
     </div>

@@ -15,7 +15,7 @@ const { RangePicker } = DatePicker;
 
 
 // Define the SearchReservations component
-function SearchReservations({ func1, func2, func3, search }) {
+function SearchReservations({ func1, func2, func3, search,setDate }) {
 
 
     // State for placement
@@ -54,7 +54,10 @@ function SearchReservations({ func1, func2, func3, search }) {
                             <Radio.Button value="borrowed">Borrowed</Radio.Button>
                             <Radio.Button value="reserved">Reserved</Radio.Button>
                         </Radio.Group>
-                        <DatePicker style={{ width: '125px' }} />
+                        <DatePicker 
+                         onChange={(e, s) => e? setDate(e):setDate(dayjs(null))} 
+                        
+                         style={{ width: '125px' }} />
                     </Flex>
                 </Col>
                 <Col xs={24} sm={10}>

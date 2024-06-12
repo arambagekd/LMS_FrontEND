@@ -7,7 +7,7 @@ import { useRouter } from 'next/navigation';
 import { UserContext } from '../../Context/Context';
 import Link from 'next/link';
 import Cookies from "js-cookie";
-import { getFirebaseToken, onMessageListener } from '../../Yes/firebase-config';
+//import { getFirebaseToken, onMessageListener } from '../../Yes/firebase-config';
 import { get } from 'http';
 
 
@@ -103,27 +103,27 @@ function Loginform({spinning,setSpinning}) {
 
         
 
-        useEffect(() => {
-          const fetchToken = async () => {
-            try{
-            const token = await getFirebaseToken();
-            console.log(token);
-            setFireBaseToken(token);
-            const permission = await Notification.requestPermission();
-            if (permission === 'granted') {
-            console.log('Notification permission granted.');
-             await getFirebaseToken();
-            } else {
-            console.log('Unable to get permission to notify.');
-            }
-          }catch(error){
-            console.log(error);
-          }
-          };
+        // useEffect(() => {
+        //   const fetchToken = async () => {
+        //     try{
+        //     const token = await getFirebaseToken();
+        //     console.log(token);
+        //     setFireBaseToken(token);
+        //     const permission = await Notification.requestPermission();
+        //     if (permission === 'granted') {
+        //     console.log('Notification permission granted.');
+        //      await getFirebaseToken();
+        //     } else {
+        //     console.log('Unable to get permission to notify.');
+        //     }
+        //   }catch(error){
+        //     console.log(error);
+        //   }
+        //   };
       
-          fetchToken();
+        //   fetchToken();
       
-        }, []);
+        // }, []);
 
         useEffect(() => {})
 

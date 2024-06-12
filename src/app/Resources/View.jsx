@@ -7,6 +7,7 @@ import SearchResources from "./Components/SearchResources";
 import { PlusOutlined } from "@ant-design/icons";
 import Link from "next/link";
 import axioinstance from "../Instance/api_instance";
+import { UserContext } from "../Context/Context";
 
 function View({location}) {
   const [books, setBooks] = useState([]);
@@ -16,7 +17,7 @@ function View({location}) {
   const [type, setType] = useState("all"); // State for type
   const [tag, setTag] = useState("all"); // State for tag
   const [ascending,setAscending] = useState(false); // State for items (search results)
-
+  const user= React.useContext(UserContext).user;
   const search = async () => {
     try {
       if(location=="no"){
@@ -53,7 +54,8 @@ function View({location}) {
 
   return (
     <div>
-      {location=="no"?<Link href={"/Resources/AddResources"}>
+      {location=="no"?
+        user.userType==="admin" && <Link href={"/Resources/AddResources"}>
         <FloatButton
           icon={<PlusOutlined />}
           tooltip="Add a resource"

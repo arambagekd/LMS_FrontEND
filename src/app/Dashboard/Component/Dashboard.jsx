@@ -8,13 +8,17 @@ import {
     FileTextOutlined ,
     BookOutlined ,
     WarningOutlined ,
-    InfoCircleOutlined
+    InfoCircleOutlined,
+    SmileOutlined,
+    SmileFilled,
+    SmileTwoTone
 } from '@ant-design/icons';
 import DashboardCard from './DashboardCard';
 import OverdueTable from "../Component/OverdueTable"
 import Chart from "../Component/Chart"
 import RecentNoti from "../Component/RecentNoti"
 import axioinstance from '../../Instance/api_instance';
+import { UserContext } from '@/app/Context/Context';
 
 const chart2 = [
     {
@@ -51,6 +55,7 @@ function Dashboard() {
     const [statics,setStatics]=useState({});
     const[loading,setLoading]=useState(true);
     const[chart1,setChart1]=useState([]);
+    const user =React.useContext(UserContext).user;
 
     const fetchData=async()=>{
       try{
@@ -77,7 +82,8 @@ function Dashboard() {
       
 
        <div>
-          
+          {user.userType=="admin"?
+          <div>
           <Row style={{ width: "100%" }}  gutter={[5, 5]}>
             <Col xs={24} sm={6}><DashboardCard title="Total" value={statics.total} icon={<ReadOutlined style={iconStyle} />} /></Col>
             <Col xs={24} sm={6}><DashboardCard title="Navels" value={statics.navels} icon={<UserOutlined style={iconStyle}/>} /></Col>
@@ -104,6 +110,13 @@ function Dashboard() {
             <Col xs={24} sm={10}><RecentNoti/></Col>
             <Col xs={24} sm={14}><OverdueTable /></Col>
           </Row>
+        
+        </div> :
+        <div>
+          <div style={{fontSize:20,fontWeight:600}}>Hi...{user.fName+" "+user.lName} <SmileTwoTone/></div>
+        </div>
+        }
+        
 
          
            

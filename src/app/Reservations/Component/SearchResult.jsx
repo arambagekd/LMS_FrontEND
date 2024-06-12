@@ -120,6 +120,7 @@ function SearchResult() {
       title: "Resource",
       dataIndex: "resource",
       key: "resource",
+      render: (isbn, record) => <Link href={`/Resources/${isbn}`}>{isbn}</Link>
     },
 
     // title: 'User Name',
@@ -128,7 +129,7 @@ function SearchResult() {
     //},
     {
       title: "Due Date",
-      dataIndex: "Date",
+      dataIndex: "dueDate",
       key: "dueDate",
     },
 
@@ -136,6 +137,7 @@ function SearchResult() {
       title: "Status",
       dataIndex: "status",
       key: "status",
+      render: (isbn, record) =><Tag color="geekblue">{record.status}</Tag>
     },
     {
       title: "Action",

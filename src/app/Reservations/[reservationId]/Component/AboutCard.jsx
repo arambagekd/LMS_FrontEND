@@ -1,5 +1,5 @@
 'use client'
-import { Button, Col, Descriptions, Flex, Image, Row, Spin } from 'antd'
+import { Button, Col, Descriptions, Flex, Image, Row, Spin, Tag } from 'antd'
 import Card from 'antd/es/card/Card'
 import React, { useEffect, useState } from 'react'
 import EditModal from './EditModal'
@@ -7,6 +7,7 @@ import {  EditOutlined,BellOutlined} from '@ant-design/icons';
 import axioinstance from '../../../Instance/api_instance';
 import DeleteModal from './DeleteModal';
 import Link from 'next/link'
+import { UserContext } from '@/app/Context/Context'
 
 
 
@@ -22,6 +23,7 @@ function AboutCard({reservationId}) {
   const [loading,setLoading]=useState(true);
   const[status,setStatus]=useState("")
   const [imagePath,setImagePath]=useState("")
+  const user=React.useContext(UserContext).user;
   
   const openModal = () => {
     
@@ -49,7 +51,7 @@ function AboutCard({reservationId}) {
           key: '7',
           label: 'Resource ID (ISBN)',
           span: 2,
-          children: <Link href={`/Resources/${response.data.isbnisbn}`}>{response.data.isbn}</Link>,
+          children: <Link href={`/Resources/${response.data.isbn}`}>{response.data.isbn}</Link>,
         },
         {
           key: '5',
@@ -113,16 +115,17 @@ function AboutCard({reservationId}) {
           {!loading && (
             <Flex style={{ width: '100%' }} justify='center' align='center'>
             <Card bordered style={{ width: '80%' }} >
+              {user.userType==="admin" &&
               <Flex justify='space-between' style={{margin:"0 0 10px 0"}}>
-                {(status=="overdue")?<Button type='primary' danger style={{ margin: " 0 20px 20px 0" }} shape='round'>OverDue</Button>:<div style={{minWidth:'10px'}}></div>}
+                {(status==="overdue")?<Tag color="#f50" style={{ margin: " 0 20px 20px 0" }} shape='round'>OverDue</Tag>:<div style={{minWidth:'10px'}}></div>}
                 <div>
                   <DeleteModal reservation={reservationId}/>
                   <Button size='large' type='primary' style={{ margin: '0 10px 0 0' }} shape='circle' onClick={openModal} disabled={(status=="reserved")}><EditOutlined /></Button>
                   <Button size='large' type='primary' shape='circle' onClick={openModal} disabled={(status=="reserved")}><BellOutlined /></Button>
                 </div>
-              </Flex>
+              </Flex>}
               <Row gutter={[30, 30]} align="middle" justify="center">
-                <Col md={6} sm={24} xs={24}>
+                <Col md={8} sm={24} xs={24}>
                   <Image
                     src={imagePath}
                     alt="Image loading is Failed"
@@ -130,7 +133,7 @@ function AboutCard({reservationId}) {
                     style={{ borderRadius: '10%' }}
                   />
                 </Col>
-                <Col md={18} sm={24} xs={24}>
+                <Col md={16} sm={24} xs={24}>
                   <Descriptions title={<div>Reservation Details of Reservation {reservationId} </div>} layout="horizontal" column={{
                     xs: 1,
                     sm: 2,

@@ -47,6 +47,7 @@ function IssueModal(props) {
             successModal();
             props.close();
             form.resetFields();
+            props.fetchData();
         }, 3000);
         } catch (error) {
           setLoading(false);
@@ -60,7 +61,7 @@ function IssueModal(props) {
         form.validateFields()
             .then(() => {
                 setLoading(true);
-                props.fetchData();
+                fetchData();
             })
 
             .catch(() => {

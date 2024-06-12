@@ -34,7 +34,7 @@ function SearchResult(props) {
   const [loading, setLoading] = useState(true); // Loading state
   const user = React.useContext(UserContext).user;
 
-  const columns = [
+  const columnsAdmin = [
     {
         title: 'No',
         dataIndex: 'id',
@@ -80,6 +80,44 @@ function SearchResult(props) {
   
   ];
 
+  const columnsPatron = [
+    {
+        title: 'No',
+        dataIndex: 'id',
+        key: 'id',
+      },
+      {
+        title: 'ID(ISBN)',
+        dataIndex: 'isbn',
+        key: 'isbn',
+      },
+    {
+      title: 'UserID',
+      dataIndex: 'borrowerID',
+      key: 'borrowerID',
+    },
+    {
+        title: 'Title',
+        dataIndex: 'title',
+        key: 'title',
+      },
+      {
+        title: 'Date',
+        dataIndex: 'date',
+        key: 'date',
+      },
+     
+    {
+      title: '',
+      dataIndex: '',
+      key: 'x',
+      render: (record) => (
+       <DeleteModal fetchData={fetchData} requestId={record.id} contetHolder/>
+      )
+    },
+  
+  ];
+
   async function fetchData() { // Function to fetch data from server
     setLoading(true); // Set loading to true while fetching
     try {
@@ -103,7 +141,7 @@ function SearchResult(props) {
   return (
     <div>
       <SearchRequests func1={setStatus} func2={setType} func3={setKeyword} search={search}/>
-      <ResultTable loading={loading} dataset={items} columnset={columns} pagination={{pageSize:20}}/>
+      <ResultTable loading={loading} dataset={items} columnset={user.userType==="admin"?columnsAdmin:columnsPatron} pagination={{pageSize:20}}/>
       {/* <DeleteModal  open1={open} open={showModal} close={closeModal} recordData={recordData} fetchData={fetchData}/> */}
       <IssueModal fetchData={fetchData} open={open} openFuntion={showModal} close={closeModal} data={record} />
     </div>

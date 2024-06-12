@@ -190,7 +190,7 @@ function Navigations(props) {
       Cookies.remove("jwt");
       console.log(token);
       const response = await axios.post(
-        `https://fb10-61-245-161-144.ngrok-free.app/api/Auth/selectusertype?userType=${usertype}`,
+        `http://localhost:5164/api/Auth/selectusertype?userType=${usertype}`,
         null,
         {
           withCredentials: true,
@@ -231,7 +231,7 @@ function Navigations(props) {
       key: "1",
 
       label: (
-        <Badge count={unreadCount>10?unreadCount.toString()+"+":unreadCount}>
+        <Badge count={unreadCount>9?9+"+":unreadCount}>
         <Avatar  onClick={() => setOpen(true)} icon={<MessageOutlined />} />
         </Badge>
       ),

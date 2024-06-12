@@ -1,5 +1,5 @@
 'use client'
-import { Button, Col, Descriptions, Flex, Image, Row,Tooltip,ConfigProvider} from 'antd'
+import { Button, Col, Descriptions, Flex, Image, Row,Tooltip,ConfigProvider, message, Popconfirm} from 'antd'
 import { Collapse } from 'antd';
 const { Panel } = Collapse;
 import Card from 'antd/es/card/Card'
@@ -10,6 +10,7 @@ import { EditOutlined,DeleteOutlined ,LeftCircleOutlined} from '@ant-design/icon
 import axioinstance from '../../../Instance/api_instance';
 import IssueModal from '../../../Reservations/Component/IssueModal';
 import { useRouter } from 'next/navigation';
+import { UserContext } from '@/app/Context/Context';
 
 
 
@@ -19,11 +20,28 @@ function AboutCard(props) {
   const [issue, setIssue] = useState(false);
   const [items,setItem]=useState([]);
   const [error,seterror]=useState(false);
-  const [loading,setLoading]=useState(true);
+  const [loading,setLoading]=useState(false);
   const[status,setStatus]=useState("")
   const [responseData,setresponseData]=useState([]);
   const[collapse,setCollapse]=useState(true);
   const router=useRouter();
+  const user=React.useContext(UserContext).user;
+  const [messageApi, contextHolder] = message.useMessage();
+
+
+  const successModal = () => {
+    messageApi.open({
+      type: "success",
+      content: `SuccessFully Requested to ${props.dataset.isbn}`,
+    });
+  };
+  
+  const errorModal = (e) => {
+    messageApi.open({
+      type: "error",
+      content: e,
+    });
+  };
 
   const showModal = () => {
   
@@ -42,7 +60,6 @@ function AboutCard(props) {
   };
 
   const fetchData=async()=>{
-    setLoading(true);
     try{
       const response = await axioinstance.post(`Resource/AbouteResource?isbn=${props.isbn}`);
       const responseData = response.data;
@@ -60,14 +77,26 @@ function AboutCard(props) {
       ];
       setItem(items);
       setresponseData(responseData);
-      setLoading(false); 
     }
     catch(error){
         console.log(error);
         seterror(true);
-        setLoading(false);
     }
   }
+  const request=async()=>{
+    setLoading(true);
+    try{
+        await axioinstance.post("Request/RequestResource",{
+        isbn:props.dataset.isbn
+      })
+      successModal();
+    }catch(error){
+      errorModal(error.response.data);
+      console.log(error.response);
+    }
+    setLoading(false);
+  }
+  
 
   useEffect(() => { fetchData(); }, []);
 
@@ -80,8 +109,7 @@ function AboutCard(props) {
   
     const handleMouseLeave = () => {
       setText(defaultText);
-    };
-  
+    };  
     return (
         <Button
           type="primary"
@@ -103,7 +131,7 @@ function AboutCard(props) {
      },
     }}
     >
-
+      {contextHolder}
     <div>
       <Flex justify="space-between" style={{marginBottom:'20px'}}>
         <div>
@@ -139,10 +167,14 @@ function AboutCard(props) {
                         <ButtonWithTooltip defaultText="Cupboard" hoverText={responseData.cupboardId} />
                         <ButtonWithTooltip defaultText="Shelf" hoverText={responseData.shelfId} />
                         </Flex>
-                        <div style={{ height: '30px' }}>
+                        
+                        {user.userType==="admin"&&
+                       <div style={{ height: '30px' }}>
                           <Button type='primary' danger style={{ margin: " 0 10px 10px 0" }} shape='round' icon={<DeleteOutlined />}></Button>
                           <Button type='primary' style={{ margin: " 0 10px 10px 0" }} shape='round' icon={<EditOutlined />} onClick={showModal}></Button>
-                        </div>
+                          </div>
+                        }
+                       
                       </Flex>
                     </div>} layout="horizontal" column={{
                       xs: 1,
@@ -167,7 +199,21 @@ function AboutCard(props) {
                 </Collapse>
                 <Flex  justify='right'>
                 <Link href={`/Reservations/Reservationbybook/${responseData.isbn}`}><Button type='primary' size='medium' style={{margin:'0 20px 0 0'}}>See Reservations</Button></Link>
-                <Button type='primary' size='medium' onClick={showIssue}>Isuue</Button></Flex></>
+                {user.userType==="admin"?
+                <Button disabled={responseData.remain<1} type='primary' size='medium' onClick={showIssue}>Isuue</Button>:
+                <Popconfirm
+                disabled={responseData.remain<1}
+                title="Request a book"
+                description="Are you sure to request?"
+                onConfirm={request}
+                okText="Yes"
+                cancelText="No"
+                
+              >
+                <Button disabled={responseData.remain<1} loading={loading} type='primary' size='medium'>Request</Button>
+                </Popconfirm>}
+                </Flex></>
+
                 
                 
         )}

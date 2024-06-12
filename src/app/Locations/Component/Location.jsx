@@ -5,11 +5,12 @@ import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 import LocationCard from './LocationCard'
 import axioinstance from '@/app/Instance/api_instance'
+import { UserContext } from '@/app/Context/Context'
 
 function Location() {
     const [cupboards, setCupboards] = useState([]);
     const [keyword, setKeyword] = useState(""); 
- 
+    const user = React.useContext(UserContext).user;
 
   async function getLocations() {
     try {
@@ -34,7 +35,8 @@ function Location() {
     <Row justify="space-between" style={{ margin: "0 0 20px 0" }} gutter={[10, 10]}>
         
         <Col xs={24} sm={6}>
-        <Link href="/Locations/AddLocation"><Button >Add a Location</Button></Link>
+        {user.userType==="admin"&&
+        <Link href="/Locations/AddLocation"><Button >Add a Location</Button></Link>}
         </Col>
         <Col xs={24} sm={6}>
         <Search

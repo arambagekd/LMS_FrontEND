@@ -1,31 +1,92 @@
-import React from 'react';
+"use client";
+import {
+  AppstoreOutlined,
+  MailOutlined,
+  SettingOutlined,
+} from "@ant-design/icons";
+import { FontWeight, Position } from "@cloudinary/url-gen/qualifiers";
+import { justify } from "@cloudinary/url-gen/qualifiers/textAlignment";
+import { Carousel, ConfigProvider, Menu } from "antd";
+import React from "react";
 
 const HomePage = () => {
+  const items = [
+    {
+      label: "Navigation One",
+      key: "mail",
+      icon: <MailOutlined />,
+    },
+    {
+      label: "Navigation Two",
+      key: "app",
+      icon: <AppstoreOutlined />,
+    },
+    {
+      label: "Navigation Three - Submenu",
+      key: "SubMenu",
+      icon: <SettingOutlined />,
+    },
+  ];
   return (
     <div style={styles.container}>
       <header style={styles.header}>
         <div style={styles.logo}>
           <img src="/translib.png" width={100} alt="Mint Logo" />
         </div>
-        <nav style={styles.nav}>
-          <a style={styles.navLink} href="#how-it-works">How it works</a>
-          <a style={styles.navLink} href="#credit-cards">Credit Cards</a>
-          <a style={styles.navLink} href="#investing">Investing</a>
-          <a style={styles.navLink} href="#loans">Loans</a>
-          <a style={styles.navLink} href="#resources">Resources</a>
-        </nav>
-        <div style={styles.authButtons}>
-          <button style={styles.button}>Sign up</button>
-          <button style={styles.button}>Sign in</button>
-        </div>
+       
+          <ConfigProvider
+            theme={{
+              components: {
+                Menu: {
+                  itemBg:""
+                },
+              },
+              token: {
+               colorSplit:"rgba(5, 5, 5, 0)",
+               fontSize:16,
+               colorText:"white"
+              },
+            }}
+          >
+            <Menu
+              
+              mode="horizontal"
+              items={items}
+            />
+          </ConfigProvider>
+    
       </header>
 
+      <Carousel autoplaySpeed={5000} autoplay >
+        <div>
+          <div style={contentStyle}>
+            Welcome to the Library Management System
+          </div>
+        </div>
+        <div>
+          <div style={contentStyle}>
+            Efficiently Manage Your Books and Resources
+          </div>
+        </div>
+        <div>
+          <div style={contentStyle}>
+            Track Borrowing and Returning of Books Seamlessly
+          </div>
+        </div>
+        <div>
+          <div style={contentStyle}>
+            Access a Wide Range of Digital Resources Anytime
+          </div>
+        </div>
+      </Carousel>
       <main style={styles.main}>
         <div style={styles.textContainer}>
-          <h1 style={styles.heading}>Experience a fresh way to <br /> manage money</h1>
+          <h1 style={styles.heading}>
+            Experience a fresh way to <br /> manage money
+          </h1>
           <p style={styles.subheading}>
-            Reach your goals with personalized insights, custom budgets, spend tracking,
-            and subscription monitoring—all for free.
+            Reach your goals with personalized insights, custom budgets, spend
+            tracking, and subscription monitoring—all for free.
           </p>
           <button style={styles.signUpButton}>Sign up for Mint</button>
           <div style={styles.appLinks}>
@@ -37,84 +98,105 @@ const HomePage = () => {
             </a>
           </div>
         </div>
-        <div style={styles.imageContainer}>
-          <img src="/lib1.jpg" alt="Woman using phone" />
-        </div>
       </main>
     </div>
   );
 };
-
+const contentStyle = {
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  height: "100vh",
+  color: "#fff",
+  textAlign: "center",
+  background: "#364d79",
+  fontWeight: 700,
+  fontSize: 55,
+  backgroundImage: "url('/library.jpeg')", // Replace with your image path
+  backgroundSize: "cover", // Ensures the image covers the entire background
+  backgroundPosition: "center", // Centers the image
+  backgroundRepeat: "no-repeat" 
+};
 const styles = {
   container: {
-    fontFamily: 'Arial, sans-serif',
+    fontFamily: "Arial, sans-serif",
   },
   header: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    padding: '10px 20px',
-    borderBottom: '1px solid #ddd',
+    zIndex: 5,
+    display: "flex",
+    position: "fixed",
+    width: "98%",
+    top: 0,
+    justifyContent: "space-between",
+    alignItems: "center",
+    aliignContent:"center",
+    padding: "10px 20px",
+    backgroundColor:"rgba(5, 5, 5, 0.8)",
+    flexWrap: "wrap",
+  },
+  menu: {
+    display: "flex",
+    flexGrow: 1,
   },
   logo: {
-    display: 'flex',
-    alignItems: 'center',
+    display: "flex",
+    alignItems: "center",
   },
   nav: {
-    display: 'flex',
-    alignItems: 'center',
+    display: "flex",
+    alignItems: "center",
   },
   navLink: {
-    margin: '0 10px',
-    textDecoration: 'none',
-    color: '#333',
+    margin: "0 10px",
+    textDecoration: "none",
+    color: "#333",
   },
   authButtons: {
-    display: 'flex',
-    alignItems: 'center',
+    display: "flex",
+    alignItems: "center",
   },
   button: {
-    margin: '0 5px',
-    padding: '10px 20px',
-    border: 'none',
-    borderRadius: '5px',
-    cursor: 'pointer',
+    margin: "0 5px",
+    padding: "10px 20px",
+    border: "none",
+    borderRadius: "5px",
+    cursor: "pointer",
   },
   main: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    padding: '40px 20px',
+    display: "flex",
+    justifyContent: "space-between",
+    padding: "40px 20px",
   },
   textContainer: {
-    maxWidth: '50%',
+    maxWidth: "50%",
   },
   heading: {
-    fontSize: '36px',
-    color: '#2a9d8f',
+    fontSize: "36px",
+    color: "#2a9d8f",
   },
   subheading: {
-    fontSize: '18px',
-    color: '#333',
+    fontSize: "18px",
+    color: "#333",
   },
   signUpButton: {
-    marginTop: '20px',
-    padding: '10px 20px',
-    backgroundColor: '#2a9d8f',
-    color: '#fff',
-    border: 'none',
-    borderRadius: '5px',
-    cursor: 'pointer',
+    marginTop: "20px",
+    padding: "10px 20px",
+    backgroundColor: "#2a9d8f",
+    color: "#fff",
+    border: "none",
+    borderRadius: "5px",
+    cursor: "pointer",
   },
   appLinks: {
-    marginTop: '20px',
-    display: 'flex',
-    alignItems: 'center',
+    marginTop: "20px",
+    display: "flex",
+    alignItems: "center",
   },
   appLink: {
-    margin: '0 10px',
+    margin: "0 10px",
   },
   imageContainer: {
-    maxWidth: '50%',
+    maxWidth: "50%",
   },
 };
 

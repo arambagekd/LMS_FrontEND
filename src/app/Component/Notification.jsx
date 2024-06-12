@@ -1,5 +1,5 @@
 "use client";
-import { CheckCircleTwoTone, CheckOutlined } from "@ant-design/icons";
+import { CheckCircleTwoTone, CheckOutlined, EyeTwoTone } from "@ant-design/icons";
 import { Button } from "antd";
 import Image from "next/image";
 import React, { useState } from "react";
@@ -84,7 +84,7 @@ const Notifications = ({id, subject, description,ago,status,GetNotification }) =
         <div style={{display:"flex",flex:1}}>
           {status==="unread" &&
             <Button type="link" style={{ padding: 0 }} onClick={()=>markRead(id)}>
-            <CheckCircleTwoTone />
+            <EyeTwoTone />
             </Button>}
         </div>
       </div>

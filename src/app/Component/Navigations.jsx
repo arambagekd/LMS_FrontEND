@@ -293,11 +293,11 @@ function Navigations(props) {
     useEffect(() => {
       GetUser();
     
-      onMessageListener()
-            .then((payload) => {
-              console.log('Message received. ', payload);
-            })
-            .catch((err) => console.log('Failed to receive message. ', err));
+      // onMessageListener()
+      //       .then((payload) => {
+      //         console.log('Message received. ', payload);
+      //       })
+      //       .catch((err) => console.log('Failed to receive message. ', err));
         
     }, []);
 

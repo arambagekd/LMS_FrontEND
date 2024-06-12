@@ -51,7 +51,7 @@ import ErrorPage from "../ErrorPage/page";
 import NotificationDrawer from "./NotificationDrawer";
 import { get } from "http";
 import { title } from "process";
-//import { onMessageListener } from "../Yes/firebase-config";
+import { onMessageListener } from "../Yes/firebase-config";
 const { Header, Content, Footer, Sider } = Layout;
 
 const sideitems = [
@@ -293,11 +293,11 @@ function Navigations(props) {
     useEffect(() => {
       GetUser();
     
-      // onMessageListener()
-      //       .then((payload) => {
-      //         console.log('Message received. ', payload);
-      //       })
-      //       .catch((err) => console.log('Failed to receive message. ', err));
+      onMessageListener()
+            .then((payload) => {
+              console.log('Message received. ', payload);
+            })
+            .catch((err) => console.log('Failed to receive message. ', err));
         
     }, []);
 

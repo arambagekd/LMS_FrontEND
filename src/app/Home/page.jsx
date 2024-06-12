@@ -75,14 +75,6 @@ const HomePage = () => {
             </p>
             <br />
             <Flex wrap="wrap" justify="center" align="center" gap={15}>
-              {/* <div style={styles.appLinks}>
-                <a href="#appstore" style={styles.appLink}>
-                  <img src="/path/to/app-store-badge.png" alt="App Store" />
-                </a>
-                <a href="#googleplay" style={styles.appLink}>
-                  <img src="/path/to/google-play-badge.png" alt="Google Play" />
-                </a>
-              </div> */}
               <Button size="large"  type="primary">Sign up for EasyLibro</Button>
             </Flex>
           </div>
@@ -155,11 +147,11 @@ const HomePage = () => {
           </Col>
           <Col span={6}>
             <h3>Follow Us</h3>
-            <Space>
+            {/* <Space>
               <a href="https://twitter.com"><img src="/path/to/twitter-icon.png" alt="Twitter" /></a>
               <a href="https://facebook.com"><img src="/path/to/facebook-icon.png" alt="Facebook" /></a>
               <a href="https://instagram.com"><img src="/path/to/instagram-icon.png" alt="Instagram" /></a>
-            </Space>
+            </Space> */}
           </Col>
         </Row>
         <div style={styles.footerBottom}>

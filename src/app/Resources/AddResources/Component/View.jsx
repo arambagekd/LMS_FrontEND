@@ -30,6 +30,7 @@ function View(props) {
   
 
    const submitForm = async () => {
+    try{
     if(imageurl===""){
       throw "Please upload an image";
     }
@@ -48,19 +49,19 @@ function View(props) {
         shelfNo: shelf,
         description: form.getFieldValue('description'),
     })
-    .then((response) => {
+   
         setTimeout(() => {
             setLoading(false);
             successModal(`Successfully added the resource ${response.data.isbn}`);
             form.resetFields();
             setImageURL("");
         }, 3000);
-    })
-    .catch((error) => {
+      }
+    catch(error) {
         setLoading(false);
         console.log(error);
         errorModal('An error occurred while processing your request.');
-    });
+    };
    
 };
 

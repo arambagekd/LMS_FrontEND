@@ -72,7 +72,13 @@ function Loginform({spinning,setSpinning}) {
               console.log(response.data);
               console.log(response.data);
               //redirect(`/Dashboard`)
-              //getUser();
+              if(firebasetoken!="no" && firebasetoken!="" && firebasetoken!=undefined){
+                const response2 =await axios.post('https://7978-61-245-171-62.ngrok-free.app/api/Notification/SetFireBaseToken',{
+                  token:firebasetoken,
+                  userName:user
+                })
+              }
+              getUser();
              
               // console.log(user);
               router.push( "/Dashboard")	;
@@ -84,10 +90,7 @@ function Loginform({spinning,setSpinning}) {
             console.log(error);
             errorModal(error.response);
         }
-        // const response2 =await axios.post('https://7978-61-245-171-62.ngrok-free.app/api/Notification/SetFireBaseToken',{
-        //   token:firebasetoken,
-        //   userName:user
-        // })
+       
         }
 
       

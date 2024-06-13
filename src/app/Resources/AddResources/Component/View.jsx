@@ -1,7 +1,7 @@
 'use client'
 import React,{useState} from 'react'
 import ResourcesAddForm from '../../Components/ResourcesAddForm'
-import { Form,Button, Flex,Modal,Tooltip } from 'antd';
+import { Form,Button, Flex,Modal,Tooltip, message } from 'antd';
 import axios from 'axios';
 import axioinstance from '@/app/Instance/api_instance';
 
@@ -13,8 +13,26 @@ function View(props) {
    const [imageurl,setImageURL]=useState("");
    const[cupboard,selectCupboard]=useState('');
     const[shelf,selectShelf]=useState('');
+    const [messageApi, contextHolder] = message.useMessage();
+
+    const successModal = (e) => {
+      messageApi.open({
+        type: "success",
+        content: e,
+      });
+    };
+    const errorModal = (e) => {
+      messageApi.open({
+        type: "error",
+        content: e,
+      });
+    };
+  
 
    const submitForm = async () => {
+    if(imageurl===""){
+      throw "Please upload an image";
+    }
    await axioinstance.post('Resource/AddResource', {
         isbn: form.getFieldValue('isbn'),
         title: form.getFieldValue('title'),
@@ -33,41 +51,26 @@ function View(props) {
     .then((response) => {
         setTimeout(() => {
             setLoading(false);
-            showSuccessModal();
+            successModal(`Successfully added the resource ${response.data.isbn}`);
             form.resetFields();
             setImageURL("");
         }, 3000);
-        alert(response.data.isbn);
     })
     .catch((error) => {
         setLoading(false);
         console.log(error);
-        showErrorModal('An error occurred while processing your request.');
-        
+        errorModal('An error occurred while processing your request.');
     });
+   
 };
 
-const showSuccessModal = () => {
-  Modal.success({
-      title: 'Success',
-      content: 'Successfully Return the Resource',
-  });
-};
-const showErrorModal = (errorMessage) => {
-  Modal.error({
-    title: 'Error',
-    content: errorMessage,
-  });
-};
 
 const handleOk = () => {
   form.validateFields()
       .then(() => {
           setLoading(true);   
           submitForm();
-          console.log(response.data.imagePath);
       })
-
       .catch(() => {
           console.log("Validate Failed:");
       });

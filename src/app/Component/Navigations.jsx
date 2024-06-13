@@ -473,7 +473,7 @@ function Navigations(props) {
       </EmailContext.Provider>
     </UserContext.Provider>
   ) : (
-    <UserContext.Provider value={{ user, GetUser,setUser }}>
+    <UserContext.Provider value={{ user, GetUser,setUser,setAuthenticated }}>
       <EmailContext.Provider value={{ email, setEmail }}>
         {props.children}
       </EmailContext.Provider>

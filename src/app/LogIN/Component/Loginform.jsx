@@ -17,6 +17,7 @@ function Loginform({spinning,setSpinning}) {
     const getUser = React.useContext(UserContext).GetUser;
     const user = React.useContext(UserContext).user;
     const setUser=React.useContext(UserContext).setUser;
+    const setAuthenticated=React.useContext(UserContext).setAuthenticated;
     const [loading,setLoading]=useState(false);
     const [loading1,setLoading1]=useState(false);
     const [loading2,setLoading2]=useState(false);
@@ -42,6 +43,7 @@ function Loginform({spinning,setSpinning}) {
     const NewLogIn=()=>{
       Cookies.remove('jwt');
       setUser({});
+      setAuthenticated(false);
       setLoading1(true);
       setLoading1(false);
       setLogin(false);

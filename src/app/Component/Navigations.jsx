@@ -321,7 +321,7 @@ function Navigations(props) {
     }
   }, [user.userName]);
 
-  return rootPath != "LogIN" && rootPath != "ErrorPage" && rootPath!="Home" ?  (
+  return rootPath != "LogIN" && rootPath != "ErrorPage" && rootPath!="Home" && rootPath!=""?  (
     <UserContext.Provider value={{ user, GetUser ,setUser}}>
       <EmailContext.Provider value={{ email, setEmail }}>
         {loading ? (

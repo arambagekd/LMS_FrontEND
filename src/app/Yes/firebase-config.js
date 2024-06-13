@@ -95,8 +95,8 @@ export const getFirebaseToken = async () => {
       console.log('No registration token available. Request permission to generate one.');
     }
   } catch (error) {
-    console.error('An error occurred while retrieving token. ', error);
-    return error;
+    //console.error('An error occurred while retrieving token. ', error);
+    return "no";
   }
 };
 

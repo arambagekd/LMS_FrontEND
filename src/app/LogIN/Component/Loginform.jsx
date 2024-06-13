@@ -72,7 +72,8 @@ function Loginform({spinning,setSpinning}) {
               console.log(response.data);
               console.log(response.data);
               //redirect(`/Dashboard`)
-              if(firebasetoken!="no" && firebasetoken!="" && firebasetoken!=undefined){
+
+              if(firebasetoken!="no"){
                 const response2 =await axios.post('https://7978-61-245-171-62.ngrok-free.app/api/Notification/SetFireBaseToken',{
                   token:firebasetoken,
                   userName:user

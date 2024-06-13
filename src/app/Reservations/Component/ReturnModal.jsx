@@ -23,13 +23,14 @@ function ReturnModal(props) {
   const [form] = Form.useForm();
   const [messageApi, contextHolder] = message.useMessage();
 
-  const successModal = () => {
+  const successModal = (e) => {
     messageApi.open({
       type: "success",
-      content: "Book issued successfully",
+      content: e,
     });
   };
   const errorModal = (e) => {
+
     messageApi.open({
       type: "error",
       content: e,
@@ -47,7 +48,7 @@ function ReturnModal(props) {
       });
       setTimeout(() => {
         setLoading(false);
-        successModal();
+        successModal(response.data);
         props.close();
         form.resetFields();
         props.fetchData(props.type);
@@ -55,7 +56,7 @@ function ReturnModal(props) {
     } catch (error) {
       setLoading(false);
       console.log(error);
-      errorModal(error.message);
+      errorModal(error.response.data);
     }
   }
 

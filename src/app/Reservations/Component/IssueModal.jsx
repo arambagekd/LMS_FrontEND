@@ -11,10 +11,10 @@ function IssueModal({ open, close, data }) {
   const [form] = Form.useForm();
   const [messageApi, contextHolder] = message.useMessage();
 
-  const successModal = () => {
+  const successModal = (e) => {
     messageApi.open({
       type: "success",
-      content: "Book issued successfully",
+      content: e,
     });
   };
 
@@ -41,7 +41,7 @@ function IssueModal({ open, close, data }) {
       setTimeout(() => {
         setLoading(false);
         // fetchData(form);
-        successModal();
+        successModal(response.data);
         close();
         form.resetFields();
       }, 3000);

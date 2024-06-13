@@ -15,10 +15,10 @@ function IssueModal(props) {
     const [messageApi, contextHolder] = message.useMessage();
 
 
-    const successModal = () => {
+    const successModal = (e) => {
       messageApi.open({
         type: 'success',
-        content: 'Book issued successfully',
+        content: e,
       });
     };
     const errorModal = (e) => {
@@ -44,7 +44,7 @@ function IssueModal(props) {
           setTimeout(() => {
             setLoading(false);
            // fetchData(form);
-            successModal();
+            successModal(response.data);
             props.close();
             form.resetFields();
             props.fetchData();

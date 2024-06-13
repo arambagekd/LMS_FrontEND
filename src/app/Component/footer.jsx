@@ -3,7 +3,7 @@ import { Footer } from 'antd/es/layout/layout'
 import Link from 'next/link'
 import React from 'react'
 
-function footer() {
+function NavigationFooter() {
   return (
     <Footer style={styles.footer}>
         <Row justify="space-around">
@@ -61,4 +61,4 @@ const styles={
         maxWidth: "50%",
       },
 }
-export default footer
+export default NavigationFooter

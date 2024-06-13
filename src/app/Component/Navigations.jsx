@@ -52,7 +52,8 @@ import NotificationDrawer from "./NotificationDrawer";
 import { get } from "http";
 import { title } from "process";
 import { onMessageListener } from "../Yes/firebase-config";
-const { Header, Content, Footer, Sider } = Layout;
+import NavigationFooter from "./footer";
+const { Header, Content, Sider } = Layout;
 
 const sideitems = [
   {
@@ -463,10 +464,10 @@ function Navigations(props) {
                   </Flex>
                 </Card>
               </Content>
-
-              <Footer style={{ textAlign: "center" }}>
+              <NavigationFooter/>
+              {/* <Footer style={{ textAlign: "center" }}>
                 EasyLibro ©{new Date().getFullYear()} Created by ChicoCodes
-              </Footer>
+              </Footer> */}
             </Layout>
           </Layout>
         )}

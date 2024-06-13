@@ -21,9 +21,9 @@ const columns = [
     },
     {
       title: 'Email Address',
-      dataIndex: '',
+      dataIndex: 'email',
       key: 'email',
-      render:(record)=>
+      render:(username, record)=>
       <a href={`mailto:${record.email}`}>{record.email}</a>
     },
     {
@@ -36,10 +36,10 @@ const columns = [
       title: 'More',
       dataIndex: '',
       key: 'x',
-      render: () => (
+      render: (username, record) => (
         <>
         <Space size="large" >
-          <Link href="/Users/About" ><MoreOutlined/></Link>
+          <Link href={`/Users/${record.username}`} ><MoreOutlined/></Link>
         </Space>
          
         </>

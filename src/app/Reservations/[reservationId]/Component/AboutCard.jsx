@@ -44,18 +44,20 @@ function AboutCard({reservationId}) {
       const items = [
         {
           key: '1',
+         // span:2,
           label: 'Reservation ID',
           children: response.data.resId,
         },
         {
           key: '7',
           label: 'Resource ID (ISBN)',
-          span: 2,
+         // span: 2,
           children: <Link href={`/Resources/${response.data.isbn}`}>{response.data.isbn}</Link>,
         },
         {
           key: '5',
           label: 'Book Title',
+         // span:2,
           children: response.data.bookTitle,
         },
       
@@ -63,32 +65,38 @@ function AboutCard({reservationId}) {
         {
           key: '2',
           label: 'User Name',
+         
           children: response.data.userName,
         },
         {
           key: '4',
           label: 'Issuer',
+       
           children: response.data.issuer,
         },
       
         {
           key: '9',
           label: 'Borrow Date',
+      
           children: response.data.dateIssue,
         },
         {
           key: '10',
           label: 'Due Date',
+      
           children: response.data.dueDate,
         },
         {
           key: '11',
           label: 'Return Date',
+         
           children: response.data.returnDate,
         },
         {
           key: '12',
           label: 'Penalty Status',
+        
           children: 'None',
         },
       ];
@@ -124,14 +132,18 @@ function AboutCard({reservationId}) {
                   <Button size='large' type='primary' shape='circle' onClick={openModal} disabled={(status=="reserved")}><BellOutlined /></Button>
                 </div>
               </Flex>}
+              
               <Row gutter={[30, 30]} align="middle" justify="center">
-                <Col md={8} sm={24} xs={24}>
+              <Col md={8} sm={24} xs={24}>
+              <center>
                   <Image
                     src={imagePath}
-                    alt="Image loading is Failed"
-                    width="100%"
-                    style={{ borderRadius: '10%' }}
+                    alt={`no image`}
+                    width="180px"
+                    height="240px"
+                    style={{ borderRadius: '5px' }}
                   />
+                  </center>
                 </Col>
                 <Col md={16} sm={24} xs={24}>
                   <Descriptions title={<div>Reservation Details of Reservation {reservationId} </div>} layout="horizontal" column={{
@@ -145,6 +157,7 @@ function AboutCard({reservationId}) {
                     items={items}
                   />
                 </Col>
+                
               </Row>
             </Card>
             </Flex>

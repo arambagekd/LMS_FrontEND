@@ -191,7 +191,7 @@ function ResourcesAddForm({
                     >
                       <Select
                        // defaultValue={cupNo!=undefined?cupNo:""}
-                        disabled={cupNo!=""?true:false}
+                        disabled={cupNo!=""}
                         filterOption={true}
                         showSearch
                         optionFilterProp="label"
@@ -212,7 +212,7 @@ function ResourcesAddForm({
                     >
                       <Select
                         //defaultValue={shelfNo!=undefined?shelfNo:""}
-                        disabled={cupboard == "" ? true : false}
+                        disabled={cupNo!=undefined && cupboard!=""}
                         showSearch
                         onChange={(value) => selectShelf(value)}
                         options={options}

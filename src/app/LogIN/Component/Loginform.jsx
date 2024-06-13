@@ -70,12 +70,12 @@ function Loginform({spinning,setSpinning}) {
             //   console.log(jwtToken);
             //   cookies.set('jwt', jwtToken, { path: '/', httpOnly: true });
               console.log(response.data);
-              console.log(response.data);
-              // if(firebasetoken!="no"||firebasetoken!=undefined){
-              //   const response2 =await axios.post('https://7978-61-245-171-62.ngrok-free.app/api/Notification/SetFireBaseToken',{
-              //     token:firebasetoken,
-              //     userName:user
-              //   })};
+              // console.log(response.data);
+              // // if(firebasetoken!="no"||firebasetoken!=undefined){
+              // //   const response2 =await axios.post('https://7978-61-245-171-62.ngrok-free.app/api/Notification/SetFireBaseToken',{
+              // //     token:firebasetoken,
+              // //     userName:user
+              // //   })};
               //redirect(`/Dashboard`)
               getUser();
               // console.log(user);

@@ -191,7 +191,7 @@ function ResourcesAddForm({
                     >
                       <Select
                        // defaultValue={cupNo!=undefined?cupNo:""}
-                        disabled={cupNo==""}
+                        disabled={cupNo!=undefined}
                         filterOption={true}
                         showSearch
                         optionFilterProp="label"

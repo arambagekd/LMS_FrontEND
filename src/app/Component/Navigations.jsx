@@ -306,10 +306,10 @@ function Navigations(props) {
       getUnreadCount();
 
       // Set up the interval to fetch unread count every 10 seconds
-      const intervalId = setInterval(getUnreadCount, 10000); // 10000ms = 10 seconds
+      // const intervalId = setInterval(getUnreadCount, 10000); // 10000ms = 10 seconds
 
-      // Clean up the interval on component unmount
-      return () => clearInterval(intervalId);
+      // // Clean up the interval on component unmount
+      // return () => clearInterval(intervalId);
   }, []); // E
    
   useEffect(() => {

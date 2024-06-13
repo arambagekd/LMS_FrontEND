@@ -41,7 +41,7 @@ function Loginform({spinning,setSpinning}) {
 
     const NewLogIn=()=>{
       Cookies.remove('jwt');
-      setUser("");
+      setUser({});
       setLoading1(true);
       setLoading1(false);
       setLogin(false);

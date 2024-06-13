@@ -35,6 +35,7 @@ function View(props) {
             setLoading(false);
             showSuccessModal();
             form.resetFields();
+            setImageURL("");
         }, 3000);
         alert(response.data.isbn);
     })

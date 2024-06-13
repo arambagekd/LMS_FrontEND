@@ -187,11 +187,11 @@ function ResourcesAddForm({
                       name="cupboard"
                       label="Cupboard"
                       rules={[{ required: true }]}
-                      initialValue={cupNo!=undefined?cupNo:""}
+                      initialValue={cupNo!=""?cupNo:""}
                     >
                       <Select
                        // defaultValue={cupNo!=undefined?cupNo:""}
-                        disabled={cupNo!=undefined?true:false}
+                        disabled={cupNo!=""?true:false}
                         filterOption={true}
                         showSearch
                         optionFilterProp="label"
@@ -208,11 +208,11 @@ function ResourcesAddForm({
                       name="shelf"
                       label="Shelf"
                       rules={[{ required: true }]}
-                      initialValue={shelfNo!=undefined?shelfNo:""}
+                      initialValue={shelfNo}
                     >
                       <Select
                         //defaultValue={shelfNo!=undefined?shelfNo:""}
-                        disabled={cupboard == ""|| cupboard!=undefined ? true : false}
+                        disabled={cupboard == "" ? true : false}
                         showSearch
                         onChange={(value) => selectShelf(value)}
                         options={options}

@@ -83,7 +83,7 @@ const request=async()=>{
           <Col >
             <Image 
               src={props.dataset.url}
-              alt={`Image of ${props.dataset.title}`}
+              alt={'no image'}
               width="140px"
               height="210px"
             />

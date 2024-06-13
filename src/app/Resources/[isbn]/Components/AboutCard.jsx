@@ -149,7 +149,7 @@ function AboutCard(props) {
                     <center>
                     <Image
                       src={responseData.imagepath}
-                      alt={`Image of ${responseData.title}`}
+                      alt={`no image`}
                       width="180px"
                       height="240px"
                       style={{ borderRadius: '5px' }} />

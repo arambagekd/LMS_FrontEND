@@ -86,6 +86,7 @@ const handleCancel = () => {
 }
   return (
     <div>
+      {contextHolder}
       <Flex justify="space-between">
         <div style={{ fontSize: '18px',fontWeight:'600',marginLeft:'30px',marginBottom:'30px'}}>
           <font>Add New Resource</font>

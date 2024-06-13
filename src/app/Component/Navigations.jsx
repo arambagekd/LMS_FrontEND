@@ -208,7 +208,7 @@ function Navigations(props) {
   };
   const getUnreadCount=async()=>{
     try {
-      const response = await axioinstance.get("Notification/UnreadCount");
+      const response = await axioinstance.post("Notification/UnreadCount");
       console.log(response.data);
       setUnreadCount(response.data);
     } catch (error) {

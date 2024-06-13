@@ -73,7 +73,7 @@ function Loginform({spinning,setSpinning}) {
               console.log(response.data);
               //redirect(`/Dashboard`)
               getUser();
-              const response2 =await axios.post('http://localhost:5164/api/Notification/SetFireBaseToken',{
+              const response2 =await axios.post('https://7978-61-245-171-62.ngrok-free.app/api/SetFireBaseToken',{
                 token:firebasetoken,
                 userName:user
               })

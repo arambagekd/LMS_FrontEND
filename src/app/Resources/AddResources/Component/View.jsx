@@ -30,10 +30,12 @@ function View(props) {
   
 
    const submitForm = async () => {
-    try{
     if(imageurl===""){
-      throw "Please upload an image";
-    }
+      setLoading(false);
+      errorModal('Please upload a image for the resource.');
+    }else{
+    try{
+   
    await axioinstance.post('Resource/AddResource', {
         isbn: form.getFieldValue('isbn'),
         title: form.getFieldValue('title'),
@@ -61,7 +63,7 @@ function View(props) {
         setLoading(false);
         console.log(error);
         errorModal('An error occurred while processing your request.');
-    };
+    };}
    
 };
 

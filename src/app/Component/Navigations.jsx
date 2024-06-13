@@ -53,6 +53,7 @@ import { get } from "http";
 import { title } from "process";
 import { onMessageListener } from "../Yes/firebase-config";
 import NavigationFooter from "./footer";
+import { Footer } from "antd/es/layout/layout";
 const { Header, Content, Sider } = Layout;
 
 const sideitems = [
@@ -421,6 +422,7 @@ function Navigations(props) {
                     ) : null}
 
                     <Menu
+                    
                       triggerSubMenuAction="click"
                       style={{
                         position: "sticky",

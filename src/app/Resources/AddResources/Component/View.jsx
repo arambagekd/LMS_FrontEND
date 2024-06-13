@@ -55,9 +55,9 @@ function View(props) {
         setTimeout(() => {
             setLoading(false);
             form.resetFields();
-            setImageURL("");
-            successModal(`Successfully added the resource ${response.data.isbn}`);
+            successModal(`Successfully added the resource ${response.data.isbn}`)
         }, 3000);
+        setImageURL("");
       }
     catch(error) {
         setLoading(false);

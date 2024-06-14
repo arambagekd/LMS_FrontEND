@@ -39,7 +39,7 @@ function ReturnModal(props) {
 
   async function fetchData() {
     try {
-      await axioinstance.post("Reservation/Returnbook", {
+      const response=await axioinstance.post("Reservation/Returnbook", {
         reservationNo: props.recordData.reservationNo,
         returnDate: date,
         returnby: String(form.getFieldValue("returnid")),

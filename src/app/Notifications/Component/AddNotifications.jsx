@@ -1,60 +1,54 @@
 'use client'
 import React, { useEffect, useState } from 'react';
-import { Modal, Button, Form, Input, Select, DatePicker } from 'antd';
+import { Modal, Button, Form, Input, Select, DatePicker, message } from 'antd';
 import { UserContext } from '../../Context/Context';
 import { HubConnectionBuilder,LogLevel } from '@microsoft/signalr';
+import axioinstance from '@/app/Instance/api_instance';
 const { Option } = Select;
 
 const AddNotification = ({ visible, onCreate, onCancel,fetchData }) => {
   const [form] = Form.useForm();
   const[respient,setrecepient]=useState("all")
-  const [messages, setMessages] = useState([]);
+  const [messageApi, contextHolder] = message.useMessage();
+  const[loading,setLoading]=useState(false)
+
+  const successModal = (e) => {
+    messageApi.open({
+      type: "success",
+      content: e,
+    });
+  };
+
+  const errorModal = (e) => {
+    messageApi.open({
+      type: "error",
+      content: e,
+    });
+  };
+
    
-    const [connection, setConnection] = useState(null);
+  
     const user=React.useContext(UserContext).user;
     
-    useEffect(() => {
-      const connect = new HubConnectionBuilder()
-        .withUrl("https://75dd-212-104-231-220.ngrok-free.app/Hubs/MyHub")
-        .withAutomaticReconnect()
-        .configureLogging(LogLevel.Information)
-        .build();
-      setConnection(connect);
-      connect
-        .start()
-        .then(() => {
-         
-          connect.on("ReceiveMessage", (sender, content, sentTime) => {
-            setMessages((prev) => [...prev, { sender, content, sentTime }]);
-          });
-          connection.invoke("JoinRoom","all");
-          connection.invoke("JoinRoom",user.userName);
-          connection.invoke("JoinRoom",user.userType);
-          connect.invoke("RetrieveMessageHistory");
-        })
-        .catch((err) =>
-          console.error("Error while connecting to SignalR Hub:", err)
-        );
-
-      
-      return () => {
-        if (connection) {
-          connection.off("ReceiveMessage");
-        }
-      };
-    }, [user]);
 
     
 
     const sendMessage = async () => {
-      if (connection) {
-        await connection.send("SendMessage", 
+      setLoading(true);
+      try{
+        const response= await axioinstance.post("Notification/NewNotice",
         {userName :respient=="other"?form.getFieldValue('userId'):respient,
         subject : "New Announcement",
         description:form.getFieldValue('description') });
-      }
       fetchData();
       onCancel();
+      successModal("Notification Added Successfully");
+    }
+    catch(error){
+      errorModal("Notification Added Failed");
+      fetchData();
+    }
+    setLoading(false);
     };
 
   
@@ -65,6 +59,7 @@ const AddNotification = ({ visible, onCreate, onCancel,fetchData }) => {
       okText="Add"
       cancelText="Cancel"
       onCancel={onCancel}
+      okButtonProps={{loading:loading}}
       onOk={() => {
         form
           .validateFields()
@@ -77,6 +72,7 @@ const AddNotification = ({ visible, onCreate, onCancel,fetchData }) => {
           });
       }}
     >
+      {contextHolder}
       <Form form={form} layout="vertical" name="form_in_modal">
         <Form.Item name="to" label="To" rules={[{ required: true, message: 'Please select the recipient!' }]}>
           <Select placeholder="Select Recipient" onSelect={(value)=>setrecepient(value)} >

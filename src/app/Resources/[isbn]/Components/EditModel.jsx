@@ -1,9 +1,12 @@
-import { Button, DatePicker, Flex,message,InputNumber,Row,ConfigProvider,Drawer,Space,Image} from 'antd'
+"use client"
+import { Button, DatePicker, Flex,message,InputNumber,Row,ConfigProvider,Drawer,Space,Image, Select} from 'antd'
 import React, { useState,useEffect} from 'react'
 import moment from 'moment';
 import axios from 'axios';
 import { CloseCircleOutlined} from '@ant-design/icons';
 import { Form, Col, Input } from 'antd';
+import axioinstance from '@/app/Instance/api_instance';
+import UploadImage from '../../Components/myComponent/UploadImage';
 const { TextArea } = Input; 
 
 function EditModal(props) {
@@ -23,6 +26,40 @@ function EditModal(props) {
 
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(false);
+ const [location, setLocation] = useState([]);
+ const [options, setOptions] = useState([]);
+ const [cupboard, selectCupboard] = useState("");
+ const [shelf, selectShelf] = useState("");
+ const[imagePath,setImagePath]=useState("");
+
+  const getlocation = async () => {
+    try {
+      const response = await axioinstance.post(`Location/GetAllLocation`,  
+      {
+        cupboardName: ""
+      });
+      setLocation(response.data);
+      console.log(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getlocation();
+  }, []);
+
+  useEffect(() => {
+    const cup = location.find((item) => item.cupboardId === cupboard);
+    if (cup!= undefined) {
+      setOptions(
+        cup.shelfNo.map((item) => ({
+          value: item,
+          label: item,
+        }))
+      );
+    }
+  }, [cupboard]);
 
   useEffect(() => {
     form.setFieldsValue({
@@ -34,13 +71,11 @@ function EditModal(props) {
       price: props.data.price,
       description: props.data.description,
       pages: props.data.pages,
-      //addededOn: props.data.addedon,
-      location: props.data.location,
-      addedByID: 'sasindu',
-      imagePath: 'hello.lk',
       url: 'hello.lk'
     });
-    
+    selectCupboard(props.data.cupboardId);
+    selectShelf(props.data.shelfId);
+    setImagePath(props.data.imagepath);
   }, [props.data, form]);
   
     
@@ -50,12 +85,28 @@ function EditModal(props) {
   };
   const handleFormSubmit= async ()=>{
     const formData = form.getFieldsValue();
-    console.log(formData.addedByID);
     console.log(formData);
-
+    console.log(cupboard);
+    console.log(location);
     setLoading(true);
     console.log(formData.addedByID);
-    axios.put('http://localhost:5164/api/Resource/EditResource',formData)
+    await axioinstance.put('Resource/EditResource',
+      {
+        type: formData.type,
+        isbn: formData.isbn,
+        title: formData.title,
+        author: formData.author,
+        year: "2000",
+        price: formData.price,
+        pages: formData.pages,
+        quantity: formData.quantity,
+        cupboardId: cupboard,
+        shelfNo: shelf,
+        description: formData.description,
+        imagePath: imagePath,
+        url: "string"
+      }    
+    )
 
      .then((response)=>{
         setTimeout(() => {
@@ -66,6 +117,7 @@ function EditModal(props) {
      },(error)=>{
         setLoading(false);
         errormsg();
+        console.log(error.response.data);
       }
      
     )
@@ -73,7 +125,8 @@ function EditModal(props) {
     
 };
     return (
-      
+      <>
+      {contextHolder}  
     <ConfigProvider
        theme={{
        token: {
@@ -86,7 +139,7 @@ function EditModal(props) {
            itemMarginBottom:20
         },
       },}}>  
-      {contextHolder}  
+      
         <div>
            
             
@@ -98,7 +151,7 @@ function EditModal(props) {
                 centered
                 title={<span style={{ fontSize: '18px' }}>Edit Resource Details</span>} 
                 
-                onClose={props.close}
+                onClose={()=>{props.close;}}
                 extra={
                   <Space>
                     <CloseCircleOutlined onClick={props.close} style={{ fontSize: '22px'}}/>
@@ -122,7 +175,7 @@ function EditModal(props) {
                 }}>
                     <Form form={form} onSubmit={handleFormSubmit} layout='vertical'>
                      <Row align="middle" gutter={[30,10]} style={{padding:'0 0 0 15px',fontWeight:'600'}}>  
-                    <Col xs={24} sm={14} >
+                    <Col xs={24} sm={12} >
                         <Row gutter={[30,10]} > 
                             <Col xs={24} sm={18} > <Form.Item name="isbn" label="ISBN" rules={[{ required: true }]}><Input  disabled placeholder={props.data.isbn}/></Form.Item></Col>
                         </Row>
@@ -137,27 +190,63 @@ function EditModal(props) {
                             {/* <Col xs={24} sm={9}><Form.Item name="year" label="Year" rules={[{ required: true }]}><Input onChange={(e) => handleInputChange("isbn", e.target.value)}/></Form.Item></Col> */}
                         </Row>
                         <Row gutter={[30,10]}>
-                            <Col xs={24} sm={9}><Form.Item name='location' label="Location" rules={[{ required: true }]}><Input onChange={(e) => handleInputChange("location", e.target.value)}/></Form.Item></Col> 
-                            <Col xs={24} sm={10}><Form.Item name='addedOn' label="Added On"><DatePicker defaultValue={moment()} disabled style={{ width: '180px',height:'30px'}}/></Form.Item></Col>
+                        <Col xs={24} sm={9}>
+                    <Form.Item
+                      name="cupboard"
+                      label="Cupboard"
+                      rules={[{ required: true }]}
+                      initialValue={cupboard}
+                    >
+                      <Select
+                       // defaultValue={cupNo!=undefined?cupNo:""}
+                        
+                        filterOption={true}
+                        showSearch
+                        optionFilterProp="label"
+                        onChange={(value) => selectCupboard(value)}
+                        options={location.map((item) => ({
+                          value: item.cupboardId,
+                          label: item.cupboardId+"-"+item.cupboardName,
+                        }))}
+                      />
+                    </Form.Item>
+                  </Col>
+                  <Col xs={24} sm={9}>
+                    <Form.Item
+                      name="shelf"
+                      label="Shelf"
+                      rules={[{ required: true }]}
+                      initialValue={shelf}
+                    >
+                      <Select
+                        showSearch
+                        onChange={(value) => selectShelf(value)}
+                        options={options}
+                      />
+                    </Form.Item>
+                  </Col>
                         </Row>
                         <Row gutter={[0,0]}>
-                            <Col xs={24} sm={7}><Form.Item name='quantity' label="Quantity" rules={[{ required: true }]}><InputNumber min={0} onChange={(e) => handleInputChange("quantity", e.target.value)}/></Form.Item></Col>
-                            <Col xs={24} sm={7}><Form.Item name="price" label="Price" rules={[{ required: true }]}><InputNumber min={0} onChange={(e) => handleInputChange("price", e.target.value)}/></Form.Item></Col>
-                            <Col xs={24} sm={7}><Form.Item name="pages" label="No of pages" rules={[{ required: true }]}><InputNumber min={0} onChange={(e) => handleInputChange("pagecount", e.target.value)}/></Form.Item></Col>
+                            <Col xs={24} sm={6}><Form.Item name='quantity' label="Quantity" rules={[{ required: true }]}><InputNumber min={0} onChange={(e) => handleInputChange("quantity", e)}/></Form.Item></Col>
+                            <Col xs={24} sm={6}><Form.Item name="price" label="Price" rules={[{ required: true }]}><InputNumber min={0} onChange={(e) => handleInputChange("price", e)}/></Form.Item></Col>
+                            <Col xs={24} sm={6}><Form.Item name="pages" label="No of pages" rules={[{ required: true }]}><InputNumber min={0} onChange={(e) => handleInputChange("pagecount", e)}/></Form.Item></Col>
                         </Row>
                         <Col xs={24} sm={7} style={{ display: 'none' }}><Form.Item name="addedByID" label="addedByID" rules={[{ required: true }]}></Form.Item></Col>
                         <Col xs={24} sm={7} style={{ display: 'none' }}><Form.Item name="imagePath" label="imagePath" rules={[{ required: true }]}></Form.Item></Col>
                         <Col xs={24} sm={7} style={{ display: 'none' }}><Form.Item name="url" label="url" rules={[{ required: true }]}></Form.Item></Col>
                         
                     </Col>
-                    <Col xs={24} sm={10} align="middle" >
+                    <Col xs={24} sm={12} align="middle" >
                         <Row gutter={[40,10]} style={{marginBottom:'15px',marginLeft:'10px'}}>
-                           <Image
-                              src={props.data.url}
-                              alt={`Image of ${props.data.title}`}
-                              width="65%"
-                               />
+                        
+                        
+                        <UploadImage setImageURL={setImagePath} imagepath={imagePath} />:
+                          
                         </Row>
+                        
+                        
+                       
+                        
                         <Row gutter={[30,10]}>
                             <Col xs={24} sm={22}><Form.Item name='description' label="Description" ><TextArea rows={5} onChange={(e) => handleInputChange("description", e.target.value)}/></Form.Item></Col>
                         </Row>                
@@ -170,6 +259,7 @@ function EditModal(props) {
             
         </div>
         </ConfigProvider>
+        </>
     )
 }
 

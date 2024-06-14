@@ -229,7 +229,7 @@ function ResourcesAddForm({
               <Row gutter={[30, 11]}>
                 <Col xs={24} sm={24}>
                   <Form.Item>
-                    <UploadImage setImageURL={setImageURL} />{" "}
+                    <UploadImage setImageURL={setImageURL} imagepath={""}/>{" "}
                   </Form.Item>
                 </Col>
               </Row>

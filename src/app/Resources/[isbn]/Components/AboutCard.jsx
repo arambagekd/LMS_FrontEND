@@ -164,7 +164,7 @@ function AboutCard(props) {
                         <ButtonWithTooltip defaultText="Total" hoverText={responseData.total} />
                         <ButtonWithTooltip defaultText="Borrowed" hoverText={responseData.borrowed} />
                         <ButtonWithTooltip defaultText="Remain" hoverText={responseData.remain} />
-                        <ButtonWithTooltip defaultText="Cupboard" hoverText={responseData.cupboardId} />
+                        <ButtonWithTooltip defaultText="Cupboard" hoverText={responseData.cupboardName} />
                         <ButtonWithTooltip defaultText="Shelf" hoverText={responseData.shelfId} />
                         </Flex>
                         

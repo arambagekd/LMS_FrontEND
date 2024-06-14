@@ -1,13 +1,14 @@
+'use client'
 import React, { useState } from "react";
 import { LoadingOutlined, CloudUploadOutlined } from "@ant-design/icons";
-import { message, Upload } from "antd";
+import { Image, message, Upload } from "antd";
 import CloudinaryUploadWidget from "./CloudinaryUploadWidget";
 import { Cloudinary, CloudinaryImage } from "@cloudinary/url-gen";
 import { AdvancedImage, responsive, placeholder } from "@cloudinary/react";
 import { fill } from "@cloudinary/url-gen/actions/resize";
 import ResourcesAddForm from "../ResourcesAddForm";
 
-const UploadImage = ({setImageURL}) => {
+const UploadImage = ({setImageURL,imagepath}) => {
 
   const [imageUrl, setImageUrl] = useState("");
   const [publicId, setPublicId] = useState("");
@@ -34,17 +35,22 @@ const UploadImage = ({setImageURL}) => {
 
   const myImage = cld.image(publicId);
   console.log(imageUrl);
-  setImageURL(imageUrl);
+  if(imageUrl!==""){
+  setImageURL(imageUrl);}
   return (
     <div className="App">
       <div
-        style={{ width: "220px", height: "290px", border: "1px dotted black" }}
+        style={{display:"flex",justifyContent:"center", width: "220px", height: "290px", border: "1px dotted black" }}
       >
+        {myImage?.toURL() ? 
         <AdvancedImage
           style={{ maxWidth: "100%" }}
           cldImg={myImage}
           plugins={[responsive(), placeholder()]}
-        />
+        />: imagepath===""?
+        <CloudUploadOutlined style={{fontSize: '100px', color: '#08c',alignItems:"center"}}/>
+      :<Image src={imagepath} alt="image" style={{ width: "220px", height: "290px"}}/>}
+        
       </div>
       <CloudinaryUploadWidget uwConfig={uwConfig} setPublicId={setPublicId} setImageUrl={setImageUrl}/>
       

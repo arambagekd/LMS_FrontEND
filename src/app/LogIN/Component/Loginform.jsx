@@ -105,7 +105,9 @@ function Loginform({spinning,setSpinning}) {
             setLogin(true);
             getUser();
           }
-          
+          else{
+            setAuthenticated(false);
+          }
           setSpinning(false);
           
         }, []);

@@ -30,20 +30,14 @@ import {
 } from "antd";
 import Link from "next/link";
 import AdressBar from "./AdressBar";
-
 import { usePathname, useRouter } from "next/navigation";
 import Image from "next/image";
-
 import axios from "axios";
-
 import Cookies from "js-cookie";
-
 import axioinstance from "../Instance/api_instance";
 import { UserContext, EmailContext } from "../Context/Context";
-
 import ErrorPage from "../ErrorPage/page";
 import NotificationDrawer from "./NotificationDrawer";
-
 import { onMessageListener } from "../Yes/firebase-config";
 import NavigationFooter from "./footer";
 const { Header, Content, Sider } = Layout;
@@ -143,11 +137,13 @@ function Navigations(props) {
   const [user, setUser] = useState({});
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(true);
-  const [Notifications, setNotification] = useState([]);
   const [open, setOpen] = useState(false);
   const [authenticated, setAuthenticated] = useState(false);
   const [collapsed, setCollapsed] = useState(true);
   const [unreadCount, setUnreadCount] = useState(0);
+  const location = usePathname();
+  const rootPath = location.split("/")[1];
+
  
 
   const logout = async () => {
@@ -157,15 +153,13 @@ function Navigations(props) {
         { withCredentials: true }
       );
       Cookies.remove("jwt");
-      //  const response=axios.post();
-      console.log(response);
-      router.push("/LogIN");
+      setUser({});
+      router.replace("/LogIN");
     } catch (error) {
       console.log(error);
     }
   };
-
-    const GetUser=async()=>{
+  const GetUser=async()=>{
     try {
       const response = await axioinstance.post("User/GetMyData");
       const response1 = await axioinstance.post("User/GetEmail");
@@ -209,17 +203,6 @@ function Navigations(props) {
       console.log(error);
     }
   }
-
-
-  // const {
-  //   token: { colorBgContainer, borderRadiusLG },
-  // } = theme.useToken();
-
-  const location = usePathname();
-
-  // Extracting the root path
-  const rootPath = location.split("/")[1];
-
   const items = [
     {
       key: "1",
@@ -237,11 +220,11 @@ function Navigations(props) {
       children: [
         {
           label: (
-            <a href="https://www.antgroup.com">
+           
               <center>
                 <Avatar icon={<UserOutlined />} />{" "}
               </center>
-            </a>
+           
           ),
           key: "3",
         },
@@ -254,13 +237,13 @@ function Navigations(props) {
         },
         {
           icon: React.createElement(EditOutlined),
-          label: <a href="https://www.aliyun.com">Edit Profile</a>,
-          key: "4",
+          label: <Link href="/Settings">Edit Profile</Link>,
+          key: "5",
         },
         {
           icon: React.createElement(SettingOutlined),
-          label: <a href="https://www.aliyun.com">Settings </a>,
-          key: "5",
+          label: <Link href="/Settings">Settings </Link>,
+          key: "6",
         },
         // {
         //   icon: React.createElement(QuestionCircleOutlined),
@@ -277,14 +260,15 @@ function Navigations(props) {
         },
         {
           icon: React.createElement(LogoutOutlined),
-          label: <div onClick={logout}>Log out</div>,
+          label: "Log out",
           key: "8",
+          danger: true,
         },
       ],
     },
   ];
 
-    useEffect(() => {
+  useEffect(() => {
       GetUser();
     
       onMessageListener()
@@ -414,7 +398,8 @@ function Navigations(props) {
                     ) : null}
 
                     <Menu
-                    
+                      selectable={false}
+                      onClick={(a) => {a.key==="8"?logout():null}}
                       triggerSubMenuAction="click"
                       style={{
                         position: "sticky",

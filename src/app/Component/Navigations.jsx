@@ -1,5 +1,5 @@
 "use client";
-import React, { use, useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState } from "react";
 import {
   ArrowLeftOutlined,
   UserOutlined,
@@ -10,12 +10,8 @@ import {
   InteractionOutlined,
   InfoCircleOutlined,
   DashboardOutlined,
-  NotificationOutlined,
-  MessageTwoTone,
-  MessageFilled,
   SettingOutlined,
   EditOutlined,
-  QuestionCircleOutlined,
   HomeOutlined,
   CloudServerOutlined,
 } from "@ant-design/icons";
@@ -26,34 +22,30 @@ import {
   Flex,
   Layout,
   Menu,
-  Space,
-  theme,
   Avatar,
   Badge,
   Divider,
   Spin,
-  Result,
+
 } from "antd";
 import Link from "next/link";
 import AdressBar from "./AdressBar";
-import MenuItem from "antd/es/menu/MenuItem";
+
 import { usePathname, useRouter } from "next/navigation";
 import Image from "next/image";
 
 import axios from "axios";
 
 import Cookies from "js-cookie";
-import Profile from "./Profile";
+
 import axioinstance from "../Instance/api_instance";
 import { UserContext, EmailContext } from "../Context/Context";
-import MyHub from "../Notifications/MyHub/page";
+
 import ErrorPage from "../ErrorPage/page";
 import NotificationDrawer from "./NotificationDrawer";
-import { get } from "http";
-import { title } from "process";
+
 import { onMessageListener } from "../Yes/firebase-config";
 import NavigationFooter from "./footer";
-import { Footer } from "antd/es/layout/layout";
 const { Header, Content, Sider } = Layout;
 
 const sideitems = [
@@ -462,7 +454,7 @@ function Navigations(props) {
                   </Flex>
                   <Divider />
                   <Flex a vertical style={{ margin: "10px 0 0 0 " }}>
-                    <MyHub>{props.children}</MyHub>
+                    {props.children}
                   </Flex>
                 </Card>
               </Content>

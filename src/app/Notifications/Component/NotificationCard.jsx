@@ -133,13 +133,13 @@ function NotificationCard() {
         <div>
             <Row gutter={16} style={{ marginBottom: '30px', }}>
                 <Col span={12}>
-                    <Button style={{ marginRight: '10px', width: '150px', backgroundColor: '#001628', color: '#ffff' }} onClick={showRemindModal}>
+                    {/* <Button style={{ marginRight: '10px', width: '150px', backgroundColor: '#001628', color: '#ffff' }} onClick={showRemindModal}>
                         Reminding
                     </Button>
 
                     {visibleRemind && (
                         <RemindNotification visible={visibleRemind} onRemind={handleRemind} onCancel={() => setVisibleRemind(false)} />
-                    )}
+                    )} */}
                     <Button style={{ marginRight: '10px', width: '150px', backgroundColor: '#001628', color: '#ffff' }} onClick={showAddModal}>
                         New
                     </Button>
@@ -147,9 +147,9 @@ function NotificationCard() {
                     {selectedNotification && (
                         <UpdateNotification visible={visibleUpdate} onUpdate={handleUpdate} onCancel={handleCancel} notification={selectedNotification} />
                     )}
-                    <Button style={{ marginRight: '10px', width: '150px', backgroundColor: '#001628', color: '#ffff' }} onClick={showUpdateModal}>
+                    {/* <Button style={{ marginRight: '10px', width: '150px', backgroundColor: '#001628', color: '#ffff' }} onClick={showUpdateModal}>
                         Updates
-                    </Button>
+                    </Button> */}
                 </Col>
                 <Col span={9}>
 

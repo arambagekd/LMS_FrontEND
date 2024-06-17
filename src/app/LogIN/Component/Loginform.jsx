@@ -63,7 +63,7 @@ function Loginform({spinning,setSpinning}) {
       setSpinning(true);
         try{
             const user=String(form.getFieldValue('username'));
-            const response =await axios.post('https://7978-61-245-171-62.ngrok-free.app/api/Auth/login', 
+            const response =await axios.post('http://localhost:5164/api/Auth/login', 
               {
                 userName: String(form.getFieldValue('username')),
                 password: String(form.getFieldValue('password')),
@@ -78,13 +78,13 @@ function Loginform({spinning,setSpinning}) {
               //redirect(`/Dashboard`)
 
               if(firebasetoken!="no"){
-                const response2 =await axios.post('https://7978-61-245-171-62.ngrok-free.app/api/Notification/SetFireBaseToken',{
+                const response2 =await axios.post('http://localhost:5164/api/Notification/SetFireBaseToken',{
                   token:firebasetoken,
                   userName:user
                 })
               }
               getUser();
-             
+              setAuthenticated(true);
               // console.log(user);
               router.push( "/Dashboard")	;
               //user.userName=="admin"?router.push('/Dashboard'):router.push('/LogIN/Userselect');
@@ -117,13 +117,14 @@ function Loginform({spinning,setSpinning}) {
         useEffect(() => {
           const fetchToken = async () => {
             try{
-            const token = await getFirebaseToken();
-            console.log(token);
-            setFireBaseToken(token);
+            // const token = await getFirebaseToken();
+            // console.log(token);
+            // setFireBaseToken(token);
             const permission = await Notification.requestPermission();
             if (permission === 'granted') {
             console.log('Notification permission granted.');
-             await getFirebaseToken();
+            const token = await getFirebaseToken();
+            setFireBaseToken(token);
             } else {
             console.log('Unable to get permission to notify.');
             }

@@ -38,7 +38,7 @@ import axioinstance from "../Instance/api_instance";
 import { UserContext, EmailContext } from "../Context/Context";
 import ErrorPage from "../ErrorPage/page";
 import NotificationDrawer from "./NotificationDrawer";
-import { onMessageListener } from "../Yes/firebase-config";
+import { getFirebaseToken, onMessageListener } from "../Yes/firebase-config";
 import NavigationFooter from "./footer";
 const { Header, Content, Sider } = Layout;
 
@@ -152,8 +152,15 @@ function Navigations(props) {
         "http://localhost:5164/api/Auth/Logout",
         { withCredentials: true }
       );
-      Cookies.remove("jwt");
-      setUser({});
+      Cookies.remove("jwt");                   
+      const firebasetoken= await getFirebaseToken();
+      console.log(firebasetoken);
+      if(firebasetoken!="no"){
+        await axios.post('https://7978-61-245-171-62.ngrok-free.app/api/Notification/RemoveFireBaseToken',{
+          token:firebasetoken,
+          userName:user.userName
+      })
+      }
       router.replace("/LogIN");
     } catch (error) {
       console.log(error);
@@ -292,19 +299,19 @@ function Navigations(props) {
    
   useEffect(() => {
     if (user.userName != undefined) {
-      setAuthenticated(true);
-      setLoading(false);
+        setAuthenticated(true);
+        setLoading(false);
     }
   }, [user.userName]);
 
-  return rootPath != "LogIN" && rootPath != "ErrorPage" && rootPath!="Home" && rootPath!=""?  (
+  return rootPath != "LogIN" && rootPath != "ErrorPage" && rootPath!="Home" && rootPath!="" ?(
     <UserContext.Provider value={{ user, GetUser ,setUser}}>
       <EmailContext.Provider value={{ email, setEmail }}>
-        {loading ? (
+        {loading && 
           <Spin spinning={loading} fullscreen />
-        ) : !authenticated ? (
-          <ErrorPage />
-        ) : (
+        }
+        {!authenticated && !loading && <ErrorPage />}
+         {authenticated && !loading && 
           <Layout style={{ minHeight: "100vh" }}>
             <NotificationDrawer getUnreadCount={getUnreadCount} open={open} setOpen={setOpen} />
 
@@ -414,7 +421,7 @@ function Navigations(props) {
                   </Flex>
                 </ConfigProvider>
               </Header>
-              <Content style={{ margin: "24px 5%" }}>
+              <Content style={{ margin: "0px 0%" }}>
                 <Card>
                   <Flex  justify="space-between" align="center" wrap="wrap">
                     <Flex
@@ -449,7 +456,7 @@ function Navigations(props) {
               </Footer> */}
             </Layout>
           </Layout>
-        )}
+        }
       </EmailContext.Provider>
     </UserContext.Provider>
   ) : (

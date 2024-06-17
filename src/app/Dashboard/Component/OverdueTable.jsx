@@ -5,6 +5,7 @@ import ResultTable from '../../Component/ResultTable'
 import {BellOutlined  } from '@ant-design/icons';
 import Link from 'next/link';
 import axioinstance from '../../Instance/api_instance';
+import { UserContext } from '@/app/Context/Context';
 
 const columns = [
     {
@@ -46,6 +47,7 @@ const columns = [
 function OverdueTable() {
   const [reservation, setReservation] = React.useState([]);
   const [loading, setLoading] = React.useState(true);
+  const user = React.useContext(UserContext).user;
 
   const GetReservations = async () => {
     try{
@@ -62,8 +64,9 @@ function OverdueTable() {
   return (
     <Card>
     <div >
-        <h4>Overdue List</h4>
-        <ResultTable  loading={loading} dataset={reservation} columnset={columns} pagination={false}/>
+        {user.userType==="admin" && <h4>Overdue List</h4>}
+        {user.userType==="patron" && <h4>My Reservations</h4>}
+         <ResultTable  loading={loading} dataset={reservation} columnset={columns} pagination={false}/>
     </div>
     </Card>
   )

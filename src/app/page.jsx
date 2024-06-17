@@ -5,8 +5,6 @@ import {
   MailOutlined,
   SettingOutlined,
 } from "@ant-design/icons";
-import { FontWeight, Position } from "@cloudinary/url-gen/qualifiers";
-import { justify } from "@cloudinary/url-gen/qualifiers/textAlignment";
 import { Button, Card, Carousel, ConfigProvider, Flex, Menu, Layout, Row, Col, Space } from "antd";
 import Link from "next/link";
 import React from "react";

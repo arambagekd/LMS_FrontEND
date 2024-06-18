@@ -9,6 +9,7 @@ import Link from 'next/link';
 import Cookies from "js-cookie";
 import { getFirebaseToken, onMessageListener } from '../../Yes/firebase-config';
 import { get } from 'http';
+import { LockOutlined, UserOutlined } from '@ant-design/icons';
 
 
 function Loginform({spinning,setSpinning}) {
@@ -60,6 +61,7 @@ function Loginform({spinning,setSpinning}) {
     const router = useRouter();
     const onFinish=async()=>{
       setLoading(true);
+      setUser({});
       setSpinning(true);
         try{
             const user=String(form.getFieldValue('username'));
@@ -148,12 +150,6 @@ function Loginform({spinning,setSpinning}) {
       <Form 
       form={form}
     name="basic"
-    labelCol={{
-      span: 8,
-    }}
-    wrapperCol={{
-      span: 16,
-    }}
     style={{
       maxWidth: 600,
     }}
@@ -166,7 +162,7 @@ function Loginform({spinning,setSpinning}) {
     
   >
     <Form.Item
-      label="Username"
+     
       name="username"
       rules={[
         {
@@ -175,11 +171,11 @@ function Loginform({spinning,setSpinning}) {
         },
       ]}
     >
-      <Input />
+      <Input  prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
     </Form.Item>
 
     <Form.Item
-      label="Password"
+    
       name="password"
       rules={[
         {
@@ -188,7 +184,7 @@ function Loginform({spinning,setSpinning}) {
         },
       ]}
     >
-      <Input.Password />
+      <Input.Password prefix={<LockOutlined className="site-form-item-icon" />} placeholder='Password'/>
     </Form.Item>
 
     <Form.Item
@@ -218,6 +214,59 @@ function Loginform({spinning,setSpinning}) {
       
     </Form.Item>
       </Form>
+      //   <Form
+      //   form={form}
+      //   name="normal_login"
+      //   className="login-form"
+      //   initialValues={{
+      //     remember: true,
+      //   }}
+      //   onFinish={onFinish}
+      // >
+      //   <Form.Item
+      //     name="username"
+      //     rules={[
+      //       {
+      //         required: true,
+      //         message: 'Please input your Username!',
+      //       },
+      //     ]}
+      //   >
+          
+      //     <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
+      //   </Form.Item>
+      //   <Form.Item
+      //     name="password"
+      //     rules={[
+      //       {
+      //         required: true,
+      //         message: 'Please input your Password!',
+      //       },
+      //     ]}
+      //   >
+      //     <Input
+      //       prefix={<LockOutlined className="site-form-item-icon" />}
+      //       type="password"
+      //       placeholder="Password"
+      //     />
+      //   </Form.Item>
+      //   <Form.Item>
+      //     <Form.Item name="remember" valuePropName="checked" noStyle>
+      //       <Checkbox>Remember me</Checkbox>
+      //     </Form.Item>
+  
+      //     <a className="login-form-forgot" href="">
+      //       Forgot password
+      //     </a>
+      //   </Form.Item>
+  
+      //   <Form.Item>
+      //     <Button type="primary" htmlType="submit" className="login-form-button">
+      //       Log in
+      //     </Button>
+      //     Or <a href="">register now!</a>
+      //   </Form.Item>
+      // </Form>
       :<div>
         <strong>You have already login as {user.fName+" "+user.lName}</strong>
         <br/><br/><br/><br/><br/><br/><br/><br/>

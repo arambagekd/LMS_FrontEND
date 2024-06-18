@@ -8,6 +8,7 @@ import axioinstance from '../../../Instance/api_instance';
 import DeleteModal from './DeleteModal';
 import Link from 'next/link'
 import { UserContext } from '@/app/Context/Context'
+import ReturnModal from '../../Component/ReturnModal'
 
 
 
@@ -24,14 +25,24 @@ function AboutCard({reservationId}) {
   const[status,setStatus]=useState("")
   const [imagePath,setImagePath]=useState("")
   const user=React.useContext(UserContext).user;
-  
+  const [open, setOpen] = useState(false);
+  const [resource, setResourse] = useState("");
+  const[reservation,setReservation]=useState("");
   const openModal = () => {
     
     changeModalState(true);
   }
   const closeModal = () => {
     changeModalState(false);
-  }
+  }  
+  const showModal = () => {
+    setOpen(true);
+  };
+  const closeModal1 = () => {
+    setOpen(false);
+  };
+
+
  
 
   const fetchData=async()=>{
@@ -40,7 +51,9 @@ function AboutCard({reservationId}) {
       const response = await axioinstance.post(`Reservation/About?resId=${reservationId}`);
       console.log(response.data);
       setStatus(response.data.status);
-      setImagePath(response.data.imagePath)
+      setImagePath(response.data.imagePath);
+      setReservation(response.data.resId);
+      setResourse(response.data.isbn);
       const items = [
         {
           key: '1',
@@ -125,7 +138,7 @@ function AboutCard({reservationId}) {
             <Card bordered style={{ width: '80%' }} >
               {user.userType==="admin" &&
               <Flex justify='space-between' style={{margin:"0 0 10px 0"}}>
-                {(status==="overdue")?<Tag color="#f50" style={{ margin: " 0 20px 20px 0" }} shape='round'>OverDue</Tag>:<div style={{minWidth:'10px'}}></div>}
+                <Button type='primary' danger={(status==="overdue")} shape='round'>{status.toUpperCase()}</Button>
                 <div>
                   <DeleteModal reservation={reservationId}/>
                   <Button size='large' type='primary' style={{ margin: '0 10px 0 0' }} shape='circle' onClick={openModal} disabled={(status=="reserved")}><EditOutlined /></Button>
@@ -159,11 +172,21 @@ function AboutCard({reservationId}) {
                 </Col>
                 
               </Row>
+              {status!="reserved"&&<Flex justify='right'> <Button onClick={()=>showModal()} type='primary'>Return the Book</Button></Flex>}
             </Card>
+            
+        
             </Flex>
+
           )}
           <EditModal fetchData={fetchData} reservationId={reservationId} openModal={openModal} closeModal={closeModal} modalState={modalState} />
-          
+          <ReturnModal
+              fetchData={fetchData}
+              open={open}
+              openFuntion={showModal}
+              close={closeModal1}
+              recordData={{ resource: resource, reservationNo: reservation,status:status }}
+      />
         </Spin>
        
       )}

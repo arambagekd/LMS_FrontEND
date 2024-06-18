@@ -21,10 +21,10 @@ function DashboardCard(props) {
     <div>
       <Card  >
         <Flex wrap='wrap'>
-         
         <Flex style={iconStyle } align='center' ><div  >{props.icon}</div></Flex>
         <Flex justify='right' style={{flex:2,textAlign:'right'}}>
         <Statistic 
+          loading={props.loading}
           title={<div style={titlestyle}>{props.title} </div>}
           value={props.value}
           valueStyle={valueStyle}

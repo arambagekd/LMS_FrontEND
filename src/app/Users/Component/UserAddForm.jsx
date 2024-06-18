@@ -16,9 +16,27 @@ import {
 import FormItem from "antd/es/form/FormItem";
 import Password from "antd/es/input/Password";
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 function UserAddForm(props) {
+  const isValidPhoneNumber = (phoneNumber) => {
+    // Simple regex for validating phone numbers (you can customize this)
+    const phoneRegex = /^[+]?[0-9\s-]{10,15}$/;
+    return phoneRegex.test(phoneNumber);
+  };
+
+  const phoneValidator = async (rule, value) => {
+    if (!value || isValidPhoneNumber(value)) {
+      return Promise.resolve();
+    } else {
+      return Promise.reject('The value is not a valid phone number');
+    }
+  };
+
+  
+
+  
+
   return (
     <Form form={props.form} size="small" layout="vertical" name="nest-messages">
       <div>
@@ -96,7 +114,7 @@ function UserAddForm(props) {
           name="mobile"
           label="Mobile Number"
           required
-          rules={[{ required: true}]}
+          rules={[{ required: true},{ validator: phoneValidator }]}
         >
           <Input size="medium" />
         </Form.Item>

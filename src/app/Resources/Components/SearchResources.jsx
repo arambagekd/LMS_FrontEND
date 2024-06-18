@@ -55,9 +55,9 @@ function SearchResources({ func1, func2, func3,func4,func5,ascending, search }) 
 
     return (
         <div>
-            <Row style={{ margin: "0 0 20px 0" }} gutter={[10, 10]}>
+            <Row  style={{ margin: "0 0 20px 0" }} gutter={[10, 10]}>
 
-                <Col xs={24} sm={14}>
+                <Col xs={24} sm={16}>
 
                     <Flex wrap='wrap' align='center'>
                         <Radio.Group value={placement} onChange={handlePlacementChange} style={{ margin: ' 0 15px 0 0' }}>
@@ -69,8 +69,8 @@ function SearchResources({ func1, func2, func3,func4,func5,ascending, search }) 
                         
                     </Flex>
                 </Col>
-                <Col xs={24} sm={10}>
-
+                <Col xs={24} sm={8} >
+                    <Flex wrap='wrap' justify='right'>
                     <Space.Compact>
                         <Select
 
@@ -131,7 +131,7 @@ function SearchResources({ func1, func2, func3,func4,func5,ascending, search }) 
                             onChange={handleKeywordChange}
                         />
                     </Space.Compact>
-
+                    </Flex>
                 </Col>
 
             </Row>

@@ -42,6 +42,7 @@ const AddNotification = ({ visible, onCreate, onCancel,fetchData }) => {
       fetchData();
       onCancel();
       successModal("Notification Added Successfully");
+      form.resetFields();
     }
     catch(error){
       errorModal("Notification Added Failed");
@@ -64,7 +65,7 @@ const AddNotification = ({ visible, onCreate, onCancel,fetchData }) => {
           .validateFields()
           .then((values) => {
             sendMessage();
-            form.resetFields();
+           
           })
           .catch((info) => {
             console.log('Validate Failed:', info);

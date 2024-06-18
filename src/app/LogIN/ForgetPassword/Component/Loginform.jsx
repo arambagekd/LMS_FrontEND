@@ -6,6 +6,7 @@ import React, {  useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'; 
 
 import Link from 'next/link';
+import { MailOutlined } from '@ant-design/icons';
 
 
 function Loginform({spinning,setSpinning}) {
@@ -59,12 +60,7 @@ function Loginform({spinning,setSpinning}) {
       <Form 
       form={form}
     name="basic"
-    labelCol={{
-      span: 4,
-    }}
-    wrapperCol={{
-      span: 20,
-    }}
+    
     style={{
       maxWidth: 600,
     }}
@@ -77,7 +73,6 @@ function Loginform({spinning,setSpinning}) {
     
   >
     <Form.Item
-      label="Email"
       name="email"
       rules={[
         {
@@ -87,7 +82,7 @@ function Loginform({spinning,setSpinning}) {
         },
       ]}
     >
-      <Input />
+      <Input prefix={<MailOutlined className="site-form-item-icon" />} placeholder="Email" />
     </Form.Item>
 
    

@@ -51,11 +51,13 @@ function SearchResult() {
       render: (useid, record) => (
         <Tooltip title={record.userName}>{record.userId}</Tooltip>
       ),
+      responsive: ["md","lg","xl","xxl"]
     },
     {
       title: "Due Date",
       dataIndex: "dueDate",
       key: "dueDate",
+      responsive: ["md","lg","xl","xxl"]
     },
     // {
     //   title: "Issue Date",
@@ -99,7 +101,6 @@ function SearchResult() {
             size="small"
             shape="round"
           >
-            {" "}
             Overdue
           </Button>
         ) : (
@@ -107,6 +108,7 @@ function SearchResult() {
             Reserved
           </Button>
         ),
+        responsive: ["md","lg","xl","xxl"]
     },
   ];
 

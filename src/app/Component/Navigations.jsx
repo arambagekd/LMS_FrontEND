@@ -98,6 +98,11 @@ const sideitems = [
 
 const sideitems2 = [
   {
+    key: "Home",
+    icon: React.createElement(HomeOutlined),
+    label: <Link href="/Home">Home</Link>,
+  },
+  {
     key: "Dashboard",
     icon: React.createElement(DashboardOutlined),
     label: <Link href="/Dashboard">Dashboard</Link>,
@@ -156,7 +161,7 @@ function Navigations(props) {
       const firebasetoken= await getFirebaseToken();
       console.log(firebasetoken);
       if(firebasetoken!="no"){
-        await axios.post('https://7978-61-245-171-62.ngrok-free.app/api/Notification/RemoveFireBaseToken',{
+        await axios.post('http://localhost:5164/api/Notification/RemoveFireBaseToken',{
           token:firebasetoken,
           userName:user.userName
       })
@@ -421,7 +426,7 @@ function Navigations(props) {
                   </Flex>
                 </ConfigProvider>
               </Header>
-              <Content style={{ margin: "0px 0%" }}>
+              <Content style={{ margin: "0px 0% ",minHeight:"100vh" }}>
                 <Card>
                   <Flex  justify="space-between" align="center" wrap="wrap">
                     <Flex
@@ -438,14 +443,14 @@ function Navigations(props) {
                       />
                       {rootPath}
                     </Flex>
-                    <Flex style={{ minWidth:300}} justify="right">
+                    <Flex>
                     
                       <AdressBar item={location.split("/").map((item,index) => ({ title: <Link href={`/${location.split("/").slice(1, index + 1).join('/')}`}>{item}</Link> })).slice(1)} />
                       
                     </Flex>
                   </Flex>
                   <Divider />
-                  <Flex a vertical style={{ margin: "10px 0 0 0 " }}>
+                  <Flex a vertical style={{ margin: "10px 0 0 0 " ,minHeight:"80vh"}}>
                     {props.children}
                   </Flex>
                 </Card>

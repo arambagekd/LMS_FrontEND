@@ -13,6 +13,7 @@ import {
   ConfigProvider,
   Divider,
   Card,
+  Space,
 } from "antd";
 import UploadImage from "./myComponent/UploadImage";
 import React, { useEffect, useState } from "react";
@@ -21,6 +22,10 @@ import TextArea from "antd/es/input/TextArea";
 import moment from "moment";
 import axioinstance from "@/app/Instance/api_instance";
 import { useSearchParams } from "next/navigation";
+import { isbn } from '@form-validation/validator-isbn';
+import axios from "axios";
+import { get } from "http";
+import { RedoOutlined } from "@ant-design/icons";
 
 function ResourcesAddForm({
   form,
@@ -29,6 +34,7 @@ function ResourcesAddForm({
   selectShelf,
   cupboard,
   shelf,
+  imageurl
 }){
 
   const searchParams = useSearchParams()
@@ -36,6 +42,47 @@ function ResourcesAddForm({
   const [options, setOptions] = useState([]);
   const cupNo = searchParams.get('cupboardId');
   const shelfNo = searchParams.get('shelfNo');
+  const[disable,setDisable]=useState(true);
+ const[isbnfield,setIsbn]=useState("");
+
+  const isbnValidator = async (rule, value) => {
+    const result = isbn().validate({
+      value: value,
+    });
+
+    if (result && result.valid) {
+      return Promise.resolve();
+    } else {
+      const errorMessage = 'The value is not a valid ISBN';
+      return Promise.reject(errorMessage);
+    }
+  };
+
+
+  async function searchBookByISBN() {
+    const isbn=form.getFieldValue('isbn');
+    form.resetFields();
+    try {
+        const response = await axios.get( `https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}&key=AIzaSyBITr3YQgHb6O8OzjODFdHLdmuLDFKDSL0`);
+        console.log( response.data);
+        form.setFieldsValue({
+          isbn:response.data.items[0].volumeInfo.industryIdentifiers[0].identifier,
+          title:response.data.items[0].volumeInfo.title,
+          auther:response.data.items[0].volumeInfo.authors[0],
+          type:response.data.items[0].volumeInfo.categories[0],
+          year:response.data.items[0].volumeInfo.publishedDate,
+          pagecount:response.data.items[0].volumeInfo.pageCount,
+          description:response.data.items[0].volumeInfo.description
+        });
+        setImageURL(response.data.items[0].volumeInfo.imageLinks.thumbnail);
+    } catch (error) {
+        form.setFieldsValue({isbn:isbn});
+        console.log('Error fetching book:', error);
+        return null;
+    }
+
+}
+
 
   const getlocation = async () => {
     try {
@@ -49,6 +96,19 @@ function ResourcesAddForm({
       console.log(error);
     }
   };
+
+  useEffect(() => {
+    const result = isbn().validate({
+      value: isbnfield,
+    });
+    
+    if (result && result.valid && isbnfield.length>0){
+      setDisable(false);
+    }
+    else{
+      setDisable(true);
+    }
+  },[isbnfield]);
 
   useEffect(() => {
     getlocation();
@@ -84,6 +144,7 @@ function ResourcesAddForm({
           },
         }}
       >
+       
         <Form form={form} layout="vertical">
           <Row align="top" gutter={[30, 10]} style={{ fontWeight: "600" }}>
             <Col xs={24} sm={13}>
@@ -94,9 +155,14 @@ function ResourcesAddForm({
                     <Form.Item
                       name="isbn"
                       label="ISBN No"
-                      rules={[{ required: true }]}
+                      rules={[{ required: true ,
+                        validator:isbnValidator
+                      }]}
+                      onChange={(e)=>setIsbn(e.target.value)}
                     >
-                      <Input />
+                      <Input suffix={<Button disabled={disable} 
+                    
+                      onClick={()=>searchBookByISBN()}><RedoOutlined/></Button>}/>
                     </Form.Item>
                   </Col>
                 </Row>
@@ -115,8 +181,10 @@ function ResourcesAddForm({
                   <Col xs={24} sm={24}>
                     <Form.Item
                       name="auther"
-                      label="Auther"
-                      rules={[{ required: true }]}
+                      label="Author"
+                      rules={[{ required: true },
+
+                      ]}
                     >
                       <Input />
                     </Form.Item>
@@ -229,7 +297,7 @@ function ResourcesAddForm({
               <Row gutter={[30, 11]}>
                 <Col xs={24} sm={24}>
                   <Form.Item>
-                    <UploadImage setImageURL={setImageURL} imagepath={""}/>{" "}
+                    <UploadImage setImageURL={setImageURL} imagepath={imageurl}/>{" "}
                   </Form.Item>
                 </Col>
               </Row>

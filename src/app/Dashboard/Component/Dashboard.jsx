@@ -27,7 +27,6 @@ function Dashboard() {
 
     const iconStyle=  {padding:16,borderRadius:32,fontSize:24,background:"rgb(150,119,255)",border:'0px solid rgb(0,21,41)',color:'rgb(0,21,41)'}
     const [statics,setStatics]=useState({});
-    const[loading,setLoading]=useState(true);
     const[chart1,setChart1]=useState([]);
     const[chart2,setChart2]=useState([]);
     const user =React.useContext(UserContext).user;
@@ -63,7 +62,8 @@ function Dashboard() {
         getannouncement();
     }, [user.userType])
 
-    useEffect(() => {()=>setLoading(false);}, [statics])
+   
+
     useEffect(() => {()=>getannouncement()}, [])
 
     return (
@@ -75,15 +75,15 @@ function Dashboard() {
           <div>
           <Row style={{ width: "100%" }}  gutter={[5, 5]}>
          
-          <Col xs={24} sm={6}><DashboardCard title="Total Books" value={statics.total} icon={<ReadOutlined style={iconStyle} />} /></Col>
-            <Col xs={24} sm={6}><DashboardCard title="Total Users" value={statics.users} icon={<UserOutlined style={iconStyle}/>} /></Col>
-            <Col xs={24} sm={6}><DashboardCard title="Total Locations" value={statics.locations} icon={<CloudServerOutlined style={iconStyle}/>} /></Col>
-            <Col xs={24} sm={6}><DashboardCard title="Total Reservations" value={statics.reservations}icon={<InteractionOutlined style={iconStyle}/>} /></Col>
+          <Col xs={24} sm={6}><DashboardCard loading={statics.total==undefined} title="Total Books" value={statics.total} icon={<ReadOutlined style={iconStyle} />} /></Col>
+            <Col xs={24} sm={6}><DashboardCard loading={statics.total==undefined} title="Total Users" value={statics.users} icon={<UserOutlined style={iconStyle}/>} /></Col>
+            <Col xs={24} sm={6}><DashboardCard loading={statics.total==undefined} title="Total Locations" value={statics.locations} icon={<CloudServerOutlined style={iconStyle}/>} /></Col>
+            <Col xs={24} sm={6}><DashboardCard loading={statics.total==undefined} title="Total Reservations" value={statics.reservations}icon={<InteractionOutlined style={iconStyle}/>} /></Col>
           
-            <Col  xs={24} sm={6}><DashboardCard title="Issued Today" value={statics.issueToday} icon={<DoubleRightOutlined style={iconStyle}/>} /></Col>
-            <Col xs={24} sm={6}><DashboardCard title="Returned Today" value={statics.returnToday} icon={<DoubleLeftOutlined style={iconStyle}/>} /></Col>
-            <Col xs={24} sm={6}><DashboardCard title="Requests" value={statics.requests} icon={<AuditOutlined style={iconStyle}/>} /></Col>
-            <Col xs={24} sm={6}><DashboardCard title="Overdue" value={statics.overDue} icon={<WarningOutlined style={iconStyle}/>} /></Col>  
+            <Col  xs={24} sm={6}><DashboardCard loading={statics.total==undefined} title="Issued Today" value={statics.issueToday} icon={<DoubleRightOutlined style={iconStyle}/>} /></Col>
+            <Col xs={24} sm={6}><DashboardCard loading={statics.total==undefined} title="Returned Today" value={statics.returnToday} icon={<DoubleLeftOutlined style={iconStyle}/>} /></Col>
+            <Col xs={24} sm={6}><DashboardCard loading={statics.total==undefined} title="Requests" value={statics.requests} icon={<AuditOutlined style={iconStyle}/>} /></Col>
+            <Col xs={24} sm={6}><DashboardCard loading={statics.total==undefined} title="Overdue" value={statics.overDue} icon={<WarningOutlined style={iconStyle}/>} /></Col>  
           </Row>
        
           {typeof window !== "undefined" && (

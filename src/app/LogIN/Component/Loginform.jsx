@@ -62,7 +62,7 @@ function Loginform({ spinning, setSpinning }) {
     try {
       const user = String(form.getFieldValue("username"));
       const response = await axios.post(
-        "https://localhost:7174/api/Auth/login",
+        "https://bde8-43-250-241-21.ngrok-free.app/api/Auth/login",
         {
           userName: String(form.getFieldValue("username")),
           password: String(form.getFieldValue("password")),

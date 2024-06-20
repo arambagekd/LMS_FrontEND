@@ -1,5 +1,5 @@
 'use client'
-import { Button, Flex, Pagination, Row, Space, Table,Col} from 'antd'
+import { Button, Flex, Pagination, Row, Space, Table,Col, Spin, Empty} from 'antd'
 import React, { useEffect, useState } from 'react'
 import { UserDeleteOutlined ,MoreOutlined} from '@ant-design/icons';
 import ResultTable from '../../Component/ResultTable';
@@ -23,9 +23,11 @@ function SearchResult(props) {
 
  
   return(
-    <Card title="List of Books">
+    <Card title="List of Books" >
     <Row style={{width:"100%"}}   gutter={[15,15]} justify="center">
    
+{props.loading &&< Spin size='large' spinning={props.loading}><div style={{height:200}}></div></Spin>}
+{!props.loading && props.data.length==0 &&<Empty/>}
     {props.data.slice((page-1)*9,(page-1)*9+ 9).map((item) => (
         <CardResource  key={item.isbn}  dataset={item} />
       ))}

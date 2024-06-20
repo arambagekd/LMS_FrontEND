@@ -1,6 +1,6 @@
 'use client'
 import React, { useEffect, useState } from 'react';
-import { Card, Row, Col, Button, Select, Tooltip, Flex, Pagination, Popconfirm } from 'antd';
+import { Card, Row, Col, Button, Select, Tooltip, Flex, Pagination, Popconfirm, Spin, Empty } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
 const { Option } = Select;
 import Notifications from './Notifications';
@@ -26,6 +26,7 @@ function NotificationCard() {
     const [selectedNotification, setSelectedNotification] = useState(null);
     const[page,changepage]=useState(1);
     const[size,changeSize]=useState(0);
+    const[loading,setLoading]=useState(true);
 
     const changingPage =(pnumber,size)=>{
           changepage(pnumber);
@@ -125,6 +126,7 @@ function NotificationCard() {
             // setLoading(false); // Setting loading to false if there's an error
             console.error('Error fetching data:', error); // Logging error to console
         }
+        setLoading(false);
     }
     useEffect(() => { fetchData(); }, []);
 
@@ -188,7 +190,10 @@ function NotificationCard() {
                     </Tooltip>
                 </Col>
             </Row>
+           {loading && < Spin size='large' spinning={loading}><div style={{height:200}}></div></Spin>}
                         <Flex  vertical align="center" >
+                        
+                            {!loading && notifications.length===0 && <Empty />}
             {notifications.slice((page-1)*9,(page-1)*9+ 9).map((notification) => (
                 <Card
                     key={1}

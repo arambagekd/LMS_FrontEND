@@ -35,7 +35,7 @@ function SearchReservations({ func1,username }) {
                         <div style={{fontSize:20,fontWeight:400}}>Reservations of {username}</div>
                         <div>
                         <DatePicker style={{ width: '125px' ,margin: ' 0 15px 0 0' }} />
-                        <Radio.Group value={placement} onChange={handlePlacementChange} >
+                        <Radio.Group  size="large" value={placement} onChange={handlePlacementChange} >
                             <Radio.Button value="*">All</Radio.Button>
                             <Radio.Button value="overdue">Due</Radio.Button>
                             <Radio.Button value="borrowed">Borrowed</Radio.Button>

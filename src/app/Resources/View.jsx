@@ -18,6 +18,8 @@ function View({location}) {
   const [tag, setTag] = useState("all"); // State for tag
   const [ascending,setAscending] = useState(false); // State for items (search results)
   const user= React.useContext(UserContext).user;
+  const[loading,setLoading]=useState(true);
+
   const search = async () => {
     try {
       if(location=="no"){
@@ -42,10 +44,11 @@ function View({location}) {
       );
       const searchData = response.data;
       setBooks(searchData);
+
     }  
     } catch (error) {
-      alert("Error searching data:");
     }
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -72,8 +75,9 @@ function View({location}) {
         ascending={ascending}
         search={search}
       />
-      <br />
+     
       <SearchResult
+      loading={loading}
         data={ascending?(
           sort === "title"
             ? books.sort((a, b) => b.title.localeCompare(a.title))

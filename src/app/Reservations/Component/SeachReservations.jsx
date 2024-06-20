@@ -48,7 +48,7 @@ function SearchReservations({ func1, func2, func3, search,setDate }) {
             <Row style={{ margin: "0 0 20px 0" }} gutter={[10, 10]}>
                 <Col xs={24} sm={14}>
                     <Flex wrap='wrap' align='center'>
-                        <Radio.Group value={placement} onChange={handlePlacementChange} style={{ margin: ' 0 15px 0 0' }}>
+                        <Radio.Group  size="large" value={placement} onChange={handlePlacementChange} style={{ margin: ' 0 15px 0 0' }}>
                             <Radio.Button value="*">All</Radio.Button>
                             <Radio.Button value="overdue">Due</Radio.Button>
                             <Radio.Button value="borrowed">Borrowed</Radio.Button>
@@ -65,6 +65,7 @@ function SearchReservations({ func1, func2, func3, search,setDate }) {
                     <Space.Compact>
                         
                         <Select
+                         size="large"
                             defaultValue="all"
                             style={{ width: 100 }}
                             onChange={handleTypeChange}
@@ -76,6 +77,7 @@ function SearchReservations({ func1, func2, func3, search,setDate }) {
                             ]}
                         />
                         <Search
+                             size="large"
                             placeholder="input search text"
                             allowClear
                             onSearch={handleSearch}

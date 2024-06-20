@@ -11,7 +11,7 @@ function Location() {
     const [cupboards, setCupboards] = useState([]);
     const [keyword, setKeyword] = useState(""); 
     const user = React.useContext(UserContext).user;
-
+    const [loading, setLoading] = useState(true);
   async function getLocations() {
     try {
       const response = await axioinstance.post(
@@ -26,9 +26,12 @@ function Location() {
     } catch (error) {
       console.log(error);
     }
+    setLoading(false);
   }
 
-  useEffect(() => {getLocations()}, []);
+  useEffect(() => {getLocations()
+    
+  }, []);
   return (
     <>
    
@@ -36,10 +39,11 @@ function Location() {
         
         <Col xs={24} sm={6}>
         {user.userType==="admin"&&
-        <Link href="/Locations/AddLocation"><Button >Add a Location</Button></Link>}
+        <Link href="/Locations/AddLocation" ><Button  size="large" >Add a Location</Button></Link>}
         </Col>
         <Col xs={24} sm={6}>
         <Search
+         size="large"
                             onChange={(e) => 
                                 setKeyword(e.target.value)}
                             
@@ -50,7 +54,7 @@ function Location() {
     </Row>
     <Card title="List of Cupborads">
     <Row style={{width:"100%"}}   gutter={[15,15]} justify="center">
-     <LocationCard cupboards={cupboards}/></Row>
+     <LocationCard loading={loading} cupboards={cupboards}/></Row>
     
      </Card>
    

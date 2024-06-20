@@ -3,9 +3,9 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import styles from "./LocationCard.module.css";
 import axioinstance from "@/app/Instance/api_instance";
-import { Pagination } from "antd";
+import { Empty, Pagination, Spin } from "antd";
 
-function LocationCard({cupboards}) {
+function LocationCard({cupboards,loading}) {
     const[page,changepage]=useState(1);
 
     const changingPage =(pnumber,size)=>{
@@ -15,6 +15,8 @@ function LocationCard({cupboards}) {
   return (
     <>
     <div className={styles.container}>
+    {loading && < Spin size='large' spinning={loading}><div style={{height:200}}></div></Spin>}
+    {!loading && cupboards.length==0 &&<Empty/>}
       {cupboards.slice((page-1)*9,(page-1)*9+ 9).map((cupboard, index) => (
         <div className={styles.card} key={index}>
           <Link href={`/Locations/${cupboard.cupboardName}`} key={index}>

@@ -154,14 +154,14 @@ function Navigations(props) {
   const logout = async () => {
     try {
       const response = await axios.post(
-        "https://bde8-43-250-241-21.ngrok-free.app/api/Auth/Logout",
+        "http://localhost:5164/api/Auth/Logout",
         { withCredentials: true }
       );
       Cookies.remove("jwt");                   
       const firebasetoken= await getFirebaseToken();
       console.log(firebasetoken);
       if(firebasetoken!="no"){
-        await axios.post('https://bde8-43-250-241-21.ngrok-free.app/api/Notification/RemoveFireBaseToken',{
+        await axios.post('http://localhost:5164/api/Notification/RemoveFireBaseToken',{
           token:firebasetoken,
           userName:user.userName
       })
@@ -190,7 +190,7 @@ function Navigations(props) {
       Cookies.remove("jwt");
       console.log(token);
       const response = await axios.post(
-        `https://bde8-43-250-241-21.ngrok-free.app/api/Auth/selectusertype?userType=${usertype}`,
+        `https://localhost:7174/api/Auth/selectusertype?userType=${usertype}`,
         null,
         {
           withCredentials: true,
@@ -201,7 +201,6 @@ function Navigations(props) {
           },
         }
       );
-      Cookies.set("jwt", response.data.token,{ expires: 2 });
       GetUser();
     } catch (e) {
       console.log(e);
@@ -314,7 +313,7 @@ function Navigations(props) {
     <UserContext.Provider value={{ user, GetUser ,setUser}}>
       <EmailContext.Provider value={{ email, setEmail }}>
         {loading && 
-          <Spin spinning={loading} fullscreen />
+          <Spin size="large" spinning={loading} fullscreen />
         }
         {!authenticated && !loading && <ErrorPage />}
          {authenticated && !loading && 
@@ -427,9 +426,9 @@ function Navigations(props) {
                   </Flex>
                 </ConfigProvider>
               </Header>
-              <Content style={{ margin: "0px 0% ",minHeight:"100vh" ,backgroundColor:"rgb(245,245,245)"}}>
-                <Card >
-                  <Flex  justify="space-between" align="center" wrap="wrap" >
+              <Content style={{ margin: "0px 0% ",minHeight:"100vh" }}>
+                <Card>
+                  <Flex  justify="space-between" align="center" wrap="wrap">
                     <Flex
                       style={{ fontSize: "25px", fontWeight: "600" }}
                       align="center"

@@ -55,15 +55,16 @@ function SeachRequests({ func1, func2, func3, search }) {
 
                     <Flex wrap='wrap' align='center'>
                         <RangePicker
+                         size="large"
                             style={{ width: '150px' }}
                         />
                     </Flex>
                 </Col>
                 <Col xs={24} sm={10}>
-
+                    <Flex justify='right'>
                     <Space.Compact>
                         <Select
-
+                             size="large"
                             defaultValue="Type"
                             style={{
                                 width: 100,
@@ -93,7 +94,7 @@ function SeachRequests({ func1, func2, func3, search }) {
                                 ]}>
                         </Select>
                         <Select
-
+                             size="large"
                             defaultValue="None"
                             style={{
                                 width: 100,
@@ -118,13 +119,14 @@ function SeachRequests({ func1, func2, func3, search }) {
                                 },]}>
                         </Select>
                         <Search
+                         size="large"
                             placeholder="input search text"
                             allowClear
                             onChange={handleKeywordChange}
                             onSearch={handleSearch}
                         />
                     </Space.Compact>
-
+                    </Flex>
                 </Col>
 
             </Row>

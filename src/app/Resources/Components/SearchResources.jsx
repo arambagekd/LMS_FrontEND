@@ -59,8 +59,8 @@ function SearchResources({ func1, func2, func3,func4,func5,ascending, search }) 
 
                 <Col xs={24} sm={16}>
 
-                    <Flex wrap='wrap' align='center'>
-                        <Radio.Group value={placement} onChange={handlePlacementChange} style={{ margin: ' 0 15px 0 0' }}>
+                    <Flex s wrap='wrap' align='center'>
+                        <Radio.Group  size="large" value={placement} onChange={handlePlacementChange} style={{ margin: ' 0 15px 0 0' }}>
                             <Radio.Button value="title">Title</Radio.Button>
                             <Radio.Button value="latest">Latest</Radio.Button>
                             <Radio.Button value="popular">Popular</Radio.Button>
@@ -73,7 +73,7 @@ function SearchResources({ func1, func2, func3,func4,func5,ascending, search }) 
                     <Flex wrap='wrap' justify='right'>
                     <Space.Compact>
                         <Select
-
+                             size="large"
                             defaultValue="all"
                             style={{
                                 width: 100,
@@ -99,7 +99,7 @@ function SearchResources({ func1, func2, func3,func4,func5,ascending, search }) 
                                 ]}>
                         </Select>
                         <Select
-
+                             size="large"
                             defaultValue="all"
                             style={{
                                 width: 100,
@@ -125,6 +125,7 @@ function SearchResources({ func1, func2, func3,func4,func5,ascending, search }) 
                                 ]}>
                         </Select>
                         <Search
+                         size="large"
                             placeholder="input search text"
                             allowClear
                             onSearch={handleSearch}

@@ -69,14 +69,10 @@ function Loginform({ spinning, setSpinning }) {
         },
         { withCredentials: true }
       );
-        if(response.status==200){
         Cookies.set("jwt", response.data.token,{ expires: 2 });
         getUser();
         setAuthenticated(true);
-        }
-      if (firebasetoken != "no" && response.status == 200) {
-        
-       
+      if (firebasetoken != "no") {
         const response2 = await axios.post(
           "https://bde8-43-250-241-21.ngrok-free.app/api/Notification/SetFireBaseToken",
           {
@@ -91,7 +87,7 @@ function Loginform({ spinning, setSpinning }) {
       router.push("/LogIN");
       setLoading(false);
       setSpinning(false);
-      errorModal(error.response);
+      errorModal(error.response.data);
     } 
   };
 

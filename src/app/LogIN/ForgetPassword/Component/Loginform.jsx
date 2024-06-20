@@ -41,12 +41,14 @@ function Loginform({spinning,setSpinning}) {
       setSpinning(true);
         try{
             const response =await axios.post('https://bde8-43-250-241-21.ngrok-free.app/api/User/forgetPassword',
-              {email:form.getFieldValue('email')});
+              {emailaddress:form.getFieldValue('email')}
+            );
             successModal();
             router.push('/LogIN');
         }catch(error){
             setSpinning(false);
             setLoading(false);
+            console.log(error.response.data);
             errorModal("Error when sent password reset link, please try again!");
         }
         }

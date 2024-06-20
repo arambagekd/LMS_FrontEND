@@ -135,7 +135,7 @@ function AboutCard(props) {
     <div>
       <Flex justify="space-between" style={{marginBottom:'20px'}}>
         <div>
-          <font style={{ fontSize: '17px',fontWeight:'500'}}>{responseData.title} by {responseData.author}</font>
+          <font style={{ fontSize: '17px',fontWeight:'500'}}>{responseData.title!=undefined && responseData.title +" by "+ responseData.author}</font>
         </div>
       </Flex>
        <Row gutter={[30, 30]}>

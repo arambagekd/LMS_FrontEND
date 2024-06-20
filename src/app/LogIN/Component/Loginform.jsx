@@ -54,7 +54,7 @@ function Loginform({ spinning, setSpinning }) {
   };
 
   const router = useRouter();
-  
+
   const LogIn = async () => {
     setLoading(true);
     setUser({});
@@ -69,12 +69,7 @@ function Loginform({ spinning, setSpinning }) {
         },
         { withCredentials: true }
       );
-
-
-      console.log(response.data);
-      console.log(response.data);
       Cookies.set("jwt", response.data.token,{ expires: 2 });
-
       if (firebasetoken != "no") {
         const response2 = await axios.post(
           "https://bde8-43-250-241-21.ngrok-free.app/api/Notification/SetFireBaseToken",
@@ -89,9 +84,9 @@ function Loginform({ spinning, setSpinning }) {
       router.push("/Dashboard");
       successModal();
     } catch (error) {
+      router.push("/LogIN");
       setLoading(false);
       setSpinning(false);
-      console.log(error);
       errorModal(error.response);
     } };
 

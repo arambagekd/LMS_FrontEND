@@ -69,10 +69,10 @@ function Loginform({ spinning, setSpinning }) {
         },
         { withCredentials: true }
       );
-      Cookies.set("jwt", response.data.token,{ expires: 2 });
-      getUser();
       setAuthenticated(true);
       if (firebasetoken != "no" && response.status == 200) {
+        Cookies.set("jwt", response.data.token,{ expires: 2 });
+        getUser();
         const response2 = await axios.post(
           "https://bde8-43-250-241-21.ngrok-free.app/api/Notification/SetFireBaseToken",
           {

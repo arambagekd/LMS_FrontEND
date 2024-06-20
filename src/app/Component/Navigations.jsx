@@ -190,7 +190,7 @@ function Navigations(props) {
       Cookies.remove("jwt");
       console.log(token);
       const response = await axios.post(
-        `http://localhost:5164/api/Auth/selectusertype?userType=${usertype}`,
+        `https://https://bde8-43-250-241-21.ngrok-free.app/api/Auth/selectusertype?userType=${usertype}`,
         null,
         {
           withCredentials: true,
@@ -201,6 +201,7 @@ function Navigations(props) {
           },
         }
       );
+      Cookies.set("jwt", response.data.token,{ expires: 2 });
       GetUser();
     } catch (e) {
       console.log(e);
@@ -426,9 +427,9 @@ function Navigations(props) {
                   </Flex>
                 </ConfigProvider>
               </Header>
-              <Content style={{ margin: "0px 0% ",minHeight:"100vh" }}>
-                <Card>
-                  <Flex  justify="space-between" align="center" wrap="wrap">
+              <Content style={{ margin: "0px 0% ",minHeight:"100vh" ,backgroundColor:"rgb(245,245,245)"}}>
+                <Card >
+                  <Flex  justify="space-between" align="center" wrap="wrap" >
                     <Flex
                       style={{ fontSize: "25px", fontWeight: "600" }}
                       align="center"

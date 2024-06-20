@@ -5,7 +5,7 @@ import Cookies from "js-cookie";
 //const token =Cookies.get('jwt');
 const axioinstance = axios.create(
   {
-  baseURL : 'http://localhost:5164/api/',
+  baseURL : 'https://bde8-43-250-241-21.ngrok-free.app/api/',
   headers: {
     //'Authorization': `Bearer ${token}`,
     'Content-Type': "application/json",

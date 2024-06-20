@@ -58,8 +58,8 @@ useEffect(()=>{form.setFieldValue("currentemail",email)},[email])
   return (
     <div>
       {contextHolder}
-      <Collapse
-      items={[{ key: '1', label: "Change Email Address", children: <>
+      {/* <Collapse
+      items={[{ key: '1', label: "Change Email Address", children: <> */}
        <Button size='small'  shape='circle' onClick={()=>setEdit(!edit)}><EditOutlined /></Button>  
        <Spin spinning={spinning} >
         <Flex justify='center'>
@@ -80,9 +80,9 @@ useEffect(()=>{form.setFieldValue("currentemail",email)},[email])
         </Form>
         </Flex>
         </Spin>
-        </>
+        {/* </>
         }]}
-        />
+        /> */}
     </div>
   )
 }

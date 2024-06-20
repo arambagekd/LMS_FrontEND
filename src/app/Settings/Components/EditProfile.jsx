@@ -90,8 +90,8 @@ function EditProfile() {
     <div>
       
       {contextHolder}
-      <Collapse
-      items={[{ key: '1', label: "Edit Profile Details", children: <>
+      {/* <Collapse
+      items={[{ key: '1', label: "Edit Profile Details", children: <> */}
        <Button size='small'  shape='circle' onClick={()=>setEdit(!edit)}><EditOutlined /></Button>  
        <Spin spinning={spinning}>
         <Flex justify='center'>
@@ -119,9 +119,9 @@ function EditProfile() {
         
         </Flex>
         </Spin>
-        </>
+        {/* </>
         }]}
-        />
+         */}
     </div>
   )
 }

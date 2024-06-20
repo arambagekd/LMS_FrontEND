@@ -60,9 +60,9 @@ function EditProfile() {
 
     <div>
       {contextHolder}
-      <Collapse
+      {/* <Collapse
       items={[{ key: '1', label: "Change Password", children: 
-      <>
+      <> */}
       <Spin spinning={spinning}>
        <Button size='small'   shape='circle' onClick={()=>setEdit(!edit)}><EditOutlined /></Button>  
        <div>{confirmPassword}</div>
@@ -90,9 +90,9 @@ function EditProfile() {
         </Form>
         </Flex>
         </Spin>
-        </>
+        {/* </>
         }]}
-        />
+        /> */}
     </div>
   )
 }

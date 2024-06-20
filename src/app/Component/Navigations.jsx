@@ -190,7 +190,7 @@ function Navigations(props) {
       Cookies.remove("jwt");
       console.log(token);
       const response = await axios.post(
-        `https://https://bde8-43-250-241-21.ngrok-free.app/api/Auth/selectusertype?userType=${usertype}`,
+        `https://bde8-43-250-241-21.ngrok-free.app/api/Auth/selectusertype?userType=${usertype}`,
         null,
         {
           withCredentials: true,

@@ -42,6 +42,8 @@ import ErrorPage from "../ErrorPage/page";
 import NotificationDrawer from "./NotificationDrawer";
 import { getFirebaseToken, onMessageListener } from "../Yes/firebase-config";
 import NavigationFooter from "./footer";
+import { authService } from "../../../auth/authService";
+import { get } from "http";
 const { Header, Content, Sider } = Layout;
 
 const sideitems = [
@@ -156,19 +158,13 @@ function Navigations(props) {
   const logout = async () => {
     setLoading(true);
     try {
-      const response = await axios.post(
-        "https://lms20240616161754.azurewebsites.net/api/Auth/Logout",
-        { withCredentials: true }
-      );
-      Cookies.remove("jwt");                   
+      const response = await authService.logout();
       const firebasetoken= await getFirebaseToken();
-      console.log(firebasetoken);
       if(firebasetoken!="no"){
-        await axios.post('https://lms20240616161754.azurewebsites.net/api/Notification/RemoveFireBaseToken',{
-          token:firebasetoken,
-          userName:user.userName
-      })
+        const res=await authService.removeFirebasetoken(firebasetoken,user.userName);
       }
+      setAuthenticated(false);
+      setUser({});
       router.replace("/LogIN");
     } catch (error) {
       console.log(error);
@@ -176,35 +172,21 @@ function Navigations(props) {
   };
   const GetUser=async()=>{
     try {
-      const response = await axioinstance.post("User/GetMyData");
-      const response1 = await axioinstance.post("User/GetEmail");
-      console.log(response.data);
-      setUser(response.data);
-      setEmail(response1.data);
+      const response=await authService.getuser();
+      setUser(response.user);
+      setEmail(response.email);
     } catch (error) {
-      
-      console.log(error);
-      setLoading(false);
+      try{
+        await authService.refreshToken();
+        GetUser();
+        }catch(e){
+          setLoading(false);
+        }
     }
   };
   const selectPatron = async (usertype) => {
     try {
-      const token = Cookies.get("jwt");
-      Cookies.remove("jwt");
-      console.log(token);
-      const response = await axios.post(
-        `https://lms20240616161754.azurewebsites.net/api/Auth/selectusertype?userType=${usertype}`,
-        null,
-        {
-          withCredentials: true,
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-            timeout: 1000,
-          },
-        }
-      );
-      Cookies.set("jwt", response.data.token,{ expires: 2 });
+      const response = await authService.selectPatron(usertype);
       GetUser();
     } catch (e) {
       console.log(e);
@@ -219,7 +201,8 @@ function Navigations(props) {
       console.log(error);
     }
   }
-  const items = [
+ 
+   const itemadmin = [
     {
       key: "1",
 
@@ -252,7 +235,7 @@ function Navigations(props) {
           type: "divider",
         },
         {
-          icon: React.createElement(UserSwitchOutlined),
+          icon: user.actualType == "admin" ? React.createElement(UserSwitchOutlined):null,
           label: user.actualType == "admin" ? (
             <>
               {user.userType == "admin" ? (
@@ -309,9 +292,75 @@ function Navigations(props) {
     },
   ];
 
+  const itempatron = [
+    {
+      key: "1",
+
+      label: (
+        <Badge count={unreadCount>9?9+"+":unreadCount}>
+        <Avatar  onClick={() => setOpen(true)} icon={<MessageOutlined />} />
+        </Badge>
+      ),
+    },
+    {
+      key: "2",
+
+      label: <Avatar icon={<UserOutlined />} />,
+      children: [
+        {
+          label: (
+           
+              <center>
+                <Avatar icon={<UserOutlined />} />{" "}
+              </center>
+           
+          ),
+          key: "3",
+        },
+        {
+          label: <center>{user.fName + " " + user.lName}</center>,
+          key: "4",
+        },
+        {
+          type: "divider",
+        },
+       
+        {
+          icon: React.createElement(EditOutlined),
+          label: <Link href="/Settings">Edit Profile</Link>,
+          key: "5",
+        },
+        {
+          icon: React.createElement(SettingOutlined),
+          label: <Link href="/Settings">Settings </Link>,
+          key: "6",
+        },
+    
+        // {
+        //   icon: React.createElement(QuestionCircleOutlined),
+        //   label: <a href="https://www.aliyun.com">Help & Support </a>,
+        //   key: "6",
+        // },
+        {
+          icon: React.createElement(InfoCircleOutlined),
+          label: <a href="https://www.aliyun.com">About</a>,
+          key: "8",
+        },
+        {
+          type: "divider",
+        },
+        {
+          icon: React.createElement(LogoutOutlined),
+          label:<Space onClick={logout}>Logout</Space>,
+          key: "9",
+          danger: true,
+        },
+      ],
+    },
+  ];
+
   useEffect(() => {
       GetUser();
-    
       onMessageListener()
             .then((payload) => {
               console.log('Message received. ', payload);
@@ -424,7 +473,7 @@ function Navigations(props) {
                       theme="light"
                       mode="horizontal"
                       defaultSelectedKeys={["."]}
-                      items={items}
+                      items={user.actualType=="admin"?itemadmin:itempatron}
                     />
                 
                 </ConfigProvider>
@@ -468,7 +517,7 @@ function Navigations(props) {
       </EmailContext.Provider>
     </UserContext.Provider>
   ) : (
-    <UserContext.Provider value={{ user, GetUser,setUser,setAuthenticated,setLoading }}>
+    <UserContext.Provider value={{ user, GetUser,setUser,setAuthenticated,setLoading,authenticated }}>
       <EmailContext.Provider value={{ email, setEmail }}>
         {props.children}
       </EmailContext.Provider>

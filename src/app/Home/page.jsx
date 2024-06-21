@@ -3,6 +3,8 @@ import {
   AppstoreOutlined,
   LoginOutlined,
   MailOutlined,
+  MobileFilled,
+  MobileOutlined,
   SettingOutlined,
 } from "@ant-design/icons";
 import { FontWeight, Position } from "@cloudinary/url-gen/qualifiers";
@@ -75,7 +77,7 @@ const HomePage = () => {
             </p>
             <br />
             <Flex wrap="wrap" justify="center" align="center" gap={15}>
-              <Button size="large"  type="primary">Sign up for EasyLibro</Button>
+              <Link href="/LogIN"><Button size="large"   type="primary">Sign in to EasyLibro</Button></Link>
             </Flex>
           </div>
         </main>
@@ -128,24 +130,31 @@ const HomePage = () => {
         <section style={styles.ctaSection}>
           <h2 style={styles.sectionHeading}>Join Us Today</h2>
           <p>Sign up now and start exploring a world of books and resources at your fingertips.</p>
-          <Button type="primary" size="large">Get Started</Button>
+          <Link href="/LogIN"><Button type="primary" size="large">Get Started</Button></Link>
         </section>
       </Content>
       <Footer style={styles.footer}>
-        <Row justify="space-around">
-          <Col span={6}>
+        <Row justify="space-between">
+          <Col  >
             <h3>About Us</h3>
             <p>Learn more about our mission and values.</p>
           </Col>
-          <Col span={6}>
+          <Col >
             <h3>Contact Us</h3>
             <p>Get in touch with our support team.</p>
+            <ul style={{listStyle:"none"}}>
+              <li><MobileOutlined/><Space style={{margin:"0 0 0 15px",fontSize:18}}>041 226 8205</Space></li>
+              <li> <MailOutlined/><Space style={{margin:"0 0 0 15px",fontSize:18}}><a href="mailto:easyLibro.online">easyLibro.online</a></Space></li>
+            </ul>
+            
+           
+            
           </Col>
-          <Col span={6}>
+          <Col >
             <h3>Resources</h3>
             <p>Explore our collection of resources and guides.</p>
           </Col>
-          <Col span={6}>
+          <Col>
             <h3>Follow Us</h3>
             {/* <Space>
               <a href="https://twitter.com"><img src="/path/to/twitter-icon.png" alt="Twitter" /></a>
@@ -155,7 +164,7 @@ const HomePage = () => {
           </Col>
         </Row>
         <div style={styles.footerBottom}>
-          <p>&copy; 2024 Library Management System. All rights reserved.</p>
+          <p>&copy; EasyLibro Library Management System. All rights reserved.</p>
           <Link href="/privacy-policy">Privacy Policy</Link> | <Link href="/terms-of-service">Terms of Service</Link>
         </div>
       </Footer>

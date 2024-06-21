@@ -1,11 +1,11 @@
 import axios from "axios"; 
-import Cookies from "js-cookie";
+
 
 
 //const token =Cookies.get('jwt');
 const axioinstance = axios.create(
   {
-  baseURL : 'https://lms20240616161754.azurewebsites.net/api/',
+  baseURL : 'https://localhost:7174/api/',
   headers: {
     //'Authorization': `Bearer ${token}`,
     'Content-Type': "application/json",
@@ -16,7 +16,7 @@ const axioinstance = axios.create(
 
 axioinstance.interceptors.request.use(
   (config) => {
-    const token = Cookies.get('jwt');
+    const token = localStorage.getItem('jwt');
     if (token) {
       config.headers['Authorization'] = `Bearer ${token}`;
     }

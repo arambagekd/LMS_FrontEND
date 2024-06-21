@@ -10,6 +10,8 @@ import Cookies from "js-cookie";
 import { getFirebaseToken, onMessageListener } from "../../Yes/firebase-config";
 import { get } from "http";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
+import { authService } from "../../../../auth/authService";
+import { firebaseauth } from "../../../../auth/firebaseauth";
 
 function Loginform({  setSpinning }) {
   const [form] = Form.useForm();
@@ -18,6 +20,7 @@ function Loginform({  setSpinning }) {
   const setUser = React.useContext(UserContext).setUser;
   const spinningFullScreen=React.useContext(UserContext).setLoading;
   const setAuthenticated = React.useContext(UserContext).setAuthenticated;
+  const authenticated = React.useContext(UserContext).authenticated;
   const [loading, setLoading] = useState(false);
   const [loading1, setLoading1] = useState(false);
   const [loading2, setLoading2] = useState(false);
@@ -38,22 +41,6 @@ function Loginform({  setSpinning }) {
       content: e,
     });
   };
-
-  const NewLogIn = () => {
-    Cookies.remove("jwt");
-    setUser({});
-    setAuthenticated(false);
-    setLoading1(true);
-    setLoading1(false);
-    setLogin(false);
-  };
-
-  const continueLogIn = () => {
-    setSpinning(true);
-    setLoading2(true);
-    router.push("/Dashboard");
-  };
-
   const router = useRouter();
 
   const LogIn = async () => {
@@ -62,49 +49,25 @@ function Loginform({  setSpinning }) {
     setSpinning(true);
     try {
       const user = String(form.getFieldValue("username"));
-      const response = await axios.post(
-        "https://lms20240616161754.azurewebsites.net/api/Auth/login",
-        {
-          userName: String(form.getFieldValue("username")),
-          password: String(form.getFieldValue("password")),
-        },
-        { withCredentials: true }
-      );
-        Cookies.set("jwt", response.data.token,{ expires: 2 });
+      const response = await authService.login (  String(form.getFieldValue("username")),  String(form.getFieldValue("password")), )
         getUser();
-        setAuthenticated(true);
+        
       if (firebasetoken != "no") {
-        const response2 = await axios.post(
-          "https://lms20240616161754.azurewebsites.net/api/Notification/SetFireBaseToken",
-          {
-            token: firebasetoken,
-            userName: user,
-          }
-        );
+        const response2 = firebaseauth.setFirebasetoken(firebasetoken, user);
       }
-      router.push("/Dashboard");
+      setAuthenticated(true);
       successModal();
     } catch (error) {
       router.push("/LogIN");
       setLoading(false);
       setSpinning(false);
-      errorModal(error.response.data);
+      errorModal(error);
     } 
   };
 
-  useEffect(() => {
-    spinningFullScreen(false);
-    const token = Cookies.get("jwt");
-    if (token) {
-      setLogin(true);
-      getUser();
-    } else {
-      setAuthenticated(false);
-    }
-    setSpinning(false);
-  }, []);
 
   useEffect(() => {
+    setSpinning(false);
     const fetchToken = async () => {
       try {
         // const token = await getFirebaseToken();
@@ -125,14 +88,12 @@ function Loginform({  setSpinning }) {
 
     fetchToken();
   }, []);
-
+ 
   useEffect(() => {});
 
   return (
-    <div style={{ margin: 30 }}>
+      <div style={{ margin: 30 }}>
       {contextHolder}
-
-      {!login ? (
         <Form
           form={form}
           name="basic"
@@ -200,89 +161,7 @@ function Loginform({  setSpinning }) {
             </Button>
           </Form.Item>
         </Form>
-      ) : (
-        //   <Form
-        //   form={form}
-        //   name="normal_login"
-        //   className="login-form"
-        //   initialValues={{
-        //     remember: true,
-        //   }}
-        //   onFinish={onFinish}
-        // >
-        //   <Form.Item
-        //     name="username"
-        //     rules={[
-        //       {
-        //         required: true,
-        //         message: 'Please input your Username!',
-        //       },
-        //     ]}
-        //   >
-
-        //     <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
-        //   </Form.Item>
-        //   <Form.Item
-        //     name="password"
-        //     rules={[
-        //       {
-        //         required: true,
-        //         message: 'Please input your Password!',
-        //       },
-        //     ]}
-        //   >
-        //     <Input
-        //       prefix={<LockOutlined className="site-form-item-icon" />}
-        //       type="password"
-        //       placeholder="Password"
-        //     />
-        //   </Form.Item>
-        //   <Form.Item>
-        //     <Form.Item name="remember" valuePropName="checked" noStyle>
-        //       <Checkbox>Remember me</Checkbox>
-        //     </Form.Item>
-
-        //     <a className="login-form-forgot" href="">
-        //       Forgot password
-        //     </a>
-        //   </Form.Item>
-
-        //   <Form.Item>
-        //     <Button type="primary" htmlType="submit" className="login-form-button">
-        //       Log in
-        //     </Button>
-        //     Or <a href="">register now!</a>
-        //   </Form.Item>
-        // </Form>
-        <div>
-          <strong>
-            You have already login as {user.fName + " " + user.lName}
-          </strong>
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-
-          <Button type="primary" block onClick={NewLogIn} loading={loading1}>
-            Log in As New User
-          </Button>
-          <br />
-          <br />
-          <Button
-            type="primary"
-            block
-            onClick={continueLogIn}
-            loading={loading2}
-          >
-            Continue as {user.fName + " " + user.lName}
-          </Button>
-        </div>
-      )}
-    </div>
-  );
-}
+      
+  </div>
+  );}
 export default Loginform;

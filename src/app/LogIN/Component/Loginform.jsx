@@ -11,11 +11,12 @@ import { getFirebaseToken, onMessageListener } from "../../Yes/firebase-config";
 import { get } from "http";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 
-function Loginform({ spinning, setSpinning }) {
+function Loginform({  setSpinning }) {
   const [form] = Form.useForm();
   const getUser = React.useContext(UserContext).GetUser;
   const user = React.useContext(UserContext).user;
   const setUser = React.useContext(UserContext).setUser;
+  const spinningFullScreen=React.useContext(UserContext).setLoading;
   const setAuthenticated = React.useContext(UserContext).setAuthenticated;
   const [loading, setLoading] = useState(false);
   const [loading1, setLoading1] = useState(false);
@@ -92,6 +93,7 @@ function Loginform({ spinning, setSpinning }) {
   };
 
   useEffect(() => {
+    spinningFullScreen(false);
     const token = Cookies.get("jwt");
     if (token) {
       setLogin(true);

@@ -154,6 +154,7 @@ function Navigations(props) {
  
 
   const logout = async () => {
+    setLoading(true);
     try {
       const response = await axios.post(
         "https://lms20240616161754.azurewebsites.net/api/Auth/Logout",
@@ -300,7 +301,7 @@ function Navigations(props) {
         },
         {
           icon: React.createElement(LogoutOutlined),
-          label: "Log out",
+          label:<Space onClick={logout}>Logout</Space>,
           key: "9",
           danger: true,
         },
@@ -467,7 +468,7 @@ function Navigations(props) {
       </EmailContext.Provider>
     </UserContext.Provider>
   ) : (
-    <UserContext.Provider value={{ user, GetUser,setUser,setAuthenticated }}>
+    <UserContext.Provider value={{ user, GetUser,setUser,setAuthenticated,setLoading }}>
       <EmailContext.Provider value={{ email, setEmail }}>
         {props.children}
       </EmailContext.Provider>

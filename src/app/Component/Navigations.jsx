@@ -201,6 +201,7 @@ function Navigations(props) {
           },
         }
       );
+      Cookies.set("jwt", response.data.token,{ expires: 2 });
       GetUser();
     } catch (e) {
       console.log(e);

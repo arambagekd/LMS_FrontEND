@@ -154,14 +154,14 @@ function Navigations(props) {
   const logout = async () => {
     try {
       const response = await axios.post(
-        "http://localhost:5164/api/Auth/Logout",
+        "https://lms20240616161754.azurewebsites.net/api/Auth/Logout",
         { withCredentials: true }
       );
       Cookies.remove("jwt");                   
       const firebasetoken= await getFirebaseToken();
       console.log(firebasetoken);
       if(firebasetoken!="no"){
-        await axios.post('http://localhost:5164/api/Notification/RemoveFireBaseToken',{
+        await axios.post('https://lms20240616161754.azurewebsites.net/api/Notification/RemoveFireBaseToken',{
           token:firebasetoken,
           userName:user.userName
       })

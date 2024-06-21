@@ -40,7 +40,7 @@ function Loginform({spinning,setSpinning}) {
       setLoading(true);
       setSpinning(true);
         try{
-            const response =await axios.post('https://bde8-43-250-241-21.ngrok-free.app/api/User/forgetPassword',
+            const response =await axios.post('https://lms20240616161754.azurewebsites.net/api/User/forgetPassword',
               {emailaddress:form.getFieldValue('email')}
             );
             successModal();

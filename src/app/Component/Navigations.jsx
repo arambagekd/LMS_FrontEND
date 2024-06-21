@@ -190,7 +190,7 @@ function Navigations(props) {
       Cookies.remove("jwt");
       console.log(token);
       const response = await axios.post(
-        `https://localhost:7174/api/Auth/selectusertype?userType=${usertype}`,
+        `https://lms20240616161754.azurewebsites.net/api/Auth/selectusertype?userType=${usertype}`,
         null,
         {
           withCredentials: true,

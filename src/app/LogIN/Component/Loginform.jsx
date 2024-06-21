@@ -62,7 +62,7 @@ function Loginform({ spinning, setSpinning }) {
     try {
       const user = String(form.getFieldValue("username"));
       const response = await axios.post(
-        "https://bde8-43-250-241-21.ngrok-free.app/api/Auth/login",
+        "https://lms20240616161754.azurewebsites.net/api/Auth/login",
         {
           userName: String(form.getFieldValue("username")),
           password: String(form.getFieldValue("password")),
@@ -74,7 +74,7 @@ function Loginform({ spinning, setSpinning }) {
         setAuthenticated(true);
       if (firebasetoken != "no") {
         const response2 = await axios.post(
-          "https://bde8-43-250-241-21.ngrok-free.app/api/Notification/SetFireBaseToken",
+          "https://lms20240616161754.azurewebsites.net/api/Notification/SetFireBaseToken",
           {
             token: firebasetoken,
             userName: user,

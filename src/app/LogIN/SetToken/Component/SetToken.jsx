@@ -14,8 +14,7 @@ function SetToken() {
   
   useEffect(() => {
     if (jwt) {
-      // Save token as a cookie
-      Cookies.set('jwt', jwt, { path: '/' }, { httpOnly: false });
+      localStorage.setItem("jwt", jwt);
     }
   },[]);
 

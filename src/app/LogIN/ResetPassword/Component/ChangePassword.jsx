@@ -55,7 +55,7 @@ function ChangePassword({spinning,setSpinning}) {
           setConfirmPassword("");
           setNewPassword("");
           form.resetFields();
-          Cookies.remove("jwt");
+          localStorage.removeItem("jwt");
           router.push("/LogIN")
         } catch (e) {
           setSpinning(false);

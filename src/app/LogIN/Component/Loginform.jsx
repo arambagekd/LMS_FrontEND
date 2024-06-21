@@ -50,7 +50,7 @@ function Loginform({  setSpinning }) {
     try {
       const user = String(form.getFieldValue("username"));
       const response = await authService.login (  String(form.getFieldValue("username")),  String(form.getFieldValue("password")), )
-        getUser();
+      getUser();
         
       if (firebasetoken != "no") {
         const response2 = firebaseauth.setFirebasetoken(firebasetoken, user);
@@ -61,7 +61,8 @@ function Loginform({  setSpinning }) {
       router.push("/LogIN");
       setLoading(false);
       setSpinning(false);
-      errorModal(error);
+      errorModal("Login Failed");
+      
     } 
   };
 

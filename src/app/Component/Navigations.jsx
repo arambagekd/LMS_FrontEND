@@ -44,6 +44,7 @@ import { getFirebaseToken, onMessageListener } from "../Yes/firebase-config";
 import NavigationFooter from "./footer";
 import { authService } from "../../../auth/authService";
 import { get } from "http";
+import { firebaseauth } from "../../../auth/firebaseauth";
 const { Header, Content, Sider } = Layout;
 
 const sideitems = [
@@ -161,7 +162,7 @@ function Navigations(props) {
       const response = await authService.logout();
       const firebasetoken= await getFirebaseToken();
       if(firebasetoken!="no"){
-        const res=await authService.removeFirebasetoken(firebasetoken,user.userName);
+        const res=await firebaseauth.removeFirebasetoken(firebasetoken,user.userName);
       }
       setAuthenticated(false);
       setUser({});

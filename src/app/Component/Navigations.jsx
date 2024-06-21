@@ -162,7 +162,11 @@ function Navigations(props) {
       const response = await authService.logout();
       const firebasetoken= await getFirebaseToken();
       if(firebasetoken!="no"){
+        try{
         const res=await firebaseauth.removeFirebasetoken(firebasetoken,user.userName);
+        }catch(e){
+          
+        }
       }
       setAuthenticated(false);
       setUser({});

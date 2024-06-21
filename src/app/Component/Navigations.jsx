@@ -14,6 +14,7 @@ import {
   EditOutlined,
   HomeOutlined,
   CloudServerOutlined,
+  UserSwitchOutlined,
 } from "@ant-design/icons";
 import {
   Button,
@@ -26,6 +27,7 @@ import {
   Badge,
   Divider,
   Spin,
+  Space,
 
 } from "antd";
 import Link from "next/link";
@@ -249,6 +251,30 @@ function Navigations(props) {
           type: "divider",
         },
         {
+          icon: React.createElement(UserSwitchOutlined),
+          label: user.actualType == "admin" ? (
+            <>
+              {user.userType == "admin" ? (
+                <Space
+                  onClick={() => selectPatron("patron")}
+                  //style={{ margin: "0 0 0 15px" }}
+                >
+                  Patron View
+                </Space>
+              ) : null}
+              {user.userType == "patron" ? (
+                <Space
+                  onClick={() => selectPatron("admin")}
+                  //style={{ margin: "0 0 0 15px" }}
+                >
+                  Admin View
+                </Space>
+              ) : null}
+            </>
+          ) : null,
+          key: "7",
+        },
+        {
           icon: React.createElement(EditOutlined),
           label: <Link href="/Settings">Edit Profile</Link>,
           key: "5",
@@ -258,6 +284,7 @@ function Navigations(props) {
           label: <Link href="/Settings">Settings </Link>,
           key: "6",
         },
+    
         // {
         //   icon: React.createElement(QuestionCircleOutlined),
         //   label: <a href="https://www.aliyun.com">Help & Support </a>,
@@ -266,7 +293,7 @@ function Navigations(props) {
         {
           icon: React.createElement(InfoCircleOutlined),
           label: <a href="https://www.aliyun.com">About</a>,
-          key: "7",
+          key: "8",
         },
         {
           type: "divider",
@@ -274,7 +301,7 @@ function Navigations(props) {
         {
           icon: React.createElement(LogoutOutlined),
           label: "Log out",
-          key: "8",
+          key: "9",
           danger: true,
         },
       ],
@@ -383,32 +410,6 @@ function Navigations(props) {
                     },
                   }}
                 >
-                  <Flex
-                    justify={
-                      user.actualType == "admin" ? "space-between" : "right"
-                    }
-                    align="center"
-                  >
-                    {user.actualType == "admin" ? (
-                      <>
-                        {user.userType == "admin" ? (
-                          <Button
-                            onClick={() => selectPatron("patron")}
-                            style={{ margin: "0 0 0 15px" }}
-                          >
-                            Patron View
-                          </Button>
-                        ) : null}
-                        {user.userType == "patron" ? (
-                          <Button
-                            onClick={() => selectPatron("admin")}
-                            style={{ margin: "0 0 0 15px" }}
-                          >
-                            Admin View
-                          </Button>
-                        ) : null}
-                      </>
-                    ) : null}
 
                     <Menu
                       selectable={false}
@@ -424,7 +425,7 @@ function Navigations(props) {
                       defaultSelectedKeys={["."]}
                       items={items}
                     />
-                  </Flex>
+                
                 </ConfigProvider>
               </Header>
               <Content style={{ margin: "0px 0% ",minHeight:"100vh" }}>

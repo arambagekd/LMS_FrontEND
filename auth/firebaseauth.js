@@ -6,7 +6,7 @@ import Cookies from 'js-cookie';
  // Replace with your backend API URL
 
 const apiService = axios.create({
-  baseURL: 'https://lms20240616161754.azurewebsites.net/pi/',
+  baseURL: 'https://lms20240616161754.azurewebsites.net/api/',
   headers: {
     'Content-Type': 'application/json'
   }

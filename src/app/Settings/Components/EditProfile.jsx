@@ -1,6 +1,6 @@
 'use client'
 import { EditOutlined } from '@ant-design/icons'
-import { Card, DatePicker, Form,Flex, Input, Button, Collapse ,Spin,message } from 'antd'
+import { Card, DatePicker, Form,Flex, Input, Button, Collapse ,Spin,message, ConfigProvider } from 'antd'
 import { useForm } from 'antd/es/form/Form'
 import React, { use, useEffect, useState } from 'react'
 import axioinstance from '../../Instance/api_instance'
@@ -95,16 +95,28 @@ function EditProfile() {
        <Button size='small'  shape='circle' onClick={()=>setEdit(!edit)}><EditOutlined /></Button>  
        <Spin spinning={spinning}>
         <Flex justify='center'>
+   
         <Form onValuesChange={()=>setSave(false)} form={form} style={{width:'75%'}} size='small'  name="nest-messages"  labelCol={{  span: 6,}} wrapperCol={{span:16}}  disabled={edit} >
         {/* initialValue={dayjs(date, "YYYY-MM-DD")}></Form> */}
+        <ConfigProvider
+  theme={{
+    token: {
+      colorBgContainerDisabled:"white",
+      colorTextDisabled:"black"
+      /* here is your global tokens */
+    },
+  }}
+>
+ 
         <Form.Item name="fname" label="First Name" rules={[{ required: true }]}  ><Input size='medium' /></Form.Item>
         <Form.Item name="lname" label="Last Name" rules={[{ required: true }]} ><Input size='medium'  /></Form.Item>
         <Form.Item name="dob" label="Date of Birth" rules={[{ required: true }]} ><DatePicker size='medium' onChange={(e, s) => setDate(s)}/></Form.Item>
         <Form.Item name="nicno" label="NIC" rules={[{ required: true }]} ><Input size='medium'   /></Form.Item>
         <Form.Item name="address" label="Address" rules={[{ required: true }]} ><Input size='medium'   /></Form.Item>
         <Form.Item name="mobile" label="Mobile" rules={[{ required: true }]} ><Input size='medium'   /></Form.Item>
-      
+        </ConfigProvider>
        <Form.Item colon={false}  label="  "   >
+       
      
         <Button onClick={SaveChanges}  type="primary"   size="medium" htmlType="submit" disabled={save||edit}>
         Save
@@ -116,7 +128,7 @@ function EditProfile() {
       </Form.Item>
     
         </Form>
-        
+       
         </Flex>
         </Spin>
         {/* </>

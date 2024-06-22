@@ -28,8 +28,8 @@ const HomePage = () => {
       icon: <AppstoreOutlined />,
     },
     {
-      label: <Link href="/LogIN">Login</Link>,
-      key: "login",
+      label: <Link href="/LogIN">Sign in</Link>,
+      key: "Signin",
       icon: <LoginOutlined />,
     },
   ];
@@ -48,7 +48,7 @@ const HomePage = () => {
         <Carousel autoplaySpeed={5000} autoplay>
           <div>
             <div style={contentStyle}>
-              Welcome to the EasyLibro
+              Welcome to EasyLibro
             </div>
           </div>
           <div>

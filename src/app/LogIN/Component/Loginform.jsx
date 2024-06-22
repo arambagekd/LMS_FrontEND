@@ -51,7 +51,7 @@ function Loginform({  setSpinning }) {
       const user = String(form.getFieldValue("username"));
       const response = await authService.login (  String(form.getFieldValue("username")),  String(form.getFieldValue("password")), )
       getUser();
-        
+        router.push("/Dashboard");
       if (firebasetoken != "no") {
         const response2 = firebaseauth.setFirebasetoken(firebasetoken, user);
       }
@@ -68,7 +68,6 @@ function Loginform({  setSpinning }) {
 
 
   useEffect(() => {
-    setSpinning(false);
     const fetchToken = async () => {
       try {
         // const token = await getFirebaseToken();
@@ -158,7 +157,7 @@ function Loginform({  setSpinning }) {
             }}
           >
             <Button block type="primary" htmlType="submit" loading={loading}>
-              Log In
+              Sign In
             </Button>
           </Form.Item>
         </Form>

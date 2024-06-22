@@ -28,7 +28,6 @@ import {
   Divider,
   Spin,
   Space,
-
 } from "antd";
 import Link from "next/link";
 import AdressBar from "./AdressBar";
@@ -45,7 +44,9 @@ import NavigationFooter from "./footer";
 import { authService } from "../../../auth/authService";
 import { get } from "http";
 import { firebaseauth } from "../../../auth/firebaseauth";
+import styles from "./Navigations.module.css";
 const { Header, Content, Sider } = Layout;
+
 
 const sideitems = [
   {
@@ -100,7 +101,6 @@ const sideitems = [
     label: <Link href="/Settings">Settings</Link>,
   },
 ];
-
 const sideitems2 = [
   {
     key: "Home",
@@ -141,6 +141,69 @@ const sideitems2 = [
     label: <Link href="/Settings">Settings</Link>,
   },
 ];
+const headeritems = [
+  {
+    key: "Home",
+   label: <Link href="/Home"><HomeOutlined/></Link>,
+  },
+  {
+    key: "Dashboard",
+    label: <Link href="/Dashboard"><DashboardOutlined/></Link>,
+  },
+  {
+    key: "Resources",
+    label: <Link href="/Resources"><ReadOutlined/></Link>,
+  },
+  {
+    key: "Locations",
+    label: <Link href="/Locations"><CloudServerOutlined/></Link>,
+  },
+  {
+    key: "Users",
+    label: <Link href="/Users"><UserOutlined/></Link>,
+  },
+  {
+    key: "Requests",
+    label: <Link href="/Requests"><AuditOutlined/></Link>,
+  },
+  {
+    key: "Notifications",
+    label: <Link href="/Notifications"><MessageOutlined/></Link>,
+  },
+  {
+    key: "Reservations",
+    label: <Link href="/Reservations"><InteractionOutlined/></Link>,
+  },
+];
+const headeritemspatron = [
+  {
+    key: "Home",
+   label: <Link href="/Home"><HomeOutlined/></Link>,
+  },
+  {
+    key: "Dashboard",
+    label: <Link href="/Dashboard"><DashboardOutlined/></Link>,
+  },
+  {
+    key: "Resources",
+    label: <Link href="/Resources"><ReadOutlined/></Link>,
+  },
+  {
+    key: "Locations",
+    label: <Link href="/Locations"><CloudServerOutlined/></Link>,
+  },
+  {
+    key: "Requests",
+    label: <Link href="/Requests"><AuditOutlined/></Link>,
+  },
+  {
+    key: "Reservations",
+    label: <Link href="/Reservations"><InteractionOutlined/></Link>,
+  },
+];
+
+
+
 
 function Navigations(props) {
   const router = useRouter();
@@ -154,19 +217,18 @@ function Navigations(props) {
   const location = usePathname();
   const rootPath = location.split("/")[1];
 
- 
-
   const logout = async () => {
     setLoading(true);
     try {
       const response = await authService.logout();
-      const firebasetoken= await getFirebaseToken();
-      if(firebasetoken!="no"){
-        try{
-        const res=await firebaseauth.removeFirebasetoken(firebasetoken,user.userName);
-        }catch(e){
-          
-        }
+      const firebasetoken = await getFirebaseToken();
+      if (firebasetoken != "no") {
+        try {
+          const res = await firebaseauth.removeFirebasetoken(
+            firebasetoken,
+            user.userName
+          );
+        } catch (e) {}
       }
       setAuthenticated(false);
       setUser({});
@@ -175,18 +237,20 @@ function Navigations(props) {
       console.log(error);
     }
   };
-  const GetUser=async()=>{
+
+  const GetUser = async () => {
+    console.log("getuser");
     try {
-      const response=await authService.getuser();
+      const response = await authService.getuser();
       setUser(response.user);
       setEmail(response.email);
     } catch (error) {
-      try{
+      try {
         await authService.refreshToken();
         GetUser();
-        }catch(e){
-          setLoading(false);
-        }
+      } catch (e) {
+        setLoading(false);
+      }
     }
   };
   const selectPatron = async (usertype) => {
@@ -197,7 +261,7 @@ function Navigations(props) {
       console.log(e);
     }
   };
-  const getUnreadCount=async()=>{
+  const getUnreadCount = async () => {
     try {
       const response = await axioinstance.post("Notification/UnreadCount");
       console.log(response.data);
@@ -205,15 +269,15 @@ function Navigations(props) {
     } catch (error) {
       console.log(error);
     }
-  }
- 
-   const itemadmin = [
+  };
+
+  const itemadmin = [
     {
       key: "1",
 
       label: (
-        <Badge count={unreadCount>9?9+"+":unreadCount}>
-        <Avatar  onClick={() => setOpen(true)} icon={<MessageOutlined />} />
+        <Badge count={unreadCount > 9 ? 9 + "+" : unreadCount}>
+          <Avatar onClick={() => setOpen(true)} icon={<MessageOutlined />} />
         </Badge>
       ),
     },
@@ -224,11 +288,9 @@ function Navigations(props) {
       children: [
         {
           label: (
-           
-              <center>
-                <Avatar icon={<UserOutlined />} />{" "}
-              </center>
-           
+            <center>
+              <Avatar icon={<UserOutlined />} />{" "}
+            </center>
           ),
           key: "3",
         },
@@ -240,27 +302,31 @@ function Navigations(props) {
           type: "divider",
         },
         {
-          icon: user.actualType == "admin" ? React.createElement(UserSwitchOutlined):null,
-          label: user.actualType == "admin" ? (
-            <>
-              {user.userType == "admin" ? (
-                <Space
-                  onClick={() => selectPatron("patron")}
-                  //style={{ margin: "0 0 0 15px" }}
-                >
-                  Patron View
-                </Space>
-              ) : null}
-              {user.userType == "patron" ? (
-                <Space
-                  onClick={() => selectPatron("admin")}
-                  //style={{ margin: "0 0 0 15px" }}
-                >
-                  Admin View
-                </Space>
-              ) : null}
-            </>
-          ) : null,
+          icon:
+            user.actualType == "admin"
+              ? React.createElement(UserSwitchOutlined)
+              : null,
+          label:
+            user.actualType == "admin" ? (
+              <>
+                {user.userType == "admin" ? (
+                  <Space
+                    onClick={() => selectPatron("patron")}
+                    //style={{ margin: "0 0 0 15px" }}
+                  >
+                    Patron View
+                  </Space>
+                ) : null}
+                {user.userType == "patron" ? (
+                  <Space
+                    onClick={() => selectPatron("admin")}
+                    //style={{ margin: "0 0 0 15px" }}
+                  >
+                    Admin View
+                  </Space>
+                ) : null}
+              </>
+            ) : null,
           key: "7",
         },
         {
@@ -273,7 +339,7 @@ function Navigations(props) {
           label: <Link href="/Settings">Settings </Link>,
           key: "6",
         },
-    
+
         // {
         //   icon: React.createElement(QuestionCircleOutlined),
         //   label: <a href="https://www.aliyun.com">Help & Support </a>,
@@ -289,7 +355,7 @@ function Navigations(props) {
         },
         {
           icon: React.createElement(LogoutOutlined),
-          label:<Space onClick={logout}>Logout</Space>,
+          label: <Space onClick={logout}>Logout</Space>,
           key: "9",
           danger: true,
         },
@@ -302,8 +368,8 @@ function Navigations(props) {
       key: "1",
 
       label: (
-        <Badge count={unreadCount>9?9+"+":unreadCount}>
-        <Avatar  onClick={() => setOpen(true)} icon={<MessageOutlined />} />
+        <Badge count={unreadCount > 9 ? 9 + "+" : unreadCount}>
+          <Avatar onClick={() => setOpen(true)} icon={<MessageOutlined />} />
         </Badge>
       ),
     },
@@ -314,11 +380,9 @@ function Navigations(props) {
       children: [
         {
           label: (
-           
-              <center>
-                <Avatar icon={<UserOutlined />} />{" "}
-              </center>
-           
+            <center>
+              <Avatar icon={<UserOutlined />} />{" "}
+            </center>
           ),
           key: "3",
         },
@@ -329,7 +393,7 @@ function Navigations(props) {
         {
           type: "divider",
         },
-       
+
         {
           icon: React.createElement(EditOutlined),
           label: <Link href="/Settings">Edit Profile</Link>,
@@ -340,7 +404,7 @@ function Navigations(props) {
           label: <Link href="/Settings">Settings </Link>,
           key: "6",
         },
-    
+
         // {
         //   icon: React.createElement(QuestionCircleOutlined),
         //   label: <a href="https://www.aliyun.com">Help & Support </a>,
@@ -356,7 +420,7 @@ function Navigations(props) {
         },
         {
           icon: React.createElement(LogoutOutlined),
-          label:<Space onClick={logout}>Logout</Space>,
+          label: <Space onClick={logout}>Logout</Space>,
           key: "9",
           danger: true,
         },
@@ -365,45 +429,59 @@ function Navigations(props) {
   ];
 
   useEffect(() => {
+    if (
+      rootPath != "LogIN" &&
+      rootPath != "ErrorPage" &&
+      rootPath != "Home" &&
+      rootPath != ""
+    ) {
       GetUser();
-      onMessageListener()
-            .then((payload) => {
-              console.log('Message received. ', payload);
-            })
-            .catch((err) => console.log('Failed to receive message. ', err));
-        
-    }, []);
+    }
+    onMessageListener()
+      .then((payload) => {
+        console.log("Message received. ", payload);
+      })
+      .catch((err) => console.log("Failed to receive message. ", err));
+  }, []);
 
-    useEffect(() => {
-      // Fetch unread count immediately on component mount
-      getUnreadCount();
+  useEffect(() => {
+    // Fetch unread count immediately on component mount
+    getUnreadCount();
 
-      // Set up the interval to fetch unread count every 10 seconds
-      // const intervalId = setInterval(getUnreadCount, 10000); // 10000ms = 10 seconds
+    // Set up the interval to fetch unread count every 10 seconds
+    // const intervalId = setInterval(getUnreadCount, 10000); // 10000ms = 10 seconds
 
-      // // Clean up the interval on component unmount
-      // return () => clearInterval(intervalId);
+    // // Clean up the interval on component unmount
+    // return () => clearInterval(intervalId);
   }, []); // E
-   
+
   useEffect(() => {
     if (user.userName != undefined) {
-        setAuthenticated(true);
+      setAuthenticated(true);
+      setTimeout(() => {
         setLoading(false);
+      }, 1000);
     }
   }, [user.userName]);
 
-  return rootPath != "LogIN" && rootPath != "ErrorPage" && rootPath!="Home" && rootPath!="" ?(
-    <UserContext.Provider value={{ user, GetUser ,setUser}}>
+  return rootPath != "LogIN" &&
+    rootPath != "ErrorPage" &&
+    rootPath != "Home" &&
+    rootPath != "" ? (
+    <UserContext.Provider value={{ user, GetUser, setUser }}>
       <EmailContext.Provider value={{ email, setEmail }}>
-        {loading && 
-          <Spin size="large" spinning={loading} fullscreen />
-        }
+        {loading && <Spin size="large" spinning={loading} fullscreen />}
         {!authenticated && !loading && <ErrorPage />}
-         {authenticated && !loading && 
+        {authenticated && !loading && (
           <Layout style={{ minHeight: "100vh" }}>
-            <NotificationDrawer getUnreadCount={getUnreadCount} open={open} setOpen={setOpen} />
+            <NotificationDrawer
+              getUnreadCount={getUnreadCount}
+              open={open}
+              setOpen={setOpen}
+            />
 
             <Sider
+            className={styles.sider}
               collapsible
               collapsed={collapsed}
               onCollapse={(value) => setCollapsed(value)}
@@ -411,6 +489,7 @@ function Navigations(props) {
             >
               <div style={{ position: "sticky", top: 0 }}>
                 <div
+                
                   style={{
                     color: "white",
                     width: "100%",
@@ -438,6 +517,7 @@ function Navigations(props) {
                   }}
                 >
                   <Menu
+                  
                     theme="dark"
                     mode="inline"
                     items={user.userType == "admin" ? sideitems : sideitems2}
@@ -454,6 +534,7 @@ function Navigations(props) {
                   top: 0,
                   padding: 0,
                   background: "rgb(255,255,255)",
+                  height: "auto",
                 }}
               >
                 <ConfigProvider
@@ -465,64 +546,109 @@ function Navigations(props) {
                     },
                   }}
                 >
-
-                    <Menu
-                      selectable={false}
-                      onClick={(a) => {a.key==="8"?logout():null}}
-                      triggerSubMenuAction="click"
-                      style={{
-                        position: "sticky",
-                        top: 0,
-                        justifyContent: "end",
-                      }}
-                      theme="light"
-                      mode="horizontal"
-                      defaultSelectedKeys={["."]}
-                      items={user.actualType=="admin"?itemadmin:itempatron}
-                    />
-                
+                 
+                  <Menu
+                    selectable={false}
+                    onClick={(a) => {
+                      a.key === "8" ? logout() : null;
+                    }}
+                    triggerSubMenuAction="click"
+                    style={{
+                      justifyContent: "end",
+                    }}
+                    theme="light"
+                    mode="horizontal"
+                    defaultSelectedKeys={["."]}
+                    items={user.actualType == "admin" ? itemadmin : itempatron}
+                  />
+                 
+                  <Menu
+                  
+                    selectable={false}
+                    onClick={(a) => {
+                      a.key === "8" ? logout() : null;
+                    }}
+                    
+                    triggerSubMenuAction="click"
+                   className={styles.headernavigation}
+                    theme="light"
+                    mode="horizontal"
+                    defaultSelectedKeys={["."]}
+                    items={user.userType == "admin" ? headeritems : headeritemspatron}
+                  />
+                  
                 </ConfigProvider>
               </Header>
-              <Content style={{ margin: "0px 0% ",minHeight:"100vh" }}>
-                <Card>
-                  <Flex  justify="space-between" align="center" wrap="wrap">
+              <ConfigProvider
+                theme={{
+                  token: {
+                    borderRadiusLG: 5,
+                    borderRadiusSM: 5,
+                    borderRadius: 0,
+                  },
+                }}
+              >
+                <Content style={{ margin: "0px 0% ", minHeight: "100vh" }}>
+                  <Card>
+                    <Flex justify="space-between" align="center" wrap="wrap">
+                      <Flex
+                        style={{ fontSize: "25px", fontWeight: "600" }}
+                        align="center"
+                        flex={1}
+                      >
+                        {" "}
+                        <Button
+                          onClick={() => router.back()}
+                          style={{ margin: "0 20px 0 0" }}
+                          shape="circle"
+                          icon={<ArrowLeftOutlined />}
+                        />
+                        {rootPath}
+                      </Flex>
+                      <Flex>
+                        <AdressBar
+                          item={location
+                            .split("/")
+                            .map((item, index) => ({
+                              title: (
+                                <Link
+                                  href={`/${location
+                                    .split("/")
+                                    .slice(1, index + 1)
+                                    .join("/")}`}
+                                >
+                                  {item}
+                                </Link>
+                              ),
+                            }))
+                            .slice(1)}
+                        />
+                      </Flex>
+                    </Flex>
+                    <Divider />
                     <Flex
-                      style={{ fontSize: "25px", fontWeight: "600" }}
-                      align="center"
-                      flex={1}
+                      a
+                      vertical
+                      style={{ margin: "10px 0 0 0 ", minHeight: "80vh" }}
                     >
-                      {" "}
-                      <Button
-                        onClick={() => router.back()}
-                        style={{ margin: "0 20px 0 0" }}
-                        shape="circle"
-                        icon={<ArrowLeftOutlined />}
-                      />
-                      {rootPath}
+                      {props.children}
                     </Flex>
-                    <Flex>
-                    
-                      <AdressBar item={location.split("/").map((item,index) => ({ title: <Link href={`/${location.split("/").slice(1, index + 1).join('/')}`}>{item}</Link> })).slice(1)} />
-                      
-                    </Flex>
-                  </Flex>
-                  <Divider />
-                  <Flex a vertical style={{ margin: "10px 0 0 0 " ,minHeight:"80vh"}}>
-                    {props.children}
-                  </Flex>
-                </Card>
-              </Content>
-              <NavigationFooter/>
+                  </Card>
+                </Content>
+              </ConfigProvider>
+              <NavigationFooter />
               {/* <Footer style={{ textAlign: "center" }}>
                 EasyLibro ©{new Date().getFullYear()} Created by ChicoCodes
               </Footer> */}
             </Layout>
           </Layout>
-        }
+        )}
       </EmailContext.Provider>
     </UserContext.Provider>
   ) : (
-    <UserContext.Provider value={{ user, GetUser,setUser,setAuthenticated,setLoading,authenticated }}>
+    <UserContext.Provider
+      value={{ user, GetUser, setUser, setAuthenticated, setLoading }}
+    >
       <EmailContext.Provider value={{ email, setEmail }}>
         {props.children}
       </EmailContext.Provider>

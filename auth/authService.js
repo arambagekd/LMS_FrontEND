@@ -42,7 +42,6 @@ export const authService = {
       localStorage.setItem('refresh', response.data.refreshToken);
       
     } catch (error) {
-      
       throw error.response.data;
       
     }

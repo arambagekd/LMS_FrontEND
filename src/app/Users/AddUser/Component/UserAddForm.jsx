@@ -1,5 +1,5 @@
 'use client'
-import { Button, Checkbox,Flex, Col, Form, Image, Input, InputNumber, Row, Select,Card } from 'antd'
+import { Button, Checkbox,Flex, Col, Form, Image, Input, InputNumber, Row, Select,Card, } from 'antd'
 import FormItem from 'antd/es/form/FormItem'
 import Password from 'antd/es/input/Password'
 import axios from 'axios';

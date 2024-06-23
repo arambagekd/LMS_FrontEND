@@ -36,7 +36,6 @@ function NotificationDrawer({ setOpen, open,getUnreadCount }) {
       //setLoading(false); // Setting loading to false after data is fetched
       setNotifications(data);
       getUnreadCount(); // Updating items state with fetched data
-      console.log(data);
     } catch (error) {
       // setLoading(false); // Setting loading to false if there's an error
       console.log("Error fetching data:", error); // Logging error to console

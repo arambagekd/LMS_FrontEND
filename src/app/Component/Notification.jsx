@@ -15,8 +15,9 @@ const Notifications = ({id, subject, description,ago,status,GetNotification }) =
     GetNotification();
     }catch(error){
      console.log(error);
+     setLoading(false);
     }
-    setLoading(false);
+    
   }
   return (
     <Spin spinning={loading}>

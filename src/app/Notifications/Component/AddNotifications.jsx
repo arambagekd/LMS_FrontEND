@@ -36,9 +36,11 @@ const AddNotification = ({ visible, onCreate, onCancel,fetchData }) => {
       setLoading(true);
       try{
         const response= await axioinstance.post("Notification/NewNotice",
-        {userName :respient=="other"?form.getFieldValue('userId'):respient,
+        {
+        userName :respient=="other"?form.getFieldValue('userId'):respient,
         subject : "New Announcement",
-        description:form.getFieldValue('description') });
+        description:form.getFieldValue('description') 
+      });
       fetchData();
       onCancel();
       successModal("Notification Added Successfully");

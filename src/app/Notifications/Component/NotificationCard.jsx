@@ -7,7 +7,6 @@ import Notifications from './Notifications';
 import AddNotification from './AddNotifications';
 import UpdateNotification from './UpdateNotification';
 import RemindNotification from './RemindNotification';
-import axios from 'axios';
 import axioinstance from '../../Instance/api_instance';
 
 
@@ -27,6 +26,7 @@ function NotificationCard() {
     const[page,changepage]=useState(1);
     const[size,changeSize]=useState(0);
     const[loading,setLoading]=useState(true);
+
 
     const changingPage =(pnumber,size)=>{
           changepage(pnumber);
@@ -83,12 +83,14 @@ function NotificationCard() {
     };
 
     const handleRemove = async(id) => {
+      
         try{
         const response=await axioinstance.delete(`Notification/RemoveNotification?id=${id}`);
         console.log(response);
         fetchData();
         }catch(e){
             console.log(e);
+            
         }
     };
     const handleSearch = (value) => {
@@ -196,7 +198,7 @@ function NotificationCard() {
                             {!loading && notifications.length===0 && <Empty />}
             {notifications.slice((page-1)*9,(page-1)*9+ 9).map((notification) => (
                 <Card
-                    key={1}
+                    key={notification.id}
                     style={{
                         width: '80%',
                          margin: '15px 0',

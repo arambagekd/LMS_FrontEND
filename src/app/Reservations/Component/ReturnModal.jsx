@@ -45,6 +45,7 @@ function ReturnModal(props) {
         returnby: String(form.getFieldValue("returnid")),
         penalty: 0,
         email: email,
+        penalty:form.getFieldValue("penalty"),
       });
       setTimeout(() => {
         setLoading(false);

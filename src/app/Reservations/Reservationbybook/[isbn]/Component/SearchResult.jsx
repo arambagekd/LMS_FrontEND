@@ -10,6 +10,7 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 import axioinstance from '../../../../Instance/api_instance';
 import { UserContext } from '../../../../Context/Context';
+import Chart from './Chart';
 
 
 
@@ -140,9 +141,15 @@ function SearchResult({isbn}) {
   return (
 
     <div>
+         
       <SeachReservations func1={setStatus} isbn={isbn}/>
+
       <ResultTable loading={loading} nodata={false} dataset={status === "*" ? items : items.filter(book => book.status === status)} columnset={user.userType=="admin"?columnsAdimn:columnsUser} pagination={{ pageSize: 20 }} />
         <ReturnModal fetchData={fetchData}  open={open} openFuntion={showModal} close={closeModal} recordData={recordData} />
+        {typeof window !== "undefined" && (
+                
+                <Chart topic="This week transitions" data={[]} />
+                    )}
     </div>
   )
 }

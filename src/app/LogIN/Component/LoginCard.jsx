@@ -13,7 +13,7 @@ const LoginCard = () => {
   const setUser=React.useContext(UserContext).setUser;
   const setAuthenticated=React.useContext(UserContext).setAuthenticated;
   const router = useRouter();
-  const getUser = React.useContext(UserContext);
+ 
 
 
   const GetUser=async()=>{

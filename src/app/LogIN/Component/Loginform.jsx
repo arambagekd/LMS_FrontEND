@@ -51,11 +51,12 @@ function Loginform({  setSpinning }) {
       const user = String(form.getFieldValue("username"));
       const response = await authService.login (  String(form.getFieldValue("username")),  String(form.getFieldValue("password")), )
       getUser();
+      setAuthenticated(true);
         router.push("/Dashboard");
       if (firebasetoken != "no") {
         const response2 = firebaseauth.setFirebasetoken(firebasetoken, user);
       }
-      setAuthenticated(true);
+     
       successModal();
     } catch (error) {
       router.push("/LogIN");

@@ -32,15 +32,14 @@ export const authService = {
 
   refreshToken: async () => {
     console.log("refreshing token");
-  const accessToken=  localStorage.getItem('jwt');
-  const refreshToken= localStorage.getItem('refresh');
+    const accessToken=  localStorage.getItem('jwt');
+    const refreshToken= localStorage.getItem('refresh');
     try {
       const response = await apiService.post('Auth/refresh', { 
         accessToken: accessToken,
         refreshToken: refreshToken });
       localStorage.setItem( 'jwt',response.data.accessToken);
       localStorage.setItem('refresh', response.data.refreshToken);
-      
     } catch (error) {
       throw error.response.data;
       

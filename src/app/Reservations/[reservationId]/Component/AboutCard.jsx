@@ -11,11 +11,6 @@ import { UserContext } from '@/app/Context/Context'
 import ReturnModal from '../../Component/ReturnModal'
 
 
-
-
-
-
-
 function AboutCard({reservationId}) {
 
   const [modalState, changeModalState] = useState(false);
@@ -110,7 +105,7 @@ function AboutCard({reservationId}) {
           key: '12',
           label: 'Penalty Status',
         
-          children: 'None',
+          children: response.data.penalty,
         },
       ];
       setItem(items);

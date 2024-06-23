@@ -37,7 +37,6 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import axioinstance from "../Instance/api_instance";
 import { UserContext, EmailContext } from "../Context/Context";
-import ErrorPage from "../ErrorPage/page";
 import NotificationDrawer from "./NotificationDrawer";
 import { getFirebaseToken, onMessageListener } from "../Yes/firebase-config";
 import NavigationFooter from "./footer";
@@ -207,15 +206,16 @@ const headeritemspatron = [
 
 function Navigations(props) {
   const router = useRouter();
-  const [user, setUser] = useState({});
-  const [email, setEmail] = useState("");
-  const [loading, setLoading] = useState(true);
   const [open, setOpen] = useState(false);
-  const [authenticated, setAuthenticated] = useState(false);
   const [collapsed, setCollapsed] = useState(true);
   const [unreadCount, setUnreadCount] = useState(0);
   const location = usePathname();
   const rootPath = location.split("/")[1];
+  const GetUser=React.useContext(UserContext).GetUser;
+  const setLoading = React.useContext(UserContext).setLoading;
+  const setAuthenticated = React.useContext(UserContext).setAuthenticated;
+  const setUser = React.useContext(UserContext).setUser;
+  const user = React.useContext(UserContext).user;
 
   const logout = async () => {
     setLoading(true);
@@ -238,21 +238,6 @@ function Navigations(props) {
     }
   };
 
-  const GetUser = async () => {
-    console.log("getuser");
-    try {
-      const response = await authService.getuser();
-      setUser(response.user);
-      setEmail(response.email);
-    } catch (error) {
-      try {
-        await authService.refreshToken();
-        GetUser();
-      } catch (e) {
-        setLoading(false);
-      }
-    }
-  };
   const selectPatron = async (usertype) => {
     try {
       const response = await authService.selectPatron(usertype);
@@ -429,14 +414,7 @@ function Navigations(props) {
   ];
 
   useEffect(() => {
-    if (
-      rootPath != "LogIN" &&
-      rootPath != "ErrorPage" &&
-      rootPath != "Home" &&
-      rootPath != ""
-    ) {
-      GetUser();
-    }
+    
     onMessageListener()
       .then((payload) => {
         console.log("Message received. ", payload);
@@ -455,24 +433,14 @@ function Navigations(props) {
     // return () => clearInterval(intervalId);
   }, []); // E
 
-  useEffect(() => {
-    if (user.userName != undefined) {
-      setAuthenticated(true);
-      setTimeout(() => {
-        setLoading(false);
-      }, 1000);
-    }
-  }, [user.userName]);
+ 
+  
 
   return rootPath != "LogIN" &&
     rootPath != "ErrorPage" &&
     rootPath != "Home" &&
     rootPath != "" ? (
-    <UserContext.Provider value={{ user, GetUser, setUser }}>
-      <EmailContext.Provider value={{ email, setEmail }}>
-        {loading && <Spin size="large" spinning={loading} fullscreen />}
-        {!authenticated && !loading && <ErrorPage />}
-        {authenticated && !loading && (
+    <div>
           <Layout style={{ minHeight: "100vh" }}>
             <NotificationDrawer
               getUnreadCount={getUnreadCount}
@@ -642,17 +610,9 @@ function Navigations(props) {
               </Footer> */}
             </Layout>
           </Layout>
-        )}
-      </EmailContext.Provider>
-    </UserContext.Provider>
+       </div>
   ) : (
-    <UserContext.Provider
-      value={{ user, GetUser, setUser, setAuthenticated, setLoading }}
-    >
-      <EmailContext.Provider value={{ email, setEmail }}>
-        {props.children}
-      </EmailContext.Provider>
-    </UserContext.Provider>
+        props.children
   );
 }
 

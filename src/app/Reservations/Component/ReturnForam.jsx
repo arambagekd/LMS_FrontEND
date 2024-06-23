@@ -89,7 +89,7 @@ function ReturnForam(props) {
           />
         </Form.Item>
 
-        <Form.Item name="penalty" label="Penalty">
+        <Form.Item name="penalty" label="Penalty" initialValue={0}>
           <InputNumber size="medium" />
         </Form.Item>
 

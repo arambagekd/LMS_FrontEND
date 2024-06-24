@@ -45,7 +45,7 @@ function View(props) {
         price: form.getFieldValue('price'),
         pages: form.getFieldValue('pagecount'),
         imagePath: imageurl,
-        year:2020,
+        year:form.getFieldValue('year'),
         url: 'rvtfe',
         cupboardId: cupboard,
         shelfNo: shelf,

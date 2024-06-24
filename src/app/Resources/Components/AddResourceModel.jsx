@@ -3,6 +3,7 @@ import { Button, Col, Flex, Form, Modal, Row } from 'antd'
 import React, { useState } from 'react'
 
 import ResourcesAddForm from './ResourcesAddForm';
+import axioinstance from '@/app/Instance/api_instance';
 
 
 
@@ -12,7 +13,7 @@ function ReturnModal(props) {
     const [form] = Form.useForm();
     
     const submitForm= ()=>{
-        axios.post('http://localhost:5164/api/Resource/AddResource',{
+        axioinstance.post('Resource/AddResource',{
             isbn:form.getFieldsValue('isbn'),
             title:form.getFieldsValue('title'),
             auther:form.getFieldsValue('auther'),

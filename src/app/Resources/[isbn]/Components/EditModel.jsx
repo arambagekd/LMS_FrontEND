@@ -96,7 +96,7 @@ function EditModal(props) {
         isbn: formData.isbn,
         title: formData.title,
         author: formData.author,
-        year: "2000",
+        year: formData.year,
         price: formData.price,
         pages: formData.pages,
         quantity: formData.quantity,

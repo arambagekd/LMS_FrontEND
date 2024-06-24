@@ -66,10 +66,10 @@ function AboutCard(props) {
       console.log(responseData.isbn );
       setStatus(response.data.status);
       const items = [
-        { key: '1', label: 'Resource ID (ISBN)', children: responseData.isbn,},
-        { key: '2', label: 'Title', children: responseData.title,},
-        { key: '3', label: 'Author', children: responseData.author,},
-        { key: '4', label: 'Year', children:'2000',},
+        { key: '1', label: 'Resource ID (ISBN)', children: responseData.isbn},
+        { key: '2', label: 'Title', children: responseData.title},
+        { key: '3', label: 'Author', children: responseData.author},
+        { key: '4', label: 'Year', children:responseData.year},
         { key: '5', label: 'Type', children: responseData.type},
         { key: '6', label: 'Price', children: responseData.price},
         { key: '7', label: 'No. Pages', children: responseData.pages},

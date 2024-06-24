@@ -73,6 +73,7 @@ function ResourcesAddForm({
           year:response.data.items[0].volumeInfo.publishedDate,
           pagecount:response.data.items[0].volumeInfo.pageCount,
           description:response.data.items[0].volumeInfo.description
+
         });
         setImageURL(response.data.items[0].volumeInfo.imageLinks.thumbnail);
     } catch (error) {
@@ -203,11 +204,13 @@ function ResourcesAddForm({
                 </Row>
                 <Row gutter={[30, 10]}>
                   <Col xs={24} sm={24}>
-                    <Form.Item
-                      name="year"
-                      label="Year"
-                      rules={[{ required: true }]}
-                    >
+                   <Form.Item
+                  name="year"
+                  label="Year"
+                  rules={[
+                    { required: true, message: 'Year is required' },
+                    { pattern: /^\d+$/, message: 'Year must be a number' }
+                  ]}>
                       <Input />
                     </Form.Item>
                   </Col>

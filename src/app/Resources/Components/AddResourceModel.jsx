@@ -18,7 +18,7 @@ function ReturnModal(props) {
             auther:form.getFieldsValue('auther'),
             type:form.getFieldsValue('type'),
             quantity:form.getFieldsValue('quantity'),
-            year:form.getFieldsValue('year'),
+            year:parseInt(form.getFieldsValue('year'),10),
             price:form.getFieldsValue('price'),
             pagecount:form.getFieldsValue('pagecount'),
             addedOn:form.getFieldsValue('addedOn'),

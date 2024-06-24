@@ -43,7 +43,6 @@ function ReturnModal(props) {
         reservationNo: props.recordData.reservationNo,
         returnDate: date,
         returnby: String(form.getFieldValue("returnid")),
-        penalty: 0,
         email: email,
         penalty:form.getFieldValue("penalty"),
       });

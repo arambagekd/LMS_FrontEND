@@ -139,7 +139,7 @@ function SearchResult() {
       title: "Status",
       dataIndex: "status",
       key: "status",
-      render: (isbn, record) =><Tag color="geekblue">{record.status}</Tag>
+      render: (isbn, record) =>record.status==="overdue"?<Tag color="red">{record.status}</Tag>:record.status==="received"?<Tag color="green">{record.status}</Tag>:<Tag color="geekblue">{record.status}</Tag>
     },
     {
       title: "Action",

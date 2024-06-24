@@ -54,8 +54,13 @@ const request=async()=>{
     })
     successModal();
   }catch(error){
+    console.log(error);
+    if(error.staus===400){
     errorModal(error.response.data);
-    console.log(error.response);
+    }else{
+      errorModal("Something went wrong");
+      setLoading(false);
+    }
   }
   setLoading(false);
 }

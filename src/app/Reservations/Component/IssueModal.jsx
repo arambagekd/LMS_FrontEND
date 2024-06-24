@@ -46,6 +46,11 @@ function IssueModal({ open, close, data }) {
         form.resetFields();
       }, 3000);
     } catch (error) {
+      if(error.staus===400){
+        errorModal(error.response.data);
+      }else{
+          errorModal("Something went wrong");
+      }
       setLoading(false);
       errorModal(error.response.data);
     }

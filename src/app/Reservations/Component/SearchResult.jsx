@@ -105,7 +105,7 @@ function SearchResult() {
           </Button>
         ) : (
           <Button type="primary" disabled size="small" shape="round">
-            Reserved
+            Received
           </Button>
         ),
         responsive: ["md","lg","xl","xxl"]

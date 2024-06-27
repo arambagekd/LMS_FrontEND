@@ -1,7 +1,7 @@
 'use client'
-import { Button, Flex, Space, Table,FloatButton } from 'antd'
+import { Button, Flex, Space, Table,FloatButton, Avatar } from 'antd'
 import React, { useEffect, useState } from 'react'
-import { UserDeleteOutlined ,MoreOutlined,PlusOutlined} from '@ant-design/icons';
+import { UserDeleteOutlined ,MoreOutlined,PlusOutlined, UsbOutlined, UserOutlined} from '@ant-design/icons';
 import ResultTable from '../../Component/ResultTable';
 import Link from 'next/link';
 import AddUserModal from './AddUserModal';
@@ -13,6 +13,8 @@ const columns = [
         title: 'User Name',
         dataIndex: 'username',
         key: 'userId',
+        render:(username, record)=>
+          <><Avatar size={30} src={record.image} icon={<UserOutlined/>} style={{margin:"0 10px 0 0"}}/>{record.username}</>
       },
     {
       title: 'Name',

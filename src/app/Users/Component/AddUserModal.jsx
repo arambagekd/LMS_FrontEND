@@ -11,6 +11,7 @@ function ReturnModal(props) {
     const [form] = Form.useForm();
     const[date,setDate]=useState("");
     const[type,setType]=useState("patron");
+    const[gender,setGender]=useState("male");
 
     const showSuccessModal = () => {
         Modal.success({
@@ -39,7 +40,8 @@ function ReturnModal(props) {
                 phoneNumber: form.getFieldValue("mobile"),
                 nic: form.getFieldValue("nicno"),
                 userType: type,
-               
+                gender:gender,
+                image: "no-image"
             }
         )
             .then(response => {
@@ -110,7 +112,7 @@ function ReturnModal(props) {
                 ]}
                 
             >
-                <UserAddForm setDate={setDate} form={form} data1={props.data1} setType={setType}/>
+                <UserAddForm setDate={setDate} setGender={setGender} form={form} data1={props.data1} setType={setType}/>
             </Drawer>
         
         </div>

@@ -85,11 +85,7 @@ function EditModal(props) {
   };
   const handleFormSubmit= async ()=>{
     const formData = form.getFieldsValue();
-    console.log(formData);
-    console.log(cupboard);
-    console.log(location);
     setLoading(true);
-    console.log(formData.addedByID);
     await axioinstance.put('Resource/EditResource',
       {
         type: formData.type,

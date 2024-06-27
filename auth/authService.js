@@ -5,10 +5,11 @@ import axios from 'axios';
 
 const apiService = axios.create(
   {
-  baseURL : 'https://lms20240616161754.azurewebsites.net/api/',
+  baseURL : 'https://localhost:7174/api/',
   headers: {
     'Content-Type': "application/json",
   }, 
+
   
 });
 

@@ -92,11 +92,6 @@ function SearchResult(props) {
         key: 'isbn',
       },
     {
-      title: 'UserID',
-      dataIndex: 'borrowerID',
-      key: 'borrowerID',
-    },
-    {
         title: 'Title',
         dataIndex: 'title',
         key: 'title',

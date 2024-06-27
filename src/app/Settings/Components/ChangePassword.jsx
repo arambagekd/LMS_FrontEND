@@ -65,7 +65,7 @@ function EditProfile() {
       <> */}
       <Spin spinning={spinning}>
        <Button size='small'   shape='circle' onClick={()=>setEdit(!edit)}><EditOutlined /></Button>  
-       <div>{confirmPassword}</div>
+      
         <Flex justify='center'>
         <Form form={form} style={{width:'75%'}} size='small'  name="nest-messages"  labelCol={{  span: 6,}} wrapperCol={{span:16}}  disabled={edit}>
         

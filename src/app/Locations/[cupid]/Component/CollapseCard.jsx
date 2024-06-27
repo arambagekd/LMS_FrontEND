@@ -5,7 +5,7 @@ import { Button, Collapse, Flex } from "antd";
 import Link from "next/link";
 import React from "react";
 
-function CollapseCard({ shelfNo, cupboardId }) {
+function CollapseCard({ shelfNo, cupboardId ,cupboardName}) {
   const user=React.useContext(UserContext).user;
 
   return (
@@ -18,7 +18,7 @@ function CollapseCard({ shelfNo, cupboardId }) {
             extra:user.userType==="admin" && <Button onClick={(e)=>e.stopPropagation()}><Link href={`/Resources/AddResources?cupboardId=${cupboardId}&shelfNo=${shelfNo}`}>Add a Book</Link></Button>,
             label: (
               <Flex align="center" justify="space-between">
-                <div>Shelf - {shelfNo}</div>
+                <div>Shelf - {shelfNo} - {cupboardName}</div>
                 
               </Flex>
             ),

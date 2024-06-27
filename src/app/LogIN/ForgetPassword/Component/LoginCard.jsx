@@ -16,8 +16,12 @@ const Login = () => {
 
 
   return (
-    <div className={styles.screen}>
+    <>
+<div className={styles.bgimage}></div>
+<div className={styles.screen}>
+
       <Spin spinning={spinning}>
+      
         <div className={styles.container}>
           <div className={styles.imageSection}>
             <Image src="/librarylogo.png" width={250} height={150} alt="" />
@@ -30,7 +34,7 @@ const Login = () => {
           </div>
         </div>
       </Spin>
-    </div>
+    </div></>
     // <div className={styles.screen}>
     //     <Spin spinning={spinning} >
     // <div className={styles.container}>
@@ -46,6 +50,7 @@ const Login = () => {
     // </div>
     // </Spin>
     // </div>
+    
   );
 };
 

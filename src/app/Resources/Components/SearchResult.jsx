@@ -23,12 +23,12 @@ function SearchResult(props) {
 
  
   return(
-    <Card title="List of Books" >
+    <Card title={<Flex justify='space-between' wrap='wrap'><div>List of Books</div><div>Found {props.data.length} search results</div></Flex>} >
     <Row style={{width:"100%"}}   gutter={[15,15]} justify="center">
    
 {props.loading &&< Spin size='large' spinning={props.loading}><div style={{height:200}}></div></Spin>}
 {!props.loading && props.data.length==0 &&<Empty/>}
-    {props.data.slice((page-1)*9,(page-1)*9+ 9).map((item) => (
+    {props.data.slice((page-1)*12,(page-1)*12+ 12).map((item) => (
         <CardResource  key={item.isbn}  dataset={item} />
       ))}
   

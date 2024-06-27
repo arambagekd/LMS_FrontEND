@@ -29,7 +29,7 @@ function View({cupid}) {
   return (
     <>
     {cupboards.length>0 &&
-    <Card title={<Flex justify='space-between'><div>Cupboard - {cupboards[0].cupboardId}</div><div> No of books: {cupboards[0].count}</div></Flex>}>
+    <Card title={<Flex justify='space-between'><div>Cupboard - {cupboards[0].cupboardId} - {cupboards[0].cupboardName}</div><div> No of books: {cupboards[0].count}</div></Flex>}>
     <Row style={{width:"100%"}}   gutter={[15,15]} >
         <Col xs={24} sm={24}>
     <ShelfList cupboardName={cupid}/>

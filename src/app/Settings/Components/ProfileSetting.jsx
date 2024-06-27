@@ -19,11 +19,12 @@ function ProfileSetting() {
         key: "2",
         children:<ChangePassword />,
       },
-      {
-        label: "ChangeEmail",
-        key: "3",
-        children: <ChangeEmail />,
-      }]}
+      // {
+      //   label: "ChangeEmail",
+      //   key: "3",
+      //   children: <ChangeEmail />,
+      // }
+      ]}
   />
   )
 }

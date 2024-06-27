@@ -5,7 +5,7 @@ import axios from "axios";
 //const token =Cookies.get('jwt');
 const axioinstance = axios.create(
   {
-  baseURL : 'https://lms20240616161754.azurewebsites.net/api/',
+  baseURL : 'https://localhost:7174/api/',
   headers: {
     //'Authorization': `Bearer ${token}`,
     'Content-Type': "application/json",

@@ -12,6 +12,7 @@ function AboutCard({ username }) {
   const [modalState, changeModalState] = useState(false);
   const [userType, setUserType] = useState('');
   const [userStatus, setUserStatus] = useState('');
+  const [userpic, setUserPic] = useState('');
   const [items, setItem] = useState([
     {
       key: '1',
@@ -40,7 +41,7 @@ function AboutCard({ username }) {
     {
       key: '5',
       span: 2,
-      label: 'NIC',
+      label: 'Gender',
       children: "",
     },
     {
@@ -88,8 +89,8 @@ function AboutCard({ username }) {
         },
         {
           key: '5',
-          label: 'NIC',
-          children: response.data.nic,
+          label: 'Gender',
+          children: response.data.gender.charAt(0).toUpperCase() + response.data.gender.slice(1),
         },
         {
           key: '6',
@@ -112,6 +113,7 @@ function AboutCard({ username }) {
           children: response.data.reservationcount,
         },
       ]);
+      setUserPic(response.data.image);
       setUserType(response.data.actualType);
       setUserStatus(response.data.status);
     } catch (error) {
@@ -140,7 +142,7 @@ function AboutCard({ username }) {
         <Row gutter={[30, 30]} align="middle" justify="center">
           <Col md={6} sm={24} xs={24} >
           <center>
-          <Avatar size={128} icon={<UserOutlined />} />
+          <Avatar src={userpic} size={128} icon={<UserOutlined />} />
           </center>
           </Col>
           <Col md={18} sm={24} xs={24}>

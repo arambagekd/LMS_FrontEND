@@ -15,7 +15,16 @@
     flex: 1;
     min-width: 300px;
   }
-  
+  .bgimage{
+    background-image: url('https://png.pngtree.com/background/20220731/original/pngtree-blue-white-abstract-background-picture-image_1913928.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100vh;
+    width: 100vw;
+    position:absolute;
+    opacity: 0.4;
+}
   .imageSection {
     flex-wrap: wrap;
     flex: 1;
@@ -26,6 +35,7 @@
   }
   
   .pageContainer {
+    position: relative;
     height: 100vh;
     display: flex;
     align-items: center;

@@ -9,6 +9,8 @@ const Login = () => {
   const [spinning, setSpinning] = useState(true);
 
   return (
+    <>
+    <div className={styles.bgimage}></div>
     <div className={styles.pageContainer}>
       <Spin spinning={spinning}>
         <div className={styles.container}>
@@ -22,6 +24,7 @@ const Login = () => {
         </div>
       </Spin>
     </div>
+    </>
   );
 };
 

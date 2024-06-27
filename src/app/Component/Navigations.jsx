@@ -269,12 +269,12 @@ function Navigations(props) {
     {
       key: "2",
 
-      label: <Avatar icon={<UserOutlined />} />,
+      label: <Avatar src={user.image} icon={<UserOutlined />} />,
       children: [
         {
           label: (
             <center>
-              <Avatar icon={<UserOutlined />} />{" "}
+              <Avatar src={user.image} icon={<UserOutlined />} />{" "}
             </center>
           ),
           key: "3",
@@ -361,12 +361,12 @@ function Navigations(props) {
     {
       key: "2",
 
-      label: <Avatar icon={<UserOutlined />} />,
+      label: <Avatar src={user.image} icon={<UserOutlined />} />,
       children: [
         {
           label: (
             <center>
-              <Avatar icon={<UserOutlined />} />{" "}
+              <Avatar src={user.image} icon={<UserOutlined />} />{" "}
             </center>
           ),
           key: "3",

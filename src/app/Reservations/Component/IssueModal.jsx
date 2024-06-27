@@ -92,7 +92,6 @@ function IssueModal({ open, close, data }) {
             type="primary"
             loading={loading}
             onClick={handleOk}
-            style={{backgroundColor:"red"}}
           >
             Issue
           </Button>,

@@ -6,7 +6,7 @@ import Cookies from 'js-cookie';
  // Replace with your backend API URL
 
 const apiService = axios.create({
-  baseURL: 'https://lms20240616161754.azurewebsites.net/api/Notification/',
+  baseURL: 'https://localhost:7174/api/Notification/',
   headers: {
     'Content-Type': 'application/json'
   }

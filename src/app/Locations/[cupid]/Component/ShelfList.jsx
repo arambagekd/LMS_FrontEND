@@ -7,6 +7,7 @@ import CollapseCard from './CollapseCard';
 function ShelfList({cupboardName}) {
 const [shelves, setShelves] = useState([]);
 const [cupboardid, setCupboard] = useState("");
+const[cupboardName2, setCupboardName] = useState("")
 
     async function getLocations() {
         try {
@@ -17,6 +18,7 @@ const [cupboardid, setCupboard] = useState("");
           );
           setShelves(response.data[0].shelfNo);
           setCupboard(response.data[0].cupboardId);
+          setCupboardName(response.data[0].cupboardName);
         } catch (error) {
           console.log(error);
         }
@@ -28,7 +30,7 @@ const [cupboardid, setCupboard] = useState("");
     return (
     <div>
         {shelves.map(shelf => (
-            <CollapseCard key={shelf} shelfNo={shelf} cupboardId={cupboardid}/>
+            <CollapseCard key={shelf} shelfNo={shelf} cupboardId={cupboardid} cupboardName={cupboardName2}/>
         ))}
     </div>
   )

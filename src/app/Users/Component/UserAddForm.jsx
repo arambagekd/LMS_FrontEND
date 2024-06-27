@@ -58,6 +58,24 @@ function UserAddForm(props) {
             ]}
           ></Select>
         </Form.Item>
+        <Form.Item name="gender" label="Gender" required>
+          {" "}
+          <Select
+            defaultValue="male"
+            onChange={(value) => props.setGender(value)}
+            size="medium"
+            options={[
+              {
+                value: "male",
+                label: "Male",
+              },
+              {
+                value: "female",
+                label: "Female",
+              },
+            ]}
+          ></Select>
+        </Form.Item>
         <Form.Item
           name="email"
           label="Email"
@@ -84,6 +102,7 @@ function UserAddForm(props) {
         >
           <Input size="medium" />
         </Form.Item>
+      
         <Form.Item
           name="dob"
           label="Date of Birth"

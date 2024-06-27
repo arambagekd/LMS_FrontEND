@@ -40,7 +40,7 @@ function Loginform({spinning,setSpinning}) {
       setLoading(true);
       setSpinning(true);
         try{
-            const response =await axios.post('https://lms20240616161754.azurewebsites.net/api/User/forgetPassword',
+            const response =await axios.post('https://localhost:7174/api/User/forgetPassword',
               {emailaddress:form.getFieldValue('email')}
             );
             successModal();

@@ -3,23 +3,10 @@ import moment from 'moment';
 
 import React, { useState } from 'react'
 import axioinstance from '../../../Instance/api_instance';
+import { showToastError, showToastSuccess } from '@/app/Component/NewToast';
 
 function EditModal({reservationId,modalState,closeModal,fetchData}) {
     
-    const [messageApi, contextHolder] = message.useMessage();
-    const success = () => {
-        messageApi.open({
-          type: 'success',
-          content: 'Extend Date Successfully!',
-        });
-      };
-      const errormsg = () => {
-        messageApi.open({
-          type: 'error',
-          content: 'Extend Date is Failed',
-        });
-      };
-
 
     const [formState, changeFormState] = useState(true);
     const[date,setDate] = useState("");
@@ -30,23 +17,22 @@ function EditModal({reservationId,modalState,closeModal,fetchData}) {
 
     const extend =async()=>{
             try{
-                
                 setLoading(true);
-                const response=await axioinstance.put(`http://localhost:5164/api/Reservation/ExtendDue?id=${reservationId}&due=${date}`);
+                const response=await axioinstance.put(`Reservation/ExtendDue?id=${reservationId}&due=${date}`);
                 setTimeout(() => {
                     setLoading(false);
                     closeModal();
                     form.resetFields();
                     setDate("");
                     fetchData()
-                    success();
+                    showToastSuccess("Due Date Extended Successfully");
                 }, 3000);
                 
                 
             }catch(error){
                 setLoading(false);
                 console.log("sadas");
-                errormsg();
+                showToastError(error,"Failed to extend due date");
             }
     }
 

@@ -11,6 +11,7 @@ import axioinstance from '../../../Instance/api_instance';
 import IssueModal from '../../../Reservations/Component/IssueModal';
 import { useRouter } from 'next/navigation';
 import { UserContext } from '@/app/Context/Context';
+import { showToastError, showToastSuccess } from '@/app/Component/NewToast';
 
 
 
@@ -26,22 +27,7 @@ function AboutCard(props) {
   const[collapse,setCollapse]=useState(true);
   const router=useRouter();
   const user=React.useContext(UserContext).user;
-  const [messageApi, contextHolder] = message.useMessage();
 
-
-  const successModal = () => {
-    messageApi.open({
-      type: "success",
-      content: `SuccessFully Requested to ${props.dataset.isbn}`,
-    });
-  };
-  
-  const errorModal = (e) => {
-    messageApi.open({
-      type: "error",
-      content: e,
-    });
-  };
 
   const showModal = () => {
   
@@ -63,7 +49,6 @@ function AboutCard(props) {
     try{
       const response = await axioinstance.post(`Resource/AbouteResource?isbn=${props.isbn}`);
       const responseData = response.data;
-      console.log(responseData.isbn );
       setStatus(response.data.status);
       const items = [
         { key: '1', label: 'Resource ID (ISBN)', children: responseData.isbn},
@@ -79,7 +64,6 @@ function AboutCard(props) {
       setresponseData(responseData);
     }
     catch(error){
-        console.log(error);
         seterror(true);
     }
   }
@@ -89,14 +73,23 @@ function AboutCard(props) {
         await axioinstance.post("Request/RequestResource",{
         isbn:props.dataset.isbn
       })
-      successModal();
+      showToastSuccess(`SuccessFully Requested to ${props.dataset.isbn}`);
     }catch(error){
-      errorModal(error.response.data);
+      showToastError(error,"Error in requesting the resource")
       console.log(error.response);
     }
     setLoading(false);
   }
   
+  const deleteResource=async()=>{
+    try{
+      const response=await axioinstance.get(`Resource/DeleteResource?isbn=${props.isbn}`)
+      showToastSuccess(`SuccessFully Deleted ${props.isbn}`);
+      router.push("/Resources")}
+      catch(error){
+       showToastError(error,"Error in deleting the resource")
+      }
+  }
 
   useEffect(() => { fetchData(); }, []);
 
@@ -131,7 +124,6 @@ function AboutCard(props) {
      },
     }}
     >
-      {contextHolder}
     <div>
       <Flex justify="space-between" style={{marginBottom:'20px'}}>
         <div>
@@ -170,7 +162,16 @@ function AboutCard(props) {
                         
                         {user.userType==="admin"&&
                        <div style={{ height: '30px' }}>
-                          <Button type='primary' danger style={{ margin: " 0 10px 10px 0" }} shape='round' icon={<DeleteOutlined />}></Button>
+                          <Popconfirm
+                title="Remove the book"
+                description="Are you sure to Remove?"
+                onConfirm={deleteResource}
+                okText="Yes"
+                cancelText="No"
+                
+              >
+                          <Button type='primary'  danger style={{ margin: " 0 10px 10px 0" }} shape='circle' icon={<DeleteOutlined />}></Button>
+                          </Popconfirm>
                           <Button type='primary' style={{ margin: " 0 10px 10px 0" }} shape='round' icon={<EditOutlined />} onClick={showModal}></Button>
                           </div>
                         }

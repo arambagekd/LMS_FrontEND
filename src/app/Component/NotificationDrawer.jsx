@@ -1,20 +1,17 @@
 "use client";
 import {
   Button,
-  Card,
-  Divider,
   Drawer,
   Flex,
   Radio,
   Space,
   Spin,
-  notification,
 } from "antd";
 import React, { useEffect, useState } from "react";
 import axioinstance from "../Instance/api_instance";
 import Notification from "./Notification";
 import { ConfigProvider } from "antd";
-import { DoubleRightOutlined, RightOutlined } from "@ant-design/icons";
+import { DoubleRightOutlined } from "@ant-design/icons";
 
 function NotificationDrawer({ setOpen, open,getUnreadCount }) {
   const [loading, setLoading] = useState(false);
@@ -25,6 +22,7 @@ function NotificationDrawer({ setOpen, open,getUnreadCount }) {
   const handlePlacementChange = (e) => {
     setPlacement(e.target.value);
   };
+  
   const GetNotification = async () => {
     //etLoading(true); // Set loading to true while fetching
     try {
@@ -37,10 +35,9 @@ function NotificationDrawer({ setOpen, open,getUnreadCount }) {
       setNotifications(data);
       getUnreadCount(); // Updating items state with fetched data
     } catch (error) {
-      // setLoading(false); // Setting loading to false if there's an error
-      console.log("Error fetching data:", error); // Logging error to console
     }
   };
+
   useEffect(() => {
     setLoading(true);
     GetNotification();

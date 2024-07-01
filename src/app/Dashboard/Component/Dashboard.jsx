@@ -42,7 +42,6 @@ function Dashboard() {
         setChart2(response3.data);
       }
       catch(err){ 
-        console.log(err);
       }
     }
     
@@ -50,10 +49,8 @@ function Dashboard() {
       try{
          const response = await axioinstance.post("Dashboard/getAnouncement");
          setAnnouncement(response.data);
-         console.log(response.data);
       }
       catch(err){ 
-        console.log(err);
       } 
     }
 
@@ -67,9 +64,6 @@ function Dashboard() {
     useEffect(() => {()=>getannouncement()}, [])
 
     return (
-    
-      
-
        <div>
           {user.userType ==="admin" &&
           <div>
@@ -92,12 +86,7 @@ function Dashboard() {
                         <Col xs={24} sm={12}><Skeleton active loading={chart1.length==0}><Chart topic="This week transitions" data={chart1} /></Skeleton></Col>
                         <Col xs={24} sm={12}><Skeleton active loading={chart2.length==0}><Chart topic="This week new users" data={chart2} /></Skeleton></Col>
                     </Row>)}
-           {/* <Row style={{ width: "100%" ,margin:'30px 0'}}  gutter={[5, 5]}>
-            <Col xs={24} sm={12}><Chart topic="This week transitions" data={chart1}/></Col>
-            <Col xs={24} sm={12}><Chart topic="Ebook Views" data={chart2}/></Col>
-          </Row>  */}
           <Row style={{ width: "100%" ,margin:'30px 0'}}  gutter={[5, 5]}>
-           {/* <Col xs={24} sm={10}><RecentNoti/></Col> */}
             <Col xs={24} sm={24}><OverdueTable /></Col>
           </Row>
          

@@ -1,6 +1,5 @@
 'use client'
 import axioinstance from '@/app/Instance/api_instance';
-import { Collapse } from 'antd'
 import React, { useEffect, useState } from 'react'
 import CollapseCard from './CollapseCard';
 
@@ -20,7 +19,6 @@ const[cupboardName2, setCupboardName] = useState("")
           setCupboard(response.data[0].cupboardId);
           setCupboardName(response.data[0].cupboardName);
         } catch (error) {
-          console.log(error);
         }
       }
     

@@ -5,6 +5,7 @@ import { useForm } from 'antd/es/form/Form'
 import Password from 'antd/es/input/Password'
 import React, { useState } from 'react'
 import axioinstance from '../../Instance/api_instance'
+import { showToastError, showToastSuccess } from '@/app/Component/NewToast'
 
 function EditProfile() {
   const [form]=Form.useForm();
@@ -12,21 +13,6 @@ function EditProfile() {
   const[spinning,setSpinning]=useState(false);
   const[newPassword,setNewPassword]=useState('');
   const[confirmPassword,setConfirmPassword]=useState('');
-  const [messageApi, contextHolder] = message.useMessage();
-
-  const success = (m) => {
-    messageApi.open({
-      type: 'success',
-      content: m,
-    });
-  };
-
-  const error = (m) => {
-    messageApi.open({
-      type: 'error',
-      content: m,
-    });
-  };
 
   const ChangePassword =() => {
     form.validateFields().then(async()=>{
@@ -39,14 +25,13 @@ function EditProfile() {
         newPassword:form.getFieldValue('new')
       }
     );
-    success("password changed successfully");
+    showToastSuccess("Password changed successfully");
     setConfirmPassword('');
     setNewPassword('');
     form.resetFields();
     
   }catch(e){
-    console.log(e);
-     error("password change failed");
+    showToastError(e,"Failed to change password");
   }
     setEdit(true);
     setSpinning(false);
@@ -59,7 +44,7 @@ function EditProfile() {
 
 
     <div>
-      {contextHolder}
+
       {/* <Collapse
       items={[{ key: '1', label: "Change Password", children: 
       <> */}

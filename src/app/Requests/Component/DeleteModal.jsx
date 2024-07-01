@@ -1,42 +1,27 @@
 'use client'
-import { Button, Col, Flex, Form, Modal, Popconfirm, Row, message } from 'antd'
-import React, { Children, useState } from 'react'
-import ReturnForam from './ReturnForam'
+import { Button, Popconfirm} from 'antd'
+import React from 'react'
+
 import axioinstance from '../../Instance/api_instance';
-import { QuestionCircleOutlined } from '@ant-design/icons';
+import { showToastError, showToastSuccess } from '@/app/Component/NewToast';
+
 
 
 
 function DeleteModal({requestId,fetchData}) {
-    const [messageApi, contextHolder] = message.useMessage();
-
-
-    const successModal = (m) => {
-      messageApi.open({
-        type: 'success',
-        content: m,
-      });
-    };
-    const errorModal = (m) => {
-      messageApi.open({
-        type: 'error',
-        content: m,
-      });
-    };
 
     const handleRemove=async()=>{
         try{
             await axioinstance.delete(`Request/RemoveRequest?id=${requestId}`)
-            successModal("Remove Request");
+            showToastSuccess("Request Removed Successfully");
             fetchData();
         }catch(error){
-            errorModal("Can't Remove Request");
+            showToastError(error,"Failed to remove request");
         }
     }
 
     return (
         <>
-        {contextHolder}
         <Popconfirm
         title="Remove Requests"
         description="Are you sure to remove this request?"

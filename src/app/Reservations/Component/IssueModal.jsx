@@ -3,28 +3,14 @@ import { Button, Form, Drawer, message } from "antd";
 import React, { useState } from "react";
 import IssueForam from "./IssueForam";
 import axioinstance from "../../Instance/api_instance";
+import { showToastError, showToastSuccess } from "@/app/Component/NewToast";
 
 function IssueModal({ open, close, data }) {
   const [loading, setLoading] = useState(false);
   const [date, setDate] = useState("");
   const [email, setEmail] = useState(true);
   const [form] = Form.useForm();
-  const [messageApi, contextHolder] = message.useMessage();
-
-  const successModal = (e) => {
-    messageApi.open({
-      type: "success",
-      content: e,
-    });
-  };
-
-  const errorModal = (e) => {
-    messageApi.open({
-      type: "error",
-      content: e,
-    });
-  };
-
+  
   async function fetchData() {
     // Function to fetch data from server
     try {
@@ -41,18 +27,13 @@ function IssueModal({ open, close, data }) {
       setTimeout(() => {
         setLoading(false);
         // fetchData(form);
-        successModal(response.data);
+        showToastSuccess("Book Issued Successfully");
         close();
         form.resetFields();
       }, 3000);
     } catch (error) {
-      if(error.staus===400){
-        errorModal(error.response.data);
-      }else{
-          errorModal("Something went wrong");
-      }
+      showToastError(error, "Failed to Issue Book");
       setLoading(false);
-      errorModal(error.response.data);
     }
   }
 
@@ -97,7 +78,6 @@ function IssueModal({ open, close, data }) {
           </Button>,
         ]}
       >
-        {contextHolder}
         <IssueForam
           setDate={setDate}
           form={form}

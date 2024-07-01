@@ -1,15 +1,11 @@
 import axios from "axios"; 
 
 
-
-//const token =Cookies.get('jwt');
 const axioinstance = axios.create(
   {
-  baseURL : 'https://localhost:7174/api/',
+  baseURL : 'https://easylibrowebapi.azurewebsites.net/api/',
   headers: {
-    //'Authorization': `Bearer ${token}`,
     'Content-Type': "application/json",
-   // 'timeout' : 1000,
   }, 
   
 });

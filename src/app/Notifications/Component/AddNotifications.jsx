@@ -3,31 +3,14 @@ import React, { useEffect, useState } from 'react';
 import { Modal, Button, Form, Input, Select, DatePicker, message } from 'antd';
 import { UserContext } from '../../Context/Context';
 import axioinstance from '@/app/Instance/api_instance';
+import { showToastError, showToastSuccess } from '@/app/Component/NewToast';
 const { Option } = Select;
 
 const AddNotification = ({ visible, onCreate, onCancel,fetchData }) => {
   const [form] = Form.useForm();
   const[respient,setrecepient]=useState("all")
-  const [messageApi, contextHolder] = message.useMessage();
   const[loading,setLoading]=useState(false)
-
-  const successModal = (e) => {
-    messageApi.open({
-      type: "success",
-      content: e,
-    });
-  };
-
-  const errorModal = (e) => {
-    messageApi.open({
-      type: "error",
-      content: e,
-    });
-  };
-
-   
-  
-    const user=React.useContext(UserContext).user;
+  const user=React.useContext(UserContext).user;
     
 
     
@@ -43,11 +26,11 @@ const AddNotification = ({ visible, onCreate, onCancel,fetchData }) => {
       });
       fetchData();
       onCancel();
-      successModal("Notification Added Successfully");
+      showToastSuccess("Notification Added Successfully");
       form.resetFields();
     }
     catch(error){
-      errorModal("Notification Added Failed");
+      showToastError(error,"Notification Added Failed");
       fetchData();
     }
     setLoading(false);
@@ -74,7 +57,6 @@ const AddNotification = ({ visible, onCreate, onCancel,fetchData }) => {
           });
       }}
     >
-      {contextHolder}
       <Form form={form} layout="vertical" name="form_in_modal">
         <Form.Item name="to" label="To" rules={[{ required: true, message: 'Please select the recipient!' }]}>
           <Select placeholder="Select Recipient" onSelect={(value)=>setrecepient(value)} >

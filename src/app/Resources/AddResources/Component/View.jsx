@@ -4,6 +4,7 @@ import ResourcesAddForm from '../../Components/ResourcesAddForm'
 import { Form,Button, Flex,Modal,Tooltip, message } from 'antd';
 import axios from 'axios';
 import axioinstance from '@/app/Instance/api_instance';
+import { showToastError, showToastSuccess } from '@/app/Component/NewToast';
 
 
 function View(props) {
@@ -13,26 +14,12 @@ function View(props) {
    const [imageurl,setImageURL]=useState("");
    const[cupboard,selectCupboard]=useState('');
     const[shelf,selectShelf]=useState('');
-    const [messageApi, contextHolder] = message.useMessage();
-
-    const successModal = (e) => {
-      messageApi.open({
-        type: "success",
-        content: e,
-      });
-    };
-    const errorModal = (e) => {
-      messageApi.open({
-        type: "error",
-        content: e,
-      });
-    };
   
 
    const submitForm = async () => {
     if(imageurl===""){
       setLoading(false);
-      errorModal('Please upload a image for the resource.');
+      showToastSuccess("", "Please upload an image")
     }else{
     try{
    
@@ -55,14 +42,14 @@ function View(props) {
         setTimeout(() => {
             setLoading(false);
             form.resetFields();
-            successModal('Successfully added the resource');
+            showToastSuccess('Resource added successfully');
         }, 3000);
         setImageURL("");
       }
     catch(error) {
         setLoading(false);
         console.log(error);
-        errorModal('An error occurred while processing your request.');
+        showToastError(error, 'Failed to add resource');
     };}
    
 };
@@ -89,7 +76,6 @@ const handleCancel = () => {
 }
   return (
     <div>
-      {contextHolder}
       <Flex justify="space-between">
         <div style={{ fontSize: '18px',fontWeight:'600',marginLeft:'30px',marginBottom:'30px'}}>
           <font>Add New Resource</font>

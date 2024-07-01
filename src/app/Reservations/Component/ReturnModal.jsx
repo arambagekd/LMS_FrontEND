@@ -14,6 +14,7 @@ import React, { useState } from "react";
 import ReturnForam from "./ReturnForam";
 import Cookies from "js-cookie";
 import axioinstance from "../../Instance/api_instance";
+import { showToastError, showToastSuccess } from "@/app/Component/NewToast";
 
 function ReturnModal(props) {
   const token = Cookies.get("jwt");
@@ -21,21 +22,6 @@ function ReturnModal(props) {
   const [date, setData] = useState("");
   const [email, setEmail] = useState(true);
   const [form] = Form.useForm();
-  const [messageApi, contextHolder] = message.useMessage();
-
-  const successModal = (e) => {
-    messageApi.open({
-      type: "success",
-      content: e,
-    });
-  };
-  const errorModal = (e) => {
-
-    messageApi.open({
-      type: "error",
-      content: e,
-    });
-  };
 
   async function fetchData() {
     try {
@@ -48,7 +34,7 @@ function ReturnModal(props) {
       });
       setTimeout(() => {
         setLoading(false);
-        successModal(response.data);
+        showToastSuccess("Book Returned Successfully"	);
         props.close();
         form.resetFields();
         props.fetchData(props.type);
@@ -56,7 +42,7 @@ function ReturnModal(props) {
     } catch (error) {
       setLoading(false);
       console.log(error);
-      errorModal(error.response.data);
+      showToastError(error, "Failed to Return Book");
     }
   }
 
@@ -79,7 +65,6 @@ function ReturnModal(props) {
 
   return (
     <div>
-      {contextHolder}
       <Drawer
         mask={true}
         maskClosable={false}

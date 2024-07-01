@@ -26,180 +26,24 @@ import {
   Avatar,
   Badge,
   Divider,
-  Spin,
   Space,
 } from "antd";
 import Link from "next/link";
 import AdressBar from "./AdressBar";
 import { usePathname, useRouter } from "next/navigation";
 import Image from "next/image";
-import axios from "axios";
-import Cookies from "js-cookie";
 import axioinstance from "../Instance/api_instance";
-import { UserContext, EmailContext } from "../Context/Context";
+import { UserContext} from "../Context/Context";
 import NotificationDrawer from "./NotificationDrawer";
 import { getFirebaseToken, onMessageListener } from "../Yes/firebase-config";
 import NavigationFooter from "./footer";
 import { authService } from "../../../auth/authService";
-import { get } from "http";
 import { firebaseauth } from "../../../auth/firebaseauth";
 import styles from "./Navigations.module.css";
 const { Header, Content, Sider } = Layout;
 
 
-const sideitems = [
-  {
-    key: "Home",
-    icon: React.createElement(HomeOutlined),
-    label: <Link href="/Home">Home</Link>,
-  },
-  {
-    key: "Dashboard",
-    icon: React.createElement(DashboardOutlined),
-    label: <Link href="/Dashboard">Dashboard</Link>,
-  },
-  {
-    key: "Resources",
-    icon: React.createElement(ReadOutlined),
-    label: <Link href="/Resources">Resources</Link>,
-  },
-  {
-    key: "Locations",
-    icon: React.createElement(CloudServerOutlined),
-    label: <Link href="/Locations">Locations</Link>,
-  },
-  {
-    key: "Users",
 
-    icon: React.createElement(UserOutlined),
-    label: <Link href="/Users">Users</Link>,
-  },
-  {
-    key: "Requests",
-    icon: React.createElement(AuditOutlined),
-    label: <Link href="/Requests">Requests</Link>,
-  },
-  {
-    key: "Notifications",
-    icon: React.createElement(MessageOutlined),
-    label: <Link href="/Notifications">Notifications</Link>,
-  },
-  {
-    key: "Reservations",
-    icon: React.createElement(InteractionOutlined),
-    label: <Link href="/Reservations">Reservations</Link>,
-  },
-  {
-    key: "Reports",
-    icon: React.createElement(InfoCircleOutlined),
-    label: <Link href="/Reports">Reports</Link>,
-  },
-  {
-    key: "Settings",
-    icon: React.createElement(SettingOutlined),
-    label: <Link href="/Settings">Settings</Link>,
-  },
-];
-const sideitems2 = [
-  {
-    key: "Home",
-    icon: React.createElement(HomeOutlined),
-    label: <Link href="/Home">Home</Link>,
-  },
-  {
-    key: "Dashboard",
-    icon: React.createElement(DashboardOutlined),
-    label: <Link href="/Dashboard">Dashboard</Link>,
-  },
-  {
-    key: "Resources",
-    icon: React.createElement(ReadOutlined),
-    label: <Link href="/Resources">Resources</Link>,
-  },
-  {
-    key: "Locations",
-    icon: React.createElement(CloudServerOutlined),
-    label: <Link href="/Locations">Locations</Link>,
-  },
-
-  {
-    key: "Requests",
-    icon: React.createElement(AuditOutlined),
-    label: <Link href="/Requests">Requests</Link>,
-  },
-
-  {
-    key: "Reservations",
-    icon: React.createElement(InteractionOutlined),
-    label: <Link href="/Reservations">Reservations</Link>,
-  },
-
-  {
-    key: "Settings",
-    icon: React.createElement(SettingOutlined),
-    label: <Link href="/Settings">Settings</Link>,
-  },
-];
-const headeritems = [
-  {
-    key: "Home",
-   label: <Link href="/Home"><HomeOutlined/></Link>,
-  },
-  {
-    key: "Dashboard",
-    label: <Link href="/Dashboard"><DashboardOutlined/></Link>,
-  },
-  {
-    key: "Resources",
-    label: <Link href="/Resources"><ReadOutlined/></Link>,
-  },
-  {
-    key: "Locations",
-    label: <Link href="/Locations"><CloudServerOutlined/></Link>,
-  },
-  {
-    key: "Users",
-    label: <Link href="/Users"><UserOutlined/></Link>,
-  },
-  {
-    key: "Requests",
-    label: <Link href="/Requests"><AuditOutlined/></Link>,
-  },
-  {
-    key: "Notifications",
-    label: <Link href="/Notifications"><MessageOutlined/></Link>,
-  },
-  {
-    key: "Reservations",
-    label: <Link href="/Reservations"><InteractionOutlined/></Link>,
-  },
-];
-const headeritemspatron = [
-  {
-    key: "Home",
-   label: <Link href="/Home"><HomeOutlined/></Link>,
-  },
-  {
-    key: "Dashboard",
-    label: <Link href="/Dashboard"><DashboardOutlined/></Link>,
-  },
-  {
-    key: "Resources",
-    label: <Link href="/Resources"><ReadOutlined/></Link>,
-  },
-  {
-    key: "Locations",
-    label: <Link href="/Locations"><CloudServerOutlined/></Link>,
-  },
-  {
-    key: "Requests",
-    label: <Link href="/Requests"><AuditOutlined/></Link>,
-  },
-  {
-    key: "Reservations",
-    label: <Link href="/Reservations"><InteractionOutlined/></Link>,
-  },
-];
 
 
 
@@ -234,28 +78,164 @@ function Navigations(props) {
       setUser({});
       router.replace("/LogIN");
     } catch (error) {
-      console.log(error);
+      
     }
   };
+ 
 
-  const selectPatron = async (usertype) => {
-    try {
-      const response = await authService.selectPatron(usertype);
-      GetUser();
-    } catch (e) {
-      console.log(e);
-    }
-  };
-  const getUnreadCount = async () => {
-    try {
-      const response = await axioinstance.post("Notification/UnreadCount");
-      console.log(response.data);
-      setUnreadCount(response.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
+  const sideitems = [
+    {
+      key: "Home",
+      icon: React.createElement(HomeOutlined),
+      label: <Link href="/Home">Home</Link>,
+    },
+    {
+      key: "Dashboard",
+      icon: React.createElement(DashboardOutlined),
+      label: <Link href="/Dashboard">Dashboard</Link>,
+    },
+    {
+      key: "Resources",
+      icon: React.createElement(ReadOutlined),
+      label: <Link href="/Resources">Resources</Link>,
+    },
+    {
+      key: "Locations",
+      icon: React.createElement(CloudServerOutlined),
+      label: <Link href="/Locations">Locations</Link>,
+    },
+    {
+      key: "Users",
+  
+      icon: React.createElement(UserOutlined),
+      label: <Link href="/Users">Users</Link>,
+    },
+    {
+      key: "Requests",
+      icon: React.createElement(AuditOutlined),
+      label: <Link href="/Requests">Requests</Link>,
+    },
+    {
+      key: "Notifications",
+      icon: React.createElement(MessageOutlined),
+      label: <Link href="/Notifications">Notifications</Link>,
+    },
+    {
+      key: "Reservations",
+      icon: React.createElement(InteractionOutlined),
+      label: <Link href="/Reservations">Reservations</Link>,
+    },
+    {
+      key: "Reports",
+      icon: React.createElement(InfoCircleOutlined),
+      label: <Link href="/Reports">Reports</Link>,
+    },
+    {
+      key: "Settings",
+      icon: React.createElement(SettingOutlined),
+      label: <Link href="/Settings">Settings</Link>,
+    },
+  ];
+  const sideitems2 = [
+    {
+      key: "Home",
+      icon: React.createElement(HomeOutlined),
+      label: <Link href="/Home">Home</Link>,
+    },
+    {
+      key: "Dashboard",
+      icon: React.createElement(DashboardOutlined),
+      label: <Link href="/Dashboard">Dashboard</Link>,
+    },
+    {
+      key: "Resources",
+      icon: React.createElement(ReadOutlined),
+      label: <Link href="/Resources">Resources</Link>,
+    },
+    {
+      key: "Locations",
+      icon: React.createElement(CloudServerOutlined),
+      label: <Link href="/Locations">Locations</Link>,
+    },
+  
+    {
+      key: "Requests",
+      icon: React.createElement(AuditOutlined),
+      label: <Link href="/Requests">Requests</Link>,
+    },
+  
+    {
+      key: "Reservations",
+      icon: React.createElement(InteractionOutlined),
+      label: <Link href="/Reservations">Reservations</Link>,
+    },
+  
+    {
+      key: "Settings",
+      icon: React.createElement(SettingOutlined),
+      label: <Link href="/Settings">Settings</Link>,
+    },
+  ];
+  const headeritems = [
+    {
+      key: "Home",
+     label: <Link href="/Home"><HomeOutlined/></Link>,
+    },
+    {
+      key: "Dashboard",
+      label: <Link href="/Dashboard"><DashboardOutlined/></Link>,
+    },
+    {
+      key: "Resources",
+      label: <Link href="/Resources"><ReadOutlined/></Link>,
+    },
+    {
+      key: "Locations",
+      label: <Link href="/Locations"><CloudServerOutlined/></Link>,
+    },
+    {
+      key: "Users",
+      label: <Link href="/Users"><UserOutlined/></Link>,
+    },
+    {
+      key: "Requests",
+      label: <Link href="/Requests"><AuditOutlined/></Link>,
+    },
+    {
+      key: "Notifications",
+      label: <Link href="/Notifications"><MessageOutlined/></Link>,
+    },
+    {
+      key: "Reservations",
+      label: <Link href="/Reservations"><InteractionOutlined/></Link>,
+    },
+  ];
+  const headeritemspatron = [
+    {
+      key: "Home",
+     label: <Link href="/Home"><HomeOutlined/></Link>,
+    },
+    {
+      key: "Dashboard",
+      label: <Link href="/Dashboard"><DashboardOutlined/></Link>,
+    },
+    {
+      key: "Resources",
+      label: <Link href="/Resources"><ReadOutlined/></Link>,
+    },
+    {
+      key: "Locations",
+      label: <Link href="/Locations"><CloudServerOutlined/></Link>,
+    },
+    {
+      key: "Requests",
+      label: <Link href="/Requests"><AuditOutlined/></Link>,
+    },
+    {
+      key: "Reservations",
+      label: <Link href="/Reservations"><InteractionOutlined/></Link>,
+    },
+  ];
   const itemadmin = [
     {
       key: "1",
@@ -324,12 +304,6 @@ function Navigations(props) {
           label: <Link href="/Settings">Settings </Link>,
           key: "6",
         },
-
-        // {
-        //   icon: React.createElement(QuestionCircleOutlined),
-        //   label: <a href="https://www.aliyun.com">Help & Support </a>,
-        //   key: "6",
-        // },
         {
           icon: React.createElement(InfoCircleOutlined),
           label: <a href="https://www.aliyun.com">About</a>,
@@ -347,7 +321,6 @@ function Navigations(props) {
       ],
     },
   ];
-
   const itempatron = [
     {
       key: "1",
@@ -389,12 +362,6 @@ function Navigations(props) {
           label: <Link href="/Settings">Settings </Link>,
           key: "6",
         },
-
-        // {
-        //   icon: React.createElement(QuestionCircleOutlined),
-        //   label: <a href="https://www.aliyun.com">Help & Support </a>,
-        //   key: "6",
-        // },
         {
           icon: React.createElement(InfoCircleOutlined),
           label: <a href="https://www.aliyun.com">About</a>,
@@ -413,29 +380,36 @@ function Navigations(props) {
     },
   ];
 
+
+
+  const selectPatron = async (usertype) => {
+    try {
+      const response = await authService.selectPatron(usertype);
+      GetUser();
+    } catch (e) {
+    }
+  };
+
+  const getUnreadCount = async () => {
+    try {
+      const response = await axioinstance.post("Notification/UnreadCount");
+      setUnreadCount(response.data);
+    } catch (error) {
+    }
+  };
+
   useEffect(() => {
     
     onMessageListener()
       .then((payload) => {
-        console.log("Message received. ", payload);
       })
-      .catch((err) => console.log("Failed to receive message. ", err));
   }, []);
 
   useEffect(() => {
-    // Fetch unread count immediately on component mount
     getUnreadCount();
-
-    // Set up the interval to fetch unread count every 10 seconds
-    // const intervalId = setInterval(getUnreadCount, 10000); // 10000ms = 10 seconds
-
-    // // Clean up the interval on component unmount
-    // return () => clearInterval(intervalId);
-  }, []); // E
+  }, []); 
 
  
-  
-
   return rootPath != "LogIN" &&
     rootPath != "ErrorPage" &&
     rootPath != "Home" &&

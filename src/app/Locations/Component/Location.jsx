@@ -24,7 +24,6 @@ function Location() {
       console.log(response.data)
       setCupboards(response.data);
     } catch (error) {
-      console.log(error);
     }
     setLoading(false);
   }

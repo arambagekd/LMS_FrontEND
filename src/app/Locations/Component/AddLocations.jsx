@@ -1,26 +1,12 @@
 "use client";
+import { showToastError, showToastSuccess } from "@/app/Component/NewToast";
 import axioinstance from "@/app/Instance/api_instance";
 import { Button, Card, Col, Flex, Form, Input, InputNumber, Row, message } from "antd";
 import React, { useState } from "react";
 
 function AddLocations() {
   const [form] = Form.useForm();
-  const [messageApi, contextHolder] = message.useMessage();
   const [loading, setLoading] = useState(false);
-
-
-  const successModal = () => {
-    messageApi.open({
-      type: 'success',
-      content: 'Adding Location successfully',
-    });
-  };
-  const errorModal = () => {
-    messageApi.open({
-      type: 'error',
-      content: "Adding Location Failed",
-    });
-  };
 
   async function addLocation() {
     setLoading(true);
@@ -30,14 +16,14 @@ function AddLocations() {
         shelfNo: form.getFieldValue("shelf"),
       });
       setTimeout(() => {
-        successModal();
+        showToastSuccess("Location Added Successfully");
         setLoading(false);
         form.resetFields();
       }, 3000);
       
     } catch (error) {
       console.log(error);
-      errorModal();
+      showToastError(error, "Failed to add location");
       setLoading(false)
       form.resetFields();
     }
@@ -55,7 +41,6 @@ function AddLocations() {
   
   return (
     <>
-    {contextHolder}
     <Row justify="end">
       <Col sm={24} xs={24}>
         <Card title="Add a location">

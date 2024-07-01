@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react'
 import IssueForam from './IssueForam'
 import axios from 'axios';
 import axioinstance from '../../Instance/api_instance';
+import { showToastError, showToastSuccess } from '@/app/Component/NewToast';
 
 
 
@@ -12,22 +13,6 @@ function IssueModal(props) {
     const[date,setDate]=useState("");
     const [email, setEmail] = useState(true);
     const [form] = Form.useForm();
-    const [messageApi, contextHolder] = message.useMessage();
-
-
-    const successModal = (e) => {
-      messageApi.open({
-        type: 'success',
-        content: e,
-      });
-    };
-    const errorModal = (e) => {
-      messageApi.open({
-        type: 'error',
-        content: e,
-      });
-    };
-
 
     async function fetchData() { // Function to fetch data from server
         try {
@@ -44,14 +29,14 @@ function IssueModal(props) {
           setTimeout(() => {
             setLoading(false);
            // fetchData(form);
-            successModal(response.data);
+            showToastSuccess("Book Issued Successfully");
             props.close();
             form.resetFields();
             props.fetchData();
         }, 3000);
         } catch (error) {
           setLoading(false);
-          errorModal(String(error.response.data).split('\n')[0]);
+          showToastError(error, "Failed to Issue Book");
           console.log(error);
         }
       }
@@ -104,7 +89,6 @@ function IssueModal(props) {
 
             >
                 
-                {contextHolder}
                 <IssueForam date={setDate} form={form} data={props.data} setEmail={setEmail} email={email}/>
             </Drawer>
 

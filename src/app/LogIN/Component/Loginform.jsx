@@ -12,6 +12,7 @@ import { get } from "http";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { authService } from "../../../../auth/authService";
 import { firebaseauth } from "../../../../auth/firebaseauth";
+import { showToastError, showToastSuccess } from "@/app/Component/NewToast";
 
 function Loginform({  setSpinning }) {
   const [form] = Form.useForm();
@@ -24,23 +25,10 @@ function Loginform({  setSpinning }) {
   const [loading, setLoading] = useState(false);
   const [loading1, setLoading1] = useState(false);
   const [loading2, setLoading2] = useState(false);
-  const [messageApi, contextHolder] = message.useMessage();
   const [login, setLogin] = useState(false);
   const [firebasetoken, setFireBaseToken] = useState("no");
 
-  const successModal = () => {
-    messageApi.open({
-      type: "success",
-      content: "Log in successfully",
-    });
-  };
 
-  const errorModal = (e) => {
-    messageApi.open({
-      type: "error",
-      content: e,
-    });
-  };
   const router = useRouter();
 
   const LogIn = async () => {
@@ -56,14 +44,12 @@ function Loginform({  setSpinning }) {
       if (firebasetoken != "no") {
         const response2 = firebaseauth.setFirebasetoken(firebasetoken, user);
       }
-     
-      successModal();
+     showToastSuccess("Log in successfully")
     } catch (error) {
+      showToastError(error,"Log in Failed");
       router.push("/LogIN");
       setLoading(false);
       setSpinning(false);
-      errorModal("Login Failed");
-      
     } 
   };
 
@@ -94,7 +80,6 @@ function Loginform({  setSpinning }) {
 
   return (
       <div style={{ margin: 30 }}>
-      {contextHolder}
         <Form
           form={form}
           name="basic"

@@ -3,11 +3,10 @@ import React, { useEffect, useState } from 'react';
 import { Card, Row, Col, Button, Select, Tooltip, Flex, Pagination, Popconfirm, Spin, Empty } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
 const { Option } = Select;
-import Notifications from './Notifications';
 import AddNotification from './AddNotifications';
 import UpdateNotification from './UpdateNotification';
-import RemindNotification from './RemindNotification';
 import axioinstance from '../../Instance/api_instance';
+import { showToastError, showToastSuccess } from '@/app/Component/NewToast';
 
 
 
@@ -34,28 +33,28 @@ function NotificationCard() {
   
 
 
-    const showRemindModal = () => {
-        setVisibleRemind(true);
-    };
+    // const showRemindModal = () => {
+    //     setVisibleRemind(true);
+    // };
 
-    const handleRemind = (values) => {
-        const newNotification = {
-            id: notifi.length + 1,
-            date: new Date().toLocaleDateString(),
-            ...values,
-        };
-        const updatedNotifications = [...notifi, newNotification];
-        setNotifications(updatedNotifications);
-        setVisibleRemind(false);
-    };
+    // const handleRemind = (values) => {
+    //     const newNotification = {
+    //         id: notifi.length + 1,
+    //         date: new Date().toLocaleDateString(),
+    //         ...values,
+    //     };
+    //     const updatedNotifications = [...notifi, newNotification];
+    //     setNotifications(updatedNotifications);
+    //     setVisibleRemind(false);
+    // };
     const showAddModal = () => {
         setVisibleAdd(true);
     };
 
-    const showUpdateModal = (notification) => {
-        setSelectedNotification(notification);
-        setVisibleUpdate(true);
-    };
+    // const showUpdateModal = (notification) => {
+    //     setSelectedNotification(notification);
+    //     setVisibleUpdate(true);
+    // };
 
     const handleUpdate = (id, values) => {
         const updatedNotifications = notifi.map((notification) =>
@@ -83,14 +82,12 @@ function NotificationCard() {
     };
 
     const handleRemove = async(id) => {
-      
         try{
         const response=await axioinstance.delete(`Notification/RemoveNotification?id=${id}`);
-        console.log(response);
+        showToastSuccess("Notification Removed Successfully");
         fetchData();
         }catch(e){
-            console.log(e);
-            
+            showToastError(e,"Failed to remove notification");
         }
     };
     const handleSearch = (value) => {
@@ -137,13 +134,6 @@ function NotificationCard() {
         <div>
             <Row gutter={16} style={{ marginBottom: '30px', }}>
                 <Col span={12}>
-                    {/* <Button style={{ marginRight: '10px', width: '150px', backgroundColor: '#001628', color: '#ffff' }} onClick={showRemindModal}>
-                        Reminding
-                    </Button>
-
-                    {visibleRemind && (
-                        <RemindNotification visible={visibleRemind} onRemind={handleRemind} onCancel={() => setVisibleRemind(false)} />
-                    )} */}
                     <Button style={{ marginRight: '10px', width: '150px', backgroundColor: '#001628', color: '#ffff' }} onClick={showAddModal}>
                         New
                     </Button>
@@ -151,9 +141,6 @@ function NotificationCard() {
                     {selectedNotification && (
                         <UpdateNotification visible={visibleUpdate} onUpdate={handleUpdate} onCancel={handleCancel} notification={selectedNotification} />
                     )}
-                    {/* <Button style={{ marginRight: '10px', width: '150px', backgroundColor: '#001628', color: '#ffff' }} onClick={showUpdateModal}>
-                        Updates
-                    </Button> */}
                 </Col>
                 <Col span={9}>
 

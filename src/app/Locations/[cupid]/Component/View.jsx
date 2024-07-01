@@ -20,7 +20,6 @@ function View({cupid}) {
       console.log(response.data)
       setCupboards(response.data);
     } catch (error) {
-      console.log(error);
     }
   }
 

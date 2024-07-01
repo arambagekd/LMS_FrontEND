@@ -3,6 +3,8 @@ import { Button, Col, Flex, Form, Modal, Row,Drawer } from 'antd'
 import React, { useState } from 'react'
 import axioinsatance from '../../Instance/api_instance'
 import UserAddForm from './UserAddForm';
+import { showToastError, showToastSuccess } from '@/app/Component/NewToast';
+import axios from 'axios';
 
 
 
@@ -13,25 +15,12 @@ function ReturnModal(props) {
     const[type,setType]=useState("patron");
     const[gender,setGender]=useState("male");
 
-    const showSuccessModal = () => {
-        Modal.success({
-            title: 'Success',
-            content: 'Successfully Return the Resource',
-        });
-    };
-
-    const errorModal = (p) => {
-        Modal.error({
-            title: 'Issue Book Unseccessfull',
-            content: p,
-        });
-    };
 
     async function fetchData() { // Function to fetch data from server'        
         // Sending POST request to fetch data based on search parameters
-        
-       console.log(form.getFieldValue("nicno"));
-        await axioinsatance.post("User/AddUser",{
+        try{
+        await validateEmail(form.getFieldValue("email"));
+        const response=await axioinsatance.post("User/AddUser",{
                 fName: form.getFieldValue("fname"),
                 lName: form.getFieldValue("lname"),
                 email: form.getFieldValue("email"),
@@ -42,30 +31,43 @@ function ReturnModal(props) {
                 userType: type,
                 gender:gender,
                 image: "no-image"
-            }
-        )
-            .then(response => {
+            });	
+        
                 const data = response.data; // Extracting data from response
-                console.log(data);
                 setTimeout(() => {
                     setLoading(false);
-                    // fetchData(form);
-                    showSuccessModal();
+                    showToastSuccess("User Added Successfully");
                     props.closeModal();
                     form.resetFields();
                     props.fetchData("all");
 
                 }, 3000);
-            })
-            .catch(error => {
+            }
+           catch (error) {
                 setLoading(false);
                 console.log(error);
-                errorModal("saf");
-               // errorModal(String(error.response.data).split('\n')[0]);
-                
-            });
+                if(error==="Email does not exist"){
+                    showToastError("Email does not exist", "Invalid Email");
+                }else{
+                showToastError(error, "Failed to add User");   
+                }
+            };
 
     }
+
+    const validateEmail = async (email) => {
+        try {
+          const apiKey = 'e2c12c772fe64d4b9b8badf2b90f12b5'; // Use your API key here
+          const response = await axios.get(`https://emailvalidation.abstractapi.com/v1/?api_key=${apiKey}&email=${email}`);
+          const result = response.data;
+          console.log(result);
+          if (result.deliverability !== 'DELIVERABLE') {
+            throw "Email does not exist"
+          }
+        } catch (err) {
+            throw "Email does not exist"	
+        }
+      };
 
     const handleOk = () => {
 
@@ -74,9 +76,7 @@ function ReturnModal(props) {
                 setLoading(true);
                 fetchData();
             })
-
             .catch(() => {
-                console.log("Validate Failed:");
             });
 
 

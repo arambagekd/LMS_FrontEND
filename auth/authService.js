@@ -5,7 +5,7 @@ import axios from 'axios';
 
 const apiService = axios.create(
   {
-  baseURL : 'https://localhost:7174/api/',
+  baseURL : 'https://easylibrowebapi.azurewebsites.net/api/',
   headers: {
     'Content-Type': "application/json",
   }, 
@@ -25,7 +25,6 @@ export const authService = {
       localStorage.setItem('refresh', response.data.refreshToken);
       return "Log in successfully";
     } catch (error) {
-      console.log(error);
       throw error.response.data;
     }
   },
@@ -63,7 +62,6 @@ export const authService = {
       return {user:response1.data,
                email:response2.data};
     } catch (error) {
-      console.log(error);
       throw error.response;
 
     }
@@ -74,7 +72,6 @@ export const authService = {
       localStorage.setItem('jwt', response.data.token);
       return response.data;
     } catch (error) {
-      console.log(error);
       throw error.response;
     }
   }

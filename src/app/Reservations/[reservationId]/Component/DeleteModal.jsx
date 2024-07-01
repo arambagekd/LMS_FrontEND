@@ -4,21 +4,22 @@ import React, { useState } from 'react'
 import { DeleteOutlined,QuestionCircleOutlined } from '@ant-design/icons';
 import axioinstance from '../../../Instance/api_instance';
 import { useRouter } from 'next/navigation';
+import { showToastError, showToastSuccess } from '@/app/Component/NewToast';
 
 function DeleteModal({reservation}) {
     const router=useRouter();
 
     const deleteReservation=async()=>{
             try{
-                const response=await axioinstance.delete(`http://localhost:5164/api/Reservation/DeleteReservation?id=${reservation}`)
+                const response=await axioinstance.delete(`Reservation/DeleteReservation?id=${reservation}`)
                 if(response.data==true){
-                    alert("deleted");
+                    showToastSuccess("Reservation deleted successfully")
                     router.push("/Reservations")}
                 else
-                    alert("failed to delete")
+                    showToastError("abc","delete failed")
             }catch(error)
             {
-                alert("delete failed");
+                showToastError(error,"Failed to delete reservation")
             }
     }
 

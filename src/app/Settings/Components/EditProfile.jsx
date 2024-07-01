@@ -7,6 +7,7 @@ import axioinstance from '../../Instance/api_instance'
 import dayjs from 'dayjs';
 import { UserContext } from '../../Context/Context'
 import UploadImage from './UploadImage'
+import { showToastError, showToastSuccess } from '@/app/Component/NewToast'
 
 function EditProfile() {
   const [form]=useForm();
@@ -14,33 +15,15 @@ function EditProfile() {
   const[save,setSave]=useState(true);
   const[date,setDate]=useState('');
   const[spinning,setSpinning]=useState(false);
-  const [messageApi, contextHolder] = message.useMessage();
   const [gender, setGender]=useState("");
   //using Context
   const user = React.useContext(UserContext).user;
   const getUser = React.useContext(UserContext).GetUser;
   const [imagepath,setImagePath]=useState("");
-
-  const success = (m) => {
-    messageApi.open({
-      type: 'success',
-      content: m,
-    });
-  };
-
-  const error = (m) => {
-    messageApi.open({
-      type: 'error',
-      content: m,
-    });
-  };
-
-
   
   
   const SaveChanges = ()=>{
     form.validateFields().then(
-
     async()=>{
     setSpinning(true);
     try{
@@ -56,10 +39,10 @@ function EditProfile() {
     }
   )
     setEdit(true);
-    success("Successfully edit your details!");
+    showToastSuccess("Edit details is successful!");
     getUser();
   }catch(e){
-    error("Edit details is failed!");
+    showToastError(e,"Failed to edit details");
   }
   setSpinning(false);
 
@@ -80,8 +63,7 @@ function EditProfile() {
       setImagePath(user.image);
       setGender(user.gender);
       }catch(e){
-        console.log(e)
-        error("Error in loading previous data!");
+        showToastError(e,"Failed to get details");
       }
       setSave(true);
       setSpinning(false);
@@ -93,7 +75,6 @@ function EditProfile() {
 
   return (
     <div>
-      {contextHolder}
       {/* <Collapse
       items={[{ key: '1', label: "Edit Profile Details", children: <> */}
        <Button size='small'  shape='circle' onClick={()=>setEdit(!edit)}><EditOutlined /></Button>  

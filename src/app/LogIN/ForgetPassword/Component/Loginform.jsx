@@ -1,40 +1,20 @@
 'use client'
-import { Button, Checkbox, Form, Input, Spin, message } from 'antd'
-import { useForm} from 'antd/es/form/Form'
+import { Button, Form, Input, } from 'antd'
 import axios from 'axios';
 import React, {  useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'; 
-
-import Link from 'next/link';
 import { MailOutlined } from '@ant-design/icons';
+import { showToastError, showToastSuccess } from '@/app/Component/NewToast';
 
 
 function Loginform({spinning,setSpinning}) {
-  
     const [form] = Form.useForm();
-  
     const [loading,setLoading]=useState(false);
-    const [messageApi, contextHolder] = message.useMessage();
     const router = useRouter();
 
-    const successModal = () => {
-      messageApi.open({
-        type: "success",
-        content: "Sent Password Reset Link Successfully",
-      });
-    };
-  
-    const errorModal = (e) => {
-      messageApi.open({
-        type: "error",
-        content: e,
-      });
-    };
-  
     useEffect(() => {
       setSpinning(false);
     }, [setSpinning]);
-
     
     const onFinish=async()=>{
       setLoading(true);
@@ -43,13 +23,13 @@ function Loginform({spinning,setSpinning}) {
             const response =await axios.post('https://localhost:7174/api/User/forgetPassword',
               {emailaddress:form.getFieldValue('email')}
             );
-            successModal();
+            showToastSuccess("Password reset link sent successfully");
             router.push('/LogIN');
         }catch(error){
             setSpinning(false);
             setLoading(false);
             console.log(error.response.data);
-            errorModal("Error when sent password reset link, please try again!");
+            showToastError(error,"Failed to send password reset link");
         }
         }
 
@@ -57,7 +37,6 @@ function Loginform({spinning,setSpinning}) {
           
   return (
     <div style={{margin:30}}>
-      {contextHolder}
 
 
       <Form 

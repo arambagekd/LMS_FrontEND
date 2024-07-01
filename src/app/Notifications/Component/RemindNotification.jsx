@@ -6,7 +6,6 @@ const { Option } = Select;
 const RemindNotification = ({ visible, onRemind, onCancel }) => {
     const [form] = Form.useForm();
     const[enable,setEnable]=useState(true);
-    console.log(enable);
     return (
         <Modal
             visible={visible}

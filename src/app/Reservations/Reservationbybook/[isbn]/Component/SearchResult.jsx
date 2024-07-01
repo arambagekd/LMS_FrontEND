@@ -121,12 +121,10 @@ function SearchResult({isbn}) {
       }
     );
       const data = response.data.reverse(); // Extracting data from response
-      console.log(data);
       setLoading(false); // Setting loading to false after data is fetched
       setItems(data); // Updating items state with fetched data
     } catch (error) {
       setLoading(false); // Setting loading to false if there's an error
-      console.log('Error fetching data:', error); // Logging error to console
     }
   }
 

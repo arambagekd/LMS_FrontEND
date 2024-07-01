@@ -3,13 +3,9 @@ import {
   AppstoreOutlined,
   LoginOutlined,
   MailOutlined,
-  MobileFilled,
   MobileOutlined,
-  SettingOutlined,
 } from "@ant-design/icons";
-import { FontWeight, Position } from "@cloudinary/url-gen/qualifiers";
-import { justify } from "@cloudinary/url-gen/qualifiers/textAlignment";
-import { Button, Card, Carousel, ConfigProvider, Flex, Menu, Layout, Row, Col, Space } from "antd";
+import { Button, Card, Carousel, Flex, Menu, Layout, Row, Col, Space } from "antd";
 import Link from "next/link";
 import React from "react";
 
@@ -216,8 +212,6 @@ const styles = {
   },
   textContainer: {
     maxWidth: "70%",
-    //boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.15)',
-    //backgroundColor: "white",
     borderRadius: "10px",
     padding: "20px"
   },

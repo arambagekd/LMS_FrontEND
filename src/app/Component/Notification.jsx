@@ -1,5 +1,5 @@
-"use client";
-import { CheckCircleTwoTone, CheckOutlined, EyeTwoTone } from "@ant-design/icons";
+'use client'
+import {EyeTwoTone } from "@ant-design/icons";
 import { Button, Spin } from "antd";
 import Image from "next/image";
 import React, { useState } from "react";
@@ -8,17 +8,18 @@ import axioinstance from "../Instance/api_instance";
 const Notifications = ({id, subject, description,ago,status,GetNotification }) => {
   const [more, setMore] = useState(false);
   const[loading,setLoading]=useState(false);
+
   async function markRead(id){
     setLoading(true);
     try{
     const response = await axioinstance.get(`Notification/MarkAsRead?id=${id}`);
     GetNotification();
     }catch(error){
-     console.log(error);
      setLoading(false);
     }
     
   }
+  
   return (
     <Spin spinning={loading}>
     <div>

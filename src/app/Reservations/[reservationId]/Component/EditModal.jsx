@@ -38,7 +38,6 @@ function EditModal({reservationId,modalState,closeModal,fetchData}) {
 
     return (
         <div>
-            {contextHolder}
             <Modal
                 mask={true}
                 maskClosable={false}

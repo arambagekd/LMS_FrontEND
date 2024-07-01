@@ -37,7 +37,6 @@ function IssueModal(props) {
         } catch (error) {
           setLoading(false);
           showToastError(error, "Failed to Issue Book");
-          console.log(error);
         }
       }
                 

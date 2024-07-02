@@ -111,14 +111,6 @@ function UserAddForm(props) {
         >
           <DatePicker size="medium" onChange={(e, s) => props.setDate(s)} />
         </Form.Item>
-        <Form.Item
-          name="nicno"
-          label="NIC"
-          required
-          rules={[{ required: true}]}
-        >
-          <Input size="medium" />
-        </Form.Item>
       </div>
       <div>
         <Form.Item

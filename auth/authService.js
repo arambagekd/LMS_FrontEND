@@ -5,7 +5,7 @@ import axios from 'axios';
 
 const apiService = axios.create(
   {
-  baseURL : 'https://easylibrowebapi.azurewebsites.net/api/',
+  baseURL : 'https://localhost:7246/api/',
   headers: {
     'Content-Type': "application/json",
   }, 

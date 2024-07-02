@@ -1,5 +1,5 @@
 'use client'
-import { Button, Flex, Space, Table,FloatButton, Avatar } from 'antd'
+import { Button, Flex, Space, Table,FloatButton, Avatar, Popconfirm } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { UserDeleteOutlined ,MoreOutlined,PlusOutlined, UsbOutlined, UserOutlined} from '@ant-design/icons';
 import ResultTable from '../../Component/ResultTable';
@@ -7,8 +7,41 @@ import Link from 'next/link';
 import AddUserModal from './AddUserModal';
 import SearchUsers from './SearchUsers';
 import axioinstance from '../../Instance/api_instance';
+import { UserContext } from '@/app/Context/Context';
+import { permission } from 'process';
+import { showToastError, showToastSuccess } from '@/app/Component/NewToast';
 
-const columns = [
+
+
+function SearchResult(props) {
+
+  const [keyword, setKeyword] = useState(""); // State for keyword
+  const [role, setRole] = useState("*"); // State for status
+  const [type, setType] = useState("all"); 
+  const [items, setItems] = useState([]); // State for items
+  const [loading, setLoading] = useState(true); // Loading state
+  const user=React.useContext(UserContext).user;
+
+  const [open, setOpen] = useState(false);
+  const showModal = () => {
+  setOpen(true);
+  };
+  const closeModal=()=>{
+  setOpen(false);
+  };
+
+  const setPermission = async(username)=>{
+    try{
+      await axioinstance.get(`User/SetPermission?username=${username}`);
+      fetchData(type);
+      showToastSuccess("Permission Updated");
+    }catch(error){
+      showToastError(error,"Failed to update permission");
+    }
+  }
+
+
+  const columns = [
     {
         title: 'User Name',
         dataIndex: 'username',
@@ -51,34 +84,25 @@ const columns = [
       title: 'Remove',
       dataIndex: '',
       key: 'x',
-      render: () => (
+      render: (username, record) => (
         <>
+        
           <Space size="large">
-          <Link href="/" ><UserDeleteOutlined style={{color:'red'}}/></Link>
-                  {/* <Button type='primary' icon={<MoreOutlined /> } size='small'></Button>
-        <Button type='primary' danger icon={<UserDeleteOutlined />}size='small'></Button> */}
+          <Popconfirm
+                title={record.permission?"Remove Permission":"Give Permission"}
+                description={record.permission?"Are you sure to Remove Permission?":"Are you sure to Give Permission?"}
+                onConfirm={()=>setPermission(record.username)}
+                okText="Yes"
+                cancelText="No"
+              >                
+          <Button type='primary' disabled={record.role=="admin"}  danger={record.permission} icon={<UserDeleteOutlined />}size='small'></Button>
+          </Popconfirm>
         </Space>
         </>
       )
     },
   ];
 
-
-function SearchResult(props) {
-
-  const [keyword, setKeyword] = useState(""); // State for keyword
-  const [role, setRole] = useState("*"); // State for status
-  const [type, setType] = useState("all"); 
-  const [items, setItems] = useState([]); // State for items
-  const [loading, setLoading] = useState(true); // Loading state
-
-  const [open, setOpen] = useState(false);
-  const showModal = () => {
-  setOpen(true);
-  };
-  const closeModal=()=>{
-  setOpen(false);
-  };
 
   const fetchData = async(type)=>{
    
@@ -87,12 +111,10 @@ function SearchResult(props) {
         keyword:keyword,
         type:type
       });
-      console.log(response.data);
       setLoading(false);
       setItems(response.data);
     }catch(error){
       setLoading(false);
-      console.log(error);
     }
   }
 

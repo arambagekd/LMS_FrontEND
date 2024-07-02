@@ -85,7 +85,6 @@ function UserAddForm(props) {
                     <Form.Item name="fname" label="First Name" required rules={[{ required: true }]} ><Input size='medium' value="sssssssssssssssssssss" onChange={(a)=>SetFName(a.target.value)}/></Form.Item>
                     <Form.Item name="lname" label="Last Name" required rules={[{ required: true }]} ><Input size='medium' value={lname} onChange={(e)=>SetLName(e.target.value)}/></Form.Item>
                     <Form.Item name='dob' label="Date of Birth" required rules={[{ required: true }]} ><Input size='medium' value={dob} onChange={(e)=>SetDOB(e.target.value)}/></Form.Item>
-                    <Form.Item name='nic' label="NIC" required rules={[{ required: true }]} > <Input size='medium' value={nic} onChange={(e)=>SetNIC(e.target.value)}/></Form.Item>
                     </div>
                         
                          

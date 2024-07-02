@@ -55,6 +55,7 @@ export const UserAuthProvider = ({ children }) => {
           <div>
             {loading && <Spin size="large" spinning={loading} fullscreen />}
             {!authenticated && !loading && <ErrorPage />}
+            {user.permissions==false && !loading && <ErrorPage />}
             {authenticated && !loading && children}
           </div>
         )}

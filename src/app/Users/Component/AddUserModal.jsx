@@ -27,7 +27,6 @@ function ReturnModal(props) {
                 dob:date ,
                 address: form.getFieldValue("address"),
                 phoneNumber: form.getFieldValue("mobile"),
-                nic: form.getFieldValue("nicno"),
                 userType: type,
                 gender:gender,
                 image: "no-image"

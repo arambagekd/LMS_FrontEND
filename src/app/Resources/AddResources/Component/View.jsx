@@ -26,7 +26,7 @@ function View(props) {
    await axioinstance.post('Resource/AddResource', {
         isbn: form.getFieldValue('isbn'),
         title: form.getFieldValue('title'),
-        author: form.getFieldValue('auther'),
+        author: form.getFieldValue('author'),
         type: form.getFieldValue('type'),
         quantity: form.getFieldValue('quantity'),
         price: form.getFieldValue('price'),

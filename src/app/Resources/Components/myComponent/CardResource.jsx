@@ -6,6 +6,7 @@ import IssueModal from '../../../Reservations/Component/IssueModal';
 import AboutCard from '../../[isbn]/Components/AboutCard';
 import { UserContext } from '@/app/Context/Context';
 import axioinstance from '@/app/Instance/api_instance';
+import { showToastError } from '@/app/Component/NewToast';
 
 
 
@@ -54,13 +55,7 @@ const request=async()=>{
     })
     successModal();
   }catch(error){
-    console.log(error);
-    if(error.staus===400){
-    errorModal(error.response.data);
-    }else{
-      errorModal("Something went wrong");
-      setLoading(false);
-    }
+    showToastError(error,"Failed to request");	
   }
   setLoading(false);
 }

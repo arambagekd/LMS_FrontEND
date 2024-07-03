@@ -16,16 +16,15 @@ import {
   Space,
 } from "antd";
 import UploadImage from "./myComponent/UploadImage";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import EditModal from "../[isbn]/Components/EditModel";
 import TextArea from "antd/es/input/TextArea";
 import moment from "moment";
 import axioinstance from "@/app/Instance/api_instance";
 import { useSearchParams } from "next/navigation";
-import { isbn } from '@form-validation/validator-isbn';
+import { isbn } from "@form-validation/validator-isbn";
 import axios from "axios";
-import { get } from "http";
-import { RedoOutlined } from "@ant-design/icons";
+import { PlusOutlined, RedoOutlined } from "@ant-design/icons";
 
 function ResourcesAddForm({
   form,
@@ -34,16 +33,23 @@ function ResourcesAddForm({
   selectShelf,
   cupboard,
   shelf,
-  imageurl
-}){
-
-  const searchParams = useSearchParams()
+  imageurl,
+}) {
+  const searchParams = useSearchParams();
   const [location, setLocation] = useState([]);
   const [options, setOptions] = useState([]);
-  const cupNo = searchParams.get('cupboardId');
-  const shelfNo = searchParams.get('shelfNo');
-  const[disable,setDisable]=useState(true);
- const[isbnfield,setIsbn]=useState("");
+  const cupNo = searchParams.get("cupboardId");
+  const shelfNo = searchParams.get("shelfNo");
+  const [disable, setDisable] = useState(true);
+  const [isbnfield, setIsbn] = useState("");
+  const [authors, setAuthors] = useState([]);
+  const [types, setTypes] = useState([]);
+  const [name, setName] = useState("");
+  const inputRef = useRef(null);
+
+  const onNameChange = (event) => {
+    setName(event.target.value);
+  };
 
   const isbnValidator = async (rule, value) => {
     const result = isbn().validate({
@@ -53,68 +59,91 @@ function ResourcesAddForm({
     if (result && result.valid) {
       return Promise.resolve();
     } else {
-      const errorMessage = 'The value is not a valid ISBN';
+      const errorMessage = "The value is not a valid ISBN";
       return Promise.reject(errorMessage);
     }
   };
 
-
   async function searchBookByISBN() {
-    const isbn=form.getFieldValue('isbn');
+    const isbn = form.getFieldValue("isbn");
     form.resetFields();
     try {
-        const response = await axios.get( `https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}&key=AIzaSyBITr3YQgHb6O8OzjODFdHLdmuLDFKDSL0`);
-        console.log( response.data);
-        form.setFieldsValue({
-          isbn:response.data.items[0].volumeInfo.industryIdentifiers[0].identifier,
-          title:response.data.items[0].volumeInfo.title,
-          auther:response.data.items[0].volumeInfo.authors[0],
-          type:response.data.items[0].volumeInfo.categories[0],
-          year:response.data.items[0].volumeInfo.publishedDate,
-          pagecount:response.data.items[0].volumeInfo.pageCount,
-          description:response.data.items[0].volumeInfo.description
-
-        });
-        setImageURL(response.data.items[0].volumeInfo.imageLinks.thumbnail);
+      const response = await axios.get(
+        `https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}&key=AIzaSyBITr3YQgHb6O8OzjODFdHLdmuLDFKDSL0`
+      );
+      console.log(response.data);
+      form.setFieldsValue({
+        isbn: response.data.items[0].volumeInfo.industryIdentifiers[0]
+          .identifier,
+        title: response.data.items[0].volumeInfo.title,
+        author: response.data.items[0].volumeInfo.authors[0],
+        type: response.data.items[0].volumeInfo.categories[0],
+        year: response.data.items[0].volumeInfo.publishedDate,
+        pagecount: response.data.items[0].volumeInfo.pageCount,
+        description: response.data.items[0].volumeInfo.description,
+      });
+      setImageURL(response.data.items[0].volumeInfo.imageLinks.thumbnail);
     } catch (error) {
-        form.setFieldsValue({isbn:isbn});
-        console.log('Error fetching book:', error);
-        return null;
+      form.setFieldsValue({ isbn: isbn });
+      console.log("Error fetching book:", error);
+      return null;
     }
-
-}
-
+  }
 
   const getlocation = async () => {
     try {
-      const response = await axioinstance.post(`Location/GetAllLocation`,  
-      {
-        cupboardName: ""
+      const response = await axioinstance.post(`Location/GetAllLocation`, {
+        cupboardName: "",
       });
       setLocation(response.data);
-      console.log(response.data);
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const getAuthours = async () => {
+    try {
+      const response = await axioinstance.get("Resource/GetAuthorList");
+      setAuthors(response.data);
+      const responce2 = await axioinstance.get("Resource/GetTypes");
+      setTypes(responce2.data);
+    } catch (error) {}
+  };
+
+  const addItem = (e) => {
+    e.preventDefault();
+    setAuthors([...authors, { authorName: name || `New item ${index++}` }]);
+    setName("");
+    setTimeout(() => {
+      inputRef.current?.focus();
+    }, 0);
+  };
+
+  const addItem2 = (e) => {
+    e.preventDefault();
+    setTypes([...types,  name || `New item ${index++}` ]);
+    setName("");
+    setTimeout(() => {
+      inputRef.current?.focus();
+    }, 0);
   };
 
   useEffect(() => {
     const result = isbn().validate({
       value: isbnfield,
     });
-    
-    if (result && result.valid && isbnfield.length>0){
+
+    if (result && result.valid && isbnfield.length > 0) {
       setDisable(false);
-    }
-    else{
+    } else {
       setDisable(true);
     }
-  },[isbnfield]);
+  }, [isbnfield]);
 
   useEffect(() => {
     getlocation();
-    if(cupNo!=undefined && shelfNo!=undefined)
-    {
+    getAuthours();
+    if (cupNo != undefined && shelfNo != undefined) {
       selectCupboard(cupNo);
       selectShelf(shelfNo);
     }
@@ -122,7 +151,7 @@ function ResourcesAddForm({
 
   useEffect(() => {
     const cup = location.find((item) => item.cupboardId === cupboard);
-    if (cup!= undefined) {
+    if (cup != undefined) {
       setOptions(
         cup.shelfNo.map((item) => ({
           value: item,
@@ -145,7 +174,6 @@ function ResourcesAddForm({
           },
         }}
       >
-       
         <Form form={form} layout="vertical">
           <Row align="top" gutter={[30, 10]} style={{ fontWeight: "600" }}>
             <Col xs={24} sm={13}>
@@ -156,14 +184,19 @@ function ResourcesAddForm({
                     <Form.Item
                       name="isbn"
                       label="ISBN No"
-                      rules={[{ required: true ,
-                        validator:isbnValidator
-                      }]}
-                      onChange={(e)=>setIsbn(e.target.value)}
+                      rules={[{ required: true, validator: isbnValidator }]}
+                      onChange={(e) => setIsbn(e.target.value)}
                     >
-                      <Input suffix={<Button disabled={disable} 
-                    
-                      onClick={()=>searchBookByISBN()}><RedoOutlined/></Button>}/>
+                      <Input
+                        suffix={
+                          <Button
+                            disabled={disable}
+                            onClick={() => searchBookByISBN()}
+                          >
+                            <RedoOutlined />
+                          </Button>
+                        }
+                      />
                     </Form.Item>
                   </Col>
                 </Row>
@@ -181,36 +214,111 @@ function ResourcesAddForm({
                 <Row gutter={[30, 10]}>
                   <Col xs={24} sm={24}>
                     <Form.Item
-                      name="auther"
+                      name="author"
                       label="Author"
-                      rules={[{ required: true },
-
-                      ]}
+                      rules={[{ required: true }]}
                     >
-                      <Input />
+                      <Select
+                        filterOption={true}
+                        showSearch
+                        optionFilterProp="label"
+                        dropdownRender={(menu) => (
+                          <>
+                            {menu}
+                            <Divider
+                              style={{
+                                margin: "8px 0",
+                              }}
+                            />
+                            <Space
+                              style={{
+                                padding: "0 8px 4px",
+                              }}
+                            >
+                              <Input
+                                placeholder="Please enter item"
+                                ref={inputRef}
+                                value={name}
+                                onChange={onNameChange}
+                                onKeyDown={(e) => e.stopPropagation()}
+                              />
+                              <Button
+                                type="text"
+                                icon={<PlusOutlined />}
+                                onClick={addItem}
+                              >
+                                Add item
+                              </Button>
+                            </Space>
+                          </>
+                        )}
+                        options={authors.map((item) => ({
+                          label: item.authorName,
+                          value: item.authorName,
+                        }))}
+                      />
+                    </Form.Item>
+                  </Col>
+                </Row>
+                <Row gutter={[30, 10]}>
+                  <Col xs={24} sm={24}>
+                  <Form.Item
+                      name="type"
+                      label="Type"
+                      rules={[{ required: true }]}
+                    >
+                      <Select
+                        filterOption={true}
+                        showSearch
+                        optionFilterProp="label"
+                        dropdownRender={(menu) => (
+                          <>
+                            {menu}
+                            <Divider
+                              style={{
+                                margin: "8px 0",
+                              }}
+                            />
+                            <Space
+                              style={{
+                                padding: "0 8px 4px",
+                              }}
+                            >
+                              <Input
+                                placeholder="Please enter item"
+                                ref={inputRef}
+                                value={name}
+                                onChange={onNameChange}
+                                onKeyDown={(e) => e.stopPropagation()}
+                              />
+                              <Button
+                                type="text"
+                                icon={<PlusOutlined />}
+                                onClick={addItem2}
+                              >
+                                Add item
+                              </Button>
+                            </Space>
+                          </>
+                        )}
+                        options={types.map((item) => ({
+                          label: item,
+                          value: item,
+                        }))}
+                      />
                     </Form.Item>
                   </Col>
                 </Row>
                 <Row gutter={[30, 10]}>
                   <Col xs={24} sm={24}>
                     <Form.Item
-                      name="type"
-                      label="Type"
-                      rules={[{ required: true }]}
+                      name="year"
+                      label="Year"
+                      rules={[
+                        { required: true, message: "Year is required" },
+                        { pattern: /^\d+$/, message: "Year must be a number" },
+                      ]}
                     >
-                      <Input />
-                    </Form.Item>
-                  </Col>
-                </Row>
-                <Row gutter={[30, 10]}>
-                  <Col xs={24} sm={24}>
-                   <Form.Item
-                  name="year"
-                  label="Year"
-                  rules={[
-                    { required: true, message: 'Year is required' },
-                    { pattern: /^\d+$/, message: 'Year must be a number' }
-                  ]}>
                       <Input />
                     </Form.Item>
                   </Col>
@@ -258,18 +366,18 @@ function ResourcesAddForm({
                       name="cupboard"
                       label="Cupboard"
                       rules={[{ required: true }]}
-                      initialValue={cupNo!=""?cupNo:""}
+                      initialValue={cupNo != "" ? cupNo : ""}
                     >
                       <Select
-                       // defaultValue={cupNo!=undefined?cupNo:""}
-                        disabled={cupNo!=undefined}
+                        // defaultValue={cupNo!=undefined?cupNo:""}
+                        disabled={cupNo != undefined}
                         filterOption={true}
                         showSearch
                         optionFilterProp="label"
                         onChange={(value) => selectCupboard(value)}
                         options={location.map((item) => ({
                           value: item.cupboardId,
-                          label: item.cupboardId+"-"+item.cupboardName,
+                          label: item.cupboardId + "-" + item.cupboardName,
                         }))}
                       />
                     </Form.Item>
@@ -283,7 +391,7 @@ function ResourcesAddForm({
                     >
                       <Select
                         //defaultValue={shelfNo!=undefined?shelfNo:""}
-                        disabled={!(cupNo==undefined && cupboard!="")}
+                        disabled={!(cupNo == undefined && cupboard != "")}
                         showSearch
                         onChange={(value) => selectShelf(value)}
                         options={options}
@@ -300,7 +408,10 @@ function ResourcesAddForm({
               <Row gutter={[30, 11]}>
                 <Col xs={24} sm={24}>
                   <Form.Item>
-                    <UploadImage setImageURL={setImageURL} imagepath={imageurl}/>{" "}
+                    <UploadImage
+                      setImageURL={setImageURL}
+                      imagepath={imageurl}
+                    />{" "}
                   </Form.Item>
                 </Col>
               </Row>

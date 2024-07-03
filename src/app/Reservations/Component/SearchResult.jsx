@@ -13,7 +13,6 @@ import { UserContext } from "../../Context/Context";
 import dayjs from "dayjs";
 
 function SearchResult() {
-  const token = Cookies.get("jwt");
   const [recordData, setRecord] = useState([]);
   const [open, setOpen] = useState(false);
   const [keyword, setKeyword] = useState(""); // State for keyword
@@ -170,9 +169,8 @@ function SearchResult() {
         }
       );
       const data = response.data.reverse(); // Extracting data from response
-      console.log(data);
       setLoading(false); // Setting loading to false after data is fetched
-      setItems(data); // Updating items state with fetched data
+      setItems(data); 
     } catch (error) {
       setLoading(false); // Setting loading to false if there's an error
       console.error("Error fetching data:", error); // Logging error to console

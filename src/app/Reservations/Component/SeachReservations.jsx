@@ -52,7 +52,7 @@ function SearchReservations({ func1, func2, func3, search,setDate }) {
                             <Radio.Button value="*">All</Radio.Button>
                             <Radio.Button value="overdue">Due</Radio.Button>
                             <Radio.Button value="borrowed">Borrowed</Radio.Button>
-                            <Radio.Button value="reserved">Reserved</Radio.Button>
+                            <Radio.Button value="received">Received</Radio.Button>
                         </Radio.Group>
                         <DatePicker 
                          onChange={(e, s) => e? setDate(e):setDate(dayjs(null))} 

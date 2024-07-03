@@ -95,7 +95,7 @@ function SearchResult(props) {
                 okText="Yes"
                 cancelText="No"
               >                
-          <Button type='primary' disabled={record.role=="admin"}  danger={record.permission} icon={<UserDeleteOutlined />}size='small'></Button>
+          <Button type='primary' disabled={record.role=="admin"}  danger={!record.permission} icon={<UserDeleteOutlined />}size='small'></Button>
           </Popconfirm>
         </Space>
         </>

@@ -42,6 +42,7 @@ function View({location}) {
           location: location
         }
       );
+      
       const searchData = response.data;
       setBooks(searchData);
 

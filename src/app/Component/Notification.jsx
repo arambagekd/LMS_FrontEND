@@ -17,7 +17,7 @@ const Notifications = ({id, subject, description,ago,status,GetNotification }) =
     }catch(error){
      setLoading(false);
     }
-    
+    setLoading(false);
   }
   
   return (

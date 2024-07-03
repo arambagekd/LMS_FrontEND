@@ -1,47 +1,80 @@
-import React from 'react'
+'use client'
+import React, { useEffect, useRef, useState } from 'react';
+import { PlusOutlined } from '@ant-design/icons';
+import { Button, Divider, Input, Select, Space } from 'antd';
+import axioinstance from '../Instance/api_instance';
 
-function page() {
+let index = 0;
+
+const App = () => {
+  const [items, setItems] = useState([]);
+  const [name, setName] = useState('');
+  const inputRef = useRef(null);
+
+  const onNameChange = (event) => {
+    setName(event.target.value);
+  };
+
+  const getall = async () => {
+    try {
+      const response = await axioinstance.get("Resource/GetAuthorList");
+      setItems(response.data);
+    } catch (error) {
+      console.error("Error fetching author list:", error);
+    }
+  }
+
+  useEffect(() => {
+    getall();
+  }, []);
+
+  const addItem = (e) => {
+    e.preventDefault();
+    setItems([...items, { authorName: name || `New item ${index++}` }]);
+    setName('');
+    setTimeout(() => {
+      inputRef.current?.focus();
+    }, 0);
+  };
+
   return (
-    <div>page</div>
-  )
-}
+    <Select
+      style={{
+        width: 300,
+      }}
+      placeholder="custom dropdown render"
+      dropdownRender={(menu) => (
+        <>
+          {menu}
+          <Divider
+            style={{
+              margin: '8px 0',
+            }}
+          />
+          <Space
+            style={{
+              padding: '0 8px 4px',
+            }}
+          >
+            <Input
+              placeholder="Please enter item"
+              ref={inputRef}
+              value={name}
+              onChange={onNameChange}
+              onKeyDown={(e) => e.stopPropagation()}
+            />
+            <Button type="text" icon={<PlusOutlined />} onClick={addItem}>
+              Add item
+            </Button>
+          </Space>
+        </>
+      )}
+      options={items.map((item) => ({
+        label: item.authorName,
+        value: item.authorName,
+      }))}
+    />
+  );
+};
 
-export default page
-
-
-
-
-// 'use client'
-// import { Button, Form, Input } from 'antd'
-// import React, { useEffect } from 'react'
-// import { getFirebaseToken, onMessageListener } from './firebase-config';
-
-// function page() {
-//     useEffect(() => {
-//         const fetchToken = async () => {
-//           const token = await getFirebaseToken();
-//           console.log(token);
-//         };
-    
-//         fetchToken();
-    
-//     onMessageListener()
-//           .then((payload) => {
-//             console.log('Message received. ', payload);
-//           })
-//           .catch((err) => console.log('Failed to receive message. ', err));
-//       }, []);
-
-//   return (
-//     <div>
-//         <Form>
-//         <Form.Item name="description" label="Description" rules={[{ required: true, message: 'Please enter the notification description!' }]}>
-//           <Input></Input>
-//           <Button>submit</Button>
-//         </Form.Item>
-//         </Form>
-//     </div>
-//   )
-// }
-
-// export default page
+export default App;

@@ -1,8 +1,9 @@
 "use client";
-import { ConfigProvider, Checkbox, DatePicker, Form, Input } from "antd";
+import { ConfigProvider, Checkbox, DatePicker, Form, Input, Select } from "antd";
 import moment from "moment";
-import React from "react";
+import React, { use, useEffect, useState } from "react";
 import { UserContext } from "../../Context/Context";
+import axioinstance from "@/app/Instance/api_instance";
 
 const validateMessages = {
   required: "${label} is required!",
@@ -17,6 +18,24 @@ const validateMessages = {
 
 function IssueForam({ form, data, email, setEmail, setDate }) {
   const user = React.useContext(UserContext).user;
+  const [users, setUsers] = useState([]);
+
+  const fetchData = async(type)=>{
+   
+    try{
+      const response = await axioinstance.post('User/SearchUser',{
+        keyword:"",
+        type:type
+      });
+      setUsers(response.data);
+      console.log(response.data);
+    }catch(error){
+    }
+  }
+
+  useEffect(() => {
+      fetchData("all");
+  },[])
 
   return (
     <ConfigProvider
@@ -54,8 +73,20 @@ function IssueForam({ form, data, email, setEmail, setDate }) {
           name="borrowerId"
           label="Borrowed By"
           rules={[{ required: true }]}
+          
         >
-          <Input size="medium" />
+        
+                      <Select
+                      size="medium"
+                       // defaultValue={cupNo!=undefined?cupNo:""}
+                        filterOption={true}
+                        showSearch
+                        optionFilterProp="label"
+                        options={users.map((item) => ({
+                          value: item.username,
+                          label: item.username,
+                        }))}
+                      />
         </Form.Item>
 
         <Form.Item name="dueDate" label="Due Date" rules={[{ required: true }]}>

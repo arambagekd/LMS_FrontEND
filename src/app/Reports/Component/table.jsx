@@ -26,5 +26,5 @@ const items = [
     children: <Reservation/>,
   },
 ];
-const table = () => <Tabs defaultActiveKey="1" items={items} onChange={onChange} />;
+const Table = () => <Tabs defaultActiveKey="1" items={items} onChange={onChange} />;
 export default Table;

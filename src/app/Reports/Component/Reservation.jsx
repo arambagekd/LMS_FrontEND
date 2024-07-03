@@ -2,12 +2,12 @@ import React,{useEffect, useState} from 'react';
 import { DatePicker, Space ,Button,Empty, Flex,Row,Col, Skeleton} from 'antd';
 import axioinstance from '../../Instance/api_instance';
 import Reportres from './Reservationreport';
-import BarChart from './barchart';
+import BarChart from './Barchart';
 import axios from 'axios';
 
 const { RangePicker } = DatePicker;
 
-function page(){
+function Reservation(){
   const [StartDate, setStartDate] = useState('');
   const [EndDate, setEndDate] = useState('');
   const [showUsegen, setShowUsegen] = useState(false);
@@ -71,4 +71,4 @@ useEffect(() => {lastweek()}, []);
 }
 
 
-export default page;
+export default Reservation;

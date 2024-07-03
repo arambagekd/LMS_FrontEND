@@ -2,9 +2,9 @@
 import React from 'react';
 import { Tabs } from 'antd';
 import Resours from './Resourses'
-import Form1 from './form1';
+import Form1 from './Form1';
 import Reservation from './Reservation';
-import User from './user'
+import User from './User'
 import Resourse from './Resourses';
 const onChange = (key) => {
   console.log(key);
@@ -27,4 +27,4 @@ const items = [
   },
 ];
 const table = () => <Tabs defaultActiveKey="1" items={items} onChange={onChange} />;
-export default table;
+export default Table;

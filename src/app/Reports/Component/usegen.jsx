@@ -5,7 +5,7 @@ import { Chart } from "react-google-charts";
 
 
 
-export default function usegen({ data }) {
+export default function Usegen({ data }) {
 
 
 

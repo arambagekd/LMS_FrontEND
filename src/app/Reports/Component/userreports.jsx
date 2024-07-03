@@ -4,7 +4,7 @@ import { Chart } from "react-google-charts";
 
 
 
-export default function userreport({ data }) {
+export default function Userreport({ data }) {
 
    const rep = [
     ["Book Type", "Quantity"],

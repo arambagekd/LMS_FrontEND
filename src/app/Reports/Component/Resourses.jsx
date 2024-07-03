@@ -1,14 +1,14 @@
 import React,{useState} from 'react';
 import { DatePicker, Space ,Button,Empty, Flex,Row,Col, Skeleton} from 'antd';
 import axioinstance from '../../Instance/api_instance';
-import Usegen from './usegen';
+import Usegen from './Usegen';
 import axios from 'axios';
 import Chart from '../../Dashboard/Component/Chart'
-import BarChart from './barchart';
+import BarChart from './Barchart';
 
 const { RangePicker } = DatePicker;
 
-function page(){
+function Resources(){
   const [StartDate, setStartDate] = useState('');
   const [EndDate, setEndDate] = useState('');
   const [showUsegen, setShowUsegen] = useState(false);
@@ -67,4 +67,4 @@ function page(){
 }
 
 
-export default page;
+export default Resources;

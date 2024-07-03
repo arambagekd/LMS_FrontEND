@@ -29,7 +29,7 @@ const normFile = (e) => {
   }
   return e?.fileList;
 };
-const form1= () => {
+const Form1= () => {
 
   const [dates, setDates] = useState([]);
   const [bookType, setBookType] = useState('');
@@ -42,11 +42,11 @@ const form1= () => {
     setBookType(value);
   };
 
-  const [componentDisabled, setComponentDisabled] = useState(false);
-  const [DateDisabled, setDateDisabled] = useState(false);
-  const [PriceDisabled, setPriceDisabled] = useState(false);
-  const [PageDisabled, setPageDisabled] = useState(false);
-  const [KeywordDisabled, setKeywordDisabled] = useState(false);
+  // const [componentDisabled, setComponentDisabled] = useState(false);
+  // const [DateDisabled, setDateDisabled] = useState(false);
+  // const [PriceDisabled, setPriceDisabled] = useState(false);
+  // const [PageDisabled, setPageDisabled] = useState(false);
+  // const [KeywordDisabled, setKeywordDisabled] = useState(false);
   const [Genarate,setGenarate]=useState(false)
 
   const [selectedTypes, setSelectedTypes] = useState([]);
@@ -179,7 +179,7 @@ const form1= () => {
   );
 };
 
-export default form1;
+export default Form1;
 
 
 

@@ -8,20 +8,20 @@ function NavigationFooter() {
 
     <Footer style={styles.footer}>
         <Divider />
-      <Row justify="space-around">
-        <Col span={6}>
+      <Row justify="space-around" >
+        <Col xs={24} md={6}>
           <h3 style={styles.heading}>About Us</h3>
           <p style={styles.text}>Learn more about our mission and values.</p>
         </Col>
-        <Col span={6}>
+        <Col xs={24} md={6}>
           <h3 style={styles.heading}>Contact Us</h3>
           <p style={styles.text}>Get in touch with our support team.</p>
         </Col>
-        <Col span={6}>
+        <Col xs={24} md={6}>
           <h3 style={styles.heading}>Resources</h3>
           <p style={styles.text}>Explore our collection of resources and guides.</p>
         </Col>
-        <Col span={6}>
+        <Col xs={24} md={6}>
           <h3 style={styles.heading}>Follow Us</h3>
           {/* <Space>
             <a href="https://twitter.com"><img src="/path/to/twitter-icon.png" alt="Twitter" /></a>

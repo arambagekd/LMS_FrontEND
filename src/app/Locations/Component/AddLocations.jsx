@@ -1,7 +1,17 @@
 "use client";
 import { showToastError, showToastSuccess } from "@/app/Component/NewToast";
 import axioinstance from "@/app/Instance/api_instance";
-import { Button, Card, Col, Flex, Form, Input, InputNumber, Row, message } from "antd";
+import {
+  Button,
+  Card,
+  Col,
+  Flex,
+  Form,
+  Input,
+  InputNumber,
+  Row,
+  message,
+} from "antd";
 import React, { useState } from "react";
 
 function AddLocations() {
@@ -20,14 +30,12 @@ function AddLocations() {
         setLoading(false);
         form.resetFields();
       }, 3000);
-      
     } catch (error) {
       console.log(error);
       showToastError(error, "Failed to add location");
-      setLoading(false)
+      setLoading(false);
       form.resetFields();
     }
-    
   }
 
   const onFinish = () => {
@@ -38,46 +46,60 @@ function AddLocations() {
       })
       .catch((error) => {});
   };
-  
+
   return (
     <>
-    <Row justify="end">
-      <Col sm={24} xs={24}>
-        <Card title="Add a location">
-          <Form form={form}>
-            <Row gutter={[20, 0]}>
-              <Col sm={10} xs={24}>
-                <Form.Item
-                  label={"Cupboard Name"}
-                  name="cupboard"
-                  rules={[{ required: true }]}
-                >
-                  <Input placeholder="Cupborad Name" />
-                </Form.Item>
-              </Col>
+      <Row justify="end">
+        <Col sm={24} xs={24}>
+          <Card title="Add a location">
+            <Form form={form}>
+              <Row gutter={[20, 0]}>
+                <Col sm={10} xs={24}>
+                  <Form.Item
+                    label="Cupboard Name"
+                    name="cupboard"
+                    rules={[
+                      {
+                        required: true,
+                        message: "Please enter a cupboard name",
+                      },
+                      {
+                        pattern: /^\S+$/,
+                        message: "Spaces are not allowed",
+                      },
+                    ]}
+                  >
+                    <Input placeholder="Cupboard Name" />
+                  </Form.Item>
+                </Col>
 
-              <Col sm={10} xs={24}>
-                <Form.Item
-                  label={"No of Shelves"}
-                  name="shelf"
-                  rules={[{ required: true }]}
-                  initialValue={1}
-                >
-                  <InputNumber min={1} placeholder="No of Shelves" />
-                </Form.Item>
-              </Col>
-              <Col sm={4} xs={24}>
-                <Form.Item name="add">
-                  <Button loading={loading} block type="primary" onClick={() => onFinish()}>
-                    Add a Location
-                  </Button>
-                </Form.Item>
-              </Col>
-            </Row>
-          </Form>
-        </Card>
-      </Col>
-    </Row>
+                <Col sm={10} xs={24}>
+                  <Form.Item
+                    label={"No of Shelves"}
+                    name="shelf"
+                    rules={[{ required: true }]}
+                    initialValue={1}
+                  >
+                    <InputNumber min={1} placeholder="No of Shelves" />
+                  </Form.Item>
+                </Col>
+                <Col sm={4} xs={24}>
+                  <Form.Item name="add">
+                    <Button
+                      loading={loading}
+                      block
+                      type="primary"
+                      onClick={() => onFinish()}
+                    >
+                      Add a Location
+                    </Button>
+                  </Form.Item>
+                </Col>
+              </Row>
+            </Form>
+          </Card>
+        </Col>
+      </Row>
     </>
   );
 }

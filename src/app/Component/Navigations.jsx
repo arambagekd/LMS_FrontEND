@@ -306,8 +306,8 @@ function Navigations(props) {
         },
         {
           icon: React.createElement(InfoCircleOutlined),
-          label: <a href="https://www.aliyun.com">About</a>,
-          key: "8",
+          label: <a href="/AboutUs">About </a>,
+          key: "10",
         },
         {
           type: "divider",
@@ -364,7 +364,7 @@ function Navigations(props) {
         },
         {
           icon: React.createElement(InfoCircleOutlined),
-          label: <a href="https://www.aliyun.com">About</a>,
+          label: <Link href="/About">About </Link>,
           key: "8",
         },
         {
@@ -413,6 +413,8 @@ function Navigations(props) {
   return rootPath != "LogIN" &&
     rootPath != "ErrorPage" &&
     rootPath != "Home" &&
+    rootPath != "AboutUs" &&
+    rootPath != "ContactUs" &&
     rootPath != "" ? (
     <div>
           <Layout style={{ minHeight: "100vh" }}>

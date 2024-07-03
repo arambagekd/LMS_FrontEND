@@ -32,7 +32,6 @@ function EditProfile() {
       fName:form.getFieldValue('fname'),
       lName:form.getFieldValue('lname'),
       dob:date,
-      nic:form.getFieldValue('nicno'),
       address:form.getFieldValue('address'),
       phoneNumber:form.getFieldValue('mobile'),
       gender:gender,
@@ -54,7 +53,6 @@ function EditProfile() {
       try{
       form.setFieldValue('fname',user.fName);
       form.setFieldValue('lname',user.lName);
-      form.setFieldValue('nicno',user.nic);
       form.setFieldValue('address',user.address);
       form.setFieldValue('mobile',user.phone);
       form.setFieldValue('dob',dayjs(user.dob, "YYYY-MM-DD"));
@@ -112,7 +110,6 @@ function EditProfile() {
           ></Select>
         </Form.Item>
         <Form.Item name="dob" label="Date of Birth" rules={[{ required: true }]} ><DatePicker size='medium' onChange={(e, s) => setDate(s)}/></Form.Item>
-        <Form.Item name="nicno" label="NIC" rules={[{ required: true }]} ><Input size='medium'   /></Form.Item>
         <Form.Item name="address" label="Address" rules={[{ required: true }]} ><Input size='medium'   /></Form.Item>
         <Form.Item name="mobile" label="Mobile" rules={[{ required: true }]} ><Input size='medium'   /></Form.Item>
         </ConfigProvider>

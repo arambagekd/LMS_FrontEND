@@ -12,6 +12,7 @@
     "@ant-design/charts": "^2.0.3",
     "@ant-design/icons": "^5.3.1",
     "@ant-design/nextjs-registry": "^1.0.0",
+    "@canvasjs/react-charts": "^1.0.2",
     "@cloudinary/react": "^1.13.0",
     "@cloudinary/url-gen": "^1.19.0",
     "@form-validation/validator-isbn": "^2.4.0",
@@ -30,6 +31,7 @@
     "react-chartjs-2": "^5.2.0",
     "react-dom": "^18",
     "react-easy-crop": "^5.0.5",
+    "react-google-charts": "^4.0.1",
     "react-hot-toast": "^2.4.1",
     "react-responsive": "^10.0.0"
   },

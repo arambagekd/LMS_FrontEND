@@ -21,7 +21,6 @@ function Location() {
           }
          
       );
-      console.log(response.data)
       setCupboards(response.data);
     } catch (error) {
     }
@@ -53,7 +52,7 @@ function Location() {
     </Row>
     <Card title="List of Cupborads">
     <Row style={{width:"100%"}}   gutter={[15,15]} justify="center">
-     <LocationCard loading={loading} cupboards={cupboards}/></Row>
+     <LocationCard getLocations={getLocations} loading={loading} cupboards={cupboards}/></Row>
     
      </Card>
    

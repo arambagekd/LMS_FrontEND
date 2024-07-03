@@ -51,18 +51,24 @@ export const UserAuthProvider = ({ children }) => {
         {rootPath !== "LogIN" &&
         rootPath !== "ErrorPage" &&
         rootPath !== "Home" &&
-        rootPath !== "" && (
+        rootPath !== "" && 
+        rootPath !=="AboutUs" && 
+        rootPath !=="ContactUs" &&
+        (
           <div>
             {loading && <Spin size="large" spinning={loading} fullscreen />}
             {!authenticated && !loading && <ErrorPage />}
-            {user.permissions==false && !loading && <ErrorPage />}
-            {authenticated && !loading && children}
+            {user.permission==false && !loading && <ErrorPage />}
+            {authenticated && user.permission!=false && !loading && children}
           </div>
         )}
         {(rootPath === "LogIN" ||
           rootPath === "ErrorPage" ||
           rootPath === "Home" ||
-          rootPath === "") &&
+          rootPath === "AboutUs"||
+          rootPath === "" ||
+          rootPath === "ContactUs"
+        ) &&
           children}
       </EmailContext.Provider>
     </UserContext.Provider>

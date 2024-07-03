@@ -25,7 +25,8 @@ export const authService = {
       localStorage.setItem('refresh', response.data.refreshToken);
       return "Log in successfully";
     } catch (error) {
-      throw error.response.data;
+      throw error;
+      
     }
   },
 
@@ -41,7 +42,7 @@ export const authService = {
       localStorage.setItem( 'jwt',response.data.accessToken);
       localStorage.setItem('refresh', response.data.refreshToken);
     } catch (error) {
-      throw error.response.data;
+      throw error;
       
     }
   },
@@ -62,7 +63,7 @@ export const authService = {
       return {user:response1.data,
                email:response2.data};
     } catch (error) {
-      throw error.response;
+      throw error;
 
     }
   },
@@ -72,7 +73,7 @@ export const authService = {
       localStorage.setItem('jwt', response.data.token);
       return response.data;
     } catch (error) {
-      throw error.response;
+      throw error;
     }
   }
 };

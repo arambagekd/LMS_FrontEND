@@ -1,6 +1,7 @@
 "use client";
 import {
   AppstoreOutlined,
+  HomeOutlined,
   LoginOutlined,
   MailOutlined,
   SettingOutlined,
@@ -14,18 +15,23 @@ const { Header, Footer, Content } = Layout;
 const HomePage = () => {
   const items = [
     {
-      label: "Contact us",
+      label: <Link href="/Home">Home</Link>,
+      key: "home",
+      icon: <HomeOutlined />,
+    },
+    {
+      label: <Link href="/ContactUs">Contact us</Link>,
       key: "mail",
       icon: <MailOutlined />,
     },
     {
-      label: "About us",
+      label: <Link href="/AboutUs">About us</Link>,
       key: "about",
       icon: <AppstoreOutlined />,
     },
     {
-      label: <Link href="/LogIN">Login</Link>,
-      key: "login",
+      label: <Link href="/LogIN">Sign in</Link>,
+      key: "signin",
       icon: <LoginOutlined />,
     },
   ];
@@ -38,6 +44,7 @@ const HomePage = () => {
           inlineCollapsed={false}
           mode="horizontal"
           items={items}
+          selectedKeys={["home"]}
         />
      
       <Content style={styles.container}>

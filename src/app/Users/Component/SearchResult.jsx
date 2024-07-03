@@ -81,7 +81,7 @@ function SearchResult(props) {
       )
     },
     {
-      title: 'Remove',
+      title: 'Permission',
       dataIndex: '',
       key: 'x',
       render: (username, record) => (

@@ -1,10 +1,10 @@
 import React,{useState} from 'react';
 import { DatePicker, Space ,Button,Empty, Flex,Row,Col, Skeleton} from 'antd';
 import axioinstance from '../../Instance/api_instance';
-import Usegen from './Usegen';
+import Usegen from './usegen';
 import axios from 'axios';
 import Chart from '../../Dashboard/Component/Chart'
-import BarChart from './Barchart';
+import BarChart from './barchart';
 
 const { RangePicker } = DatePicker;
 

@@ -1,8 +1,8 @@
 import React,{useState} from 'react';
 import { DatePicker, Space ,Button,Empty, Flex,Row,Col,Skeleton} from 'antd';
 import axioinstance from '../../Instance/api_instance';
-import Userreport from './Userreports';
-import BarChart from './Barchart';
+import Userreport from './userreports';
+import BarChart from './barchart';
 import Chart from '../../Dashboard/Component/Chart'
 import axios from 'axios';
 

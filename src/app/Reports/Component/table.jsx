@@ -2,9 +2,9 @@
 import React from 'react';
 import { Tabs } from 'antd';
 import Resours from './Resourses'
-import Form1 from './Form1';
+import Form1 from './form1';
 import Reservation from './Reservation';
-import User from './User'
+import User from './user'
 import Resourse from './Resourses';
 const onChange = (key) => {
   console.log(key);

@@ -60,6 +60,7 @@ function ChangePassword({spinning,setSpinning}) {
         } catch (e) {
           setSpinning(false);
           setLoading(false);
+          console.log(error);
           error("password change failed");
         }
 

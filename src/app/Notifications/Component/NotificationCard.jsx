@@ -1,12 +1,13 @@
 'use client'
 import React, { useEffect, useState } from 'react';
-import { Card, Row, Col, Button, Select, Tooltip, Flex, Pagination, Popconfirm, Spin, Empty } from 'antd';
+import { Card, Row, Col, Button, Select, Tooltip, Flex, Pagination, Popconfirm, Spin, Empty, Space } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
 const { Option } = Select;
 import AddNotification from './AddNotifications';
 import UpdateNotification from './UpdateNotification';
 import axioinstance from '../../Instance/api_instance';
 import { showToastError, showToastSuccess } from '@/app/Component/NewToast';
+import Search from 'antd/es/input/Search';
 
 
 
@@ -25,6 +26,8 @@ function NotificationCard() {
     const[page,changepage]=useState(1);
     const[size,changeSize]=useState(0);
     const[loading,setLoading]=useState(true);
+    const[type,settype]=useState("all");
+    const[keyword,setKeyword]=useState("");
 
 
     const changingPage =(pnumber,size)=>{
@@ -112,11 +115,17 @@ function NotificationCard() {
 
     };
 
+
+
+
     async function fetchData() { // Function to fetch data from server
         //etLoading(true); // Set loading to true while fetching
         try {
             // Sending POST request to fetch data based on search parameters
-            const response = await axioinstance.post('Notification/GetNotificatons');
+            const response = await axioinstance.post('Notification/GetNotificatons',{
+                keyword: keyword,
+                type: type
+            });
             const data = response.data.reverse(); // Extracting data from response
             changeSize(data.length);
             //setLoading(false); // Setting loading to false after data is fetched
@@ -143,41 +152,29 @@ function NotificationCard() {
                     )}
                 </Col>
                 <Col span={9}>
-
-                    <Select
-                        placeholder="Select Type"
-                        style={{ width: '150px' }}
-                        onChange={handleTypeChange}
-                        value={selectedType}
-                    >
-
-                        <Option value="All">All</Option>
-                        <Option value="Special Notice">Special Notice</Option>
-                        <Option value="Updates">Updates</Option>
-                        <Option value="Reminder">Reminder</Option>
-
-                    </Select>
-                    <input
-                        type="text"
-                        placeholder="Search..."
-                        value={searchText}
-                        onChange={(e) => handleSearch(e.target.value)}
-                        style={{
-                            width: '50%',
-                            padding: '8px',
-                            borderRadius: '5px 0px 0px 5px ',
-                            border: '1px solid #ccc',
-                        }}
-                    />
-                    <Tooltip title="search">
-                        <Button
-                            style={{ backgroundColor: '#001628', color: '#ffff', borderRadius: '0 5px 5px 0' }}
-                            type="primary"
-                            shape="square"
-                            icon={<SearchOutlined />}
+                <Space.Compact>
+                        <Select
+                         size="large"
+                            defaultValue="all"
+                            style={{ width: 120 }}
+                            onChange={(e)=>settype(e)}
+                            options={[
+                                { value: 'all', label: 'All' },
+                                { value: 'user', label: 'Receiver' },
+                                { value: 'title', label: 'title' },
+                            ]}
                         />
-                    </Tooltip>
-                </Col>
+                    <Search
+         size="large"
+                            onChange={(e) => 
+                                setKeyword(e.target.value)}
+                            
+                            placeholder="input notification title"
+                            allowClear
+                            onSearch={()=>fetchData()}
+                        />
+                </Space.Compact>
+                                </Col>
             </Row>
            {loading && < Spin size='large' spinning={loading}><div style={{height:200}}></div></Spin>}
                         <Flex  vertical align="center" >

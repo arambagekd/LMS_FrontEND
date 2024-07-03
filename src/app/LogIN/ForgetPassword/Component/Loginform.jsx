@@ -5,6 +5,7 @@ import React, {  useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'; 
 import { MailOutlined } from '@ant-design/icons';
 import { showToastError, showToastSuccess } from '@/app/Component/NewToast';
+import axioinstance from '@/app/Instance/api_instance';
 
 
 function Loginform({spinning,setSpinning}) {
@@ -20,7 +21,7 @@ function Loginform({spinning,setSpinning}) {
       setLoading(true);
       setSpinning(true);
         try{
-            const response =await axios.post('https://localhost:7174/api/User/forgetPassword',
+            const response =await axioinstance.post('User/forgetPassword',
               {emailaddress:form.getFieldValue('email')}
             );
             showToastSuccess("Password reset link sent successfully");
@@ -28,7 +29,7 @@ function Loginform({spinning,setSpinning}) {
         }catch(error){
             setSpinning(false);
             setLoading(false);
-            console.log(error.response.data);
+            console.log(error);
             showToastError(error,"Failed to send password reset link");
         }
         }

@@ -42,6 +42,25 @@ const columns = [
   
   ];
 
+  const columnspatron = [
+    {
+        title: 'Reservation',
+        dataIndex: 'reservationNo',
+        key: 'reservationNo',
+      },
+      {
+        title: 'Resource',
+        dataIndex: 'resource',
+        key: 'resource',
+      },
+      {
+        title: 'Due Date',
+        dataIndex: 'dueDate',
+        key: 'dueDate',
+      },
+  
+  ];
+
 
 
 function OverdueTable() {
@@ -66,7 +85,7 @@ function OverdueTable() {
     <div >
         {user.userType==="admin" && <h4>Overdue List</h4>}
         {user.userType==="patron" && <h4>My Reservations</h4>}
-         <ResultTable  loading={loading} dataset={reservation} columnset={columns} pagination={false}/>
+         <ResultTable  loading={loading} dataset={reservation} columnset={user.userType==="admin"?columns:columnspatron} pagination={false}/>
     </div>
     </Card>
   )

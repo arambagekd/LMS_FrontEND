@@ -36,7 +36,8 @@ function LocationCard({cupboards,loading,getLocations}) {
             <p className={styles.details}>
               Number of Shelves: {cupboard.shelfNo.length}
             </p>
-            <p className={styles.details}>Number of Books: {cupboard.count}</p>
+            <p className={styles.details}>Remain Books: {cupboard.remain}</p>
+            <p className={styles.details}>Borrowed Books: {cupboard.borrowed}</p>
           </Link>
           <Popconfirm
                 title="Remove Location"

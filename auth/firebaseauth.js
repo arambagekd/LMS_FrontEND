@@ -6,7 +6,7 @@ import Cookies from 'js-cookie';
  // Replace with your backend API URL
 
 const apiService = axios.create({
-  baseURL: 'https://localhost:7246/api/Notification/',
+  baseURL: 'https://easylibrowebapi.azurewebsites.net/api/Notification/',
   headers: {
     'Content-Type': 'application/json'
   }

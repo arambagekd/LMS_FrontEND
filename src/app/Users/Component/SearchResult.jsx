@@ -130,7 +130,7 @@ useEffect(()=>{fetchData(type)},[]);
      <SearchUsers func1={setRole} func2={setType} func3={setKeyword} search={search}></SearchUsers>
     <ResultTable loading={loading}  dataset={role=== "*" ? items : items.filter(user => user.role.toLowerCase() === role.toLowerCase())} columnset={columns} pagination={{pageSize:20}}/>
     <AddUserModal open={open} openModal={showModal} closeModal={closeModal} fetchData={fetchData}/>
-    <FloatButton  onClick={showModal} icon={<PlusOutlined/>} tooltip="Add a resource" type='primary'/> 
+    <FloatButton  onClick={showModal} icon={<PlusOutlined/>} tooltip="Add a User" type='primary'/> 
     </>
   )
 }

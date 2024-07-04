@@ -406,8 +406,14 @@ function Navigations(props) {
   }, []);
 
   useEffect(() => {
-    getUnreadCount();
-  }, []); 
+    const interval = setInterval(() => {
+        getUnreadCount();
+    }, 1000);
+
+    // Clear the interval when the component unmounts
+    return () => clearInterval(interval);
+}, []);
+
 
  
   return rootPath != "LogIN" &&

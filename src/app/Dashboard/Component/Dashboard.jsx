@@ -55,9 +55,14 @@ function Dashboard() {
     }
 
     useEffect(() => {
-        fetchData();
-        getannouncement();
-    }, [user.userType])
+      const interval = setInterval(() => {
+          fetchData();
+          getannouncement();
+      }, 2000);
+
+      // Clean up the interval on component unmount or when user.userType changes
+      return () => clearInterval(interval);
+  }, [user.userType]);
 
    
 

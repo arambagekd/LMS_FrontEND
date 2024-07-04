@@ -7,6 +7,7 @@ import AboutCard from '../../[isbn]/Components/AboutCard';
 import { UserContext } from '@/app/Context/Context';
 import axioinstance from '@/app/Instance/api_instance';
 import { showToastError } from '@/app/Component/NewToast';
+import { StarOutlined } from '@ant-design/icons';
 
 
 
@@ -73,51 +74,66 @@ const request=async()=>{
         colorBorderSecondary:"rgba(0 ,33, 64,0.2)",
         borderRadiusLG:0
       },}}>
- 
-      <Card  styles={{body: { padding: '0' }}}
-             style={getCardStyle()} // Apply styles based on hover state
-             onMouseEnter={() => setIsHovered(true)} // Set hover state to true on mouse enter
-             onMouseLeave={() => setIsHovered(false)}  
-      >
-        <Row style={{ width: "100%" }} justify="center" >
-          <Col >
-            <Image 
-              src={props.dataset.url}
-              alt={'no image'}
-              width="140px"
-              height="210px"
-            />
-          </Col>
-          <Col style={{ lineHeight: '32px',padding:' 15px 15px 15px 15px' }} >
-           <div style={{lineHeight:2}}><b>{props.dataset.title.length < 12 ? props.dataset.title: props.dataset.title.substring(0, 12) + "...."}</b> <br/>    
-            {props.dataset.isbn.length < 14 ? props.dataset.isbn: props.dataset.isbn.substring(0, 14) + "..."}<br/> 
-            {props.dataset.author.length < 14 ? props.dataset.author: props.dataset.author.substring(0, 14) + "..."}<br/> 
-            No of Books: {props.dataset.remain}
-            </div>
+       
+       <Card styles={{ body: { padding: '0' } }}
+      style={getCardStyle()} // Apply styles based on hover state
+      onMouseEnter={() => setIsHovered(true)} // Set hover state to true on mouse enter
+      onMouseLeave={() => setIsHovered(false)}
+>
+  <Row style={{ width: "100%" }} justify="center">
+    <Col style={{ position: 'relative' }}>
+      <Image
+        src={props.dataset.url}
+        alt={'no image'}
+        width="140px"
+        height="210px"
+      />
+      <div style={{
+  position: 'absolute',
+  top: '5px',
+  left: '5px',
+  backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  color: '#fff',
+  padding: '4px 8px',
+  borderRadius: '5px',
+  fontSize: '14px',
+  fontWeight: 'bold',
+}}>
+  ⭐ {props.dataset.ratings} / 5 
+</div>
+    </Col>
+    <Col style={{ lineHeight: '32px', padding: '15px' }}>
+      <div style={{ lineHeight: 2 }}>
+        <b>{props.dataset.title.length < 12 ? props.dataset.title : props.dataset.title.substring(0, 12) + "...."}</b> <br />
+        {props.dataset.isbn.length < 14 ? props.dataset.isbn : props.dataset.isbn.substring(0, 14) + "..."}<br />
+        {props.dataset.author.length < 14 ? props.dataset.author : props.dataset.author.substring(0, 14) + "..."}<br />
+        No of Books: {props.dataset.remain}
+      </div>
+      <Flex style={{ fontWeight: 600 }} justify='space-between'>
+        <Link href={`/Resources/${props.dataset.isbn}`}>More..</Link>
+      </Flex>
+      {user.userType === 'admin' ?
+        <Button disabled={props.dataset.remain < 1} type='primary' size="small" block onClick={showModal}>Issue</Button> :
+        <Popconfirm
+          disabled={props.dataset.remain < 1}
+          title="Request a book"
+          description="Are you sure to request?"
+          onConfirm={request}
+          okText="Yes"
+          cancelText="No"
+        >
+          <Button type='primary' loading={loading} disabled={props.dataset.remain < 1} size="small" block>Request</Button>
+        </Popconfirm>
+      }
+    </Col>
+  </Row>
+</Card>
 
-            <Flex style={{ fontWeight: 600, }} justify='space-between'>
-                <Link href={`/Resources/${props.dataset.isbn}`}>More..</Link>  
-            </Flex>
-            {user.userType === 'admin' ?
-            <Button disabled={props.dataset.remain<1}  type='primary' size="small" block onClick={showModal} >Issue</Button>:
-            <Popconfirm
-            disabled={props.dataset.remain<1}
-            title="Request a book"
-            description="Are you sure to request?"
-            onConfirm={request}
-            okText="Yes"
-            cancelText="No"
-            
-          >
-            <Button type='primary' loading={loading} disabled={props.dataset.remain<1} size="small" block >Request</Button>
-            </Popconfirm>
-            }
-            
-          </Col>
+       
 
-        </Row>
-      </Card>
-      
+
+       
+
       </ConfigProvider>
 
       <IssueModal open={open} openFuntion={showModal} close={closeModal} data={props.dataset.isbn} />

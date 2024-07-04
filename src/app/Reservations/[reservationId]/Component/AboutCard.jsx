@@ -44,7 +44,6 @@ function AboutCard({reservationId}) {
     setLoading(true);
     try{
       const response = await axioinstance.post(`Reservation/About?resId=${reservationId}`);
-      console.log(response.data);
       setStatus(response.data.status);
       setImagePath(response.data.imagePath);
       setReservation(response.data.resId);
@@ -136,8 +135,7 @@ function AboutCard({reservationId}) {
                 <Button type='primary' danger={(status==="overdue")} shape='round'>{status.toUpperCase()}</Button>
                 <div>
                   <DeleteModal reservation={reservationId}/>
-                  <Button size='large' type='primary' style={{ margin: '0 10px 0 0' }} shape='circle' onClick={openModal} disabled={(status=="reserved")}><EditOutlined /></Button>
-                  <Button size='large' type='primary' shape='circle' onClick={openModal} disabled={(status=="reserved")}><BellOutlined /></Button>
+                  <Button size='large' type='text' danger style={{ margin: '0 10px 0 0' }} shape='circle' onClick={openModal} disabled={(status=="reserved")}><EditOutlined /></Button>
                 </div>
               </Flex>}
               

@@ -16,7 +16,7 @@ function page() {
         <br></br>
         <ChangeEmail/>
         <br></br> */}
-        <Divider orientation='left'>App Settings</Divider>
+        {/* <Divider orientation='left'>App Settings</Divider> */}
     </div>
   )
 }

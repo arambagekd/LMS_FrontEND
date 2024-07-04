@@ -8,8 +8,8 @@ export default function Userreport({ data }) {
 
    const rep = [
     ["Book Type", "Quantity"],
-    ["Admin", data.admin],
-    ["Petron", data.petron],
+    ["Free", data.free],
+    ["Loan", data.loan],
     //["Others", 7],
   ];
 
@@ -17,7 +17,7 @@ export default function Userreport({ data }) {
       title: "Users Quantity "+ data.total ,
      };
   return (
-    <div style={{marginLeft:200,borderRadius:5,marginTop:0,width:"100%",paddingRight:0}}>
+    <div>
     <Chart
       chartType="PieChart"
       data={rep}

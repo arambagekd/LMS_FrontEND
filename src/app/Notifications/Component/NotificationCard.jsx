@@ -142,7 +142,7 @@ function NotificationCard() {
 
         <div>
             <Row gutter={16} style={{ marginBottom: '30px', }}>
-                <Col span={12}>
+                <Col sm={16} xs={24}>
                     <Button style={{ marginRight: '10px', width: '150px', backgroundColor: '#001628', color: '#ffff' }} onClick={showAddModal}>
                         New
                     </Button>
@@ -151,7 +151,7 @@ function NotificationCard() {
                         <UpdateNotification visible={visibleUpdate} onUpdate={handleUpdate} onCancel={handleCancel} notification={selectedNotification} />
                     )}
                 </Col>
-                <Col span={9}>
+                <Col sm={8} xs={24}>
                 <Space.Compact>
                         <Select
                          size="large"

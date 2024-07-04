@@ -67,7 +67,7 @@ function SearchReservations({ func1, func2, func3, search,setDate }) {
                         <Select
                          size="large"
                             defaultValue="all"
-                            style={{ width: 100 }}
+                            style={{ width: 130 }}
                             onChange={handleTypeChange}
                             options={[
                                 { value: 'all', label: 'All' },

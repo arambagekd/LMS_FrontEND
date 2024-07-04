@@ -39,20 +39,14 @@ function SearchResult({username}) {
 
   const columnsAdimn  = [
     {
-      title: 'Reservation',
-      dataIndex: 'reservationNo',
-      key: 'reservationNo',
-    },
-    {
-      title: 'Resource',
+      title: 'ISBN',
       dataIndex: 'resource',
       key: 'resource',
     },
     {
-      title: 'User Id',
-      dataIndex: 'userId',
-      key: 'userId',
-      render: (borrowerName,record) => (<Tooltip title={borrowerName}>{record.userId}</Tooltip>)
+      title: 'Resource',
+      dataIndex: 'resourceTitle',
+      key: 'resourceTitle',
     },
     {
       title: 'Due Date',
@@ -81,14 +75,14 @@ function SearchResult({username}) {
 
   const columnsUser  = [
     {
-      title: 'Reservation',
-      dataIndex: 'reservationNo',
-      key: 'reservationNo',
+      title: 'ISBN',
+      dataIndex: 'resource',
+      key: 'resource',
     },
     {
-      title: 'Due Date',
-      dataIndex: 'dueDate',
-      key: 'dueDate',
+      title: 'Resource',
+      dataIndex: 'resourceTitle',
+      key: 'resourceTitle',
     },
     {
       title: 'Status',

@@ -20,8 +20,19 @@ function EditProfile() {
   const user = React.useContext(UserContext).user;
   const getUser = React.useContext(UserContext).GetUser;
   const [imagepath,setImagePath]=useState("");
-  
-  
+  const isValidPhoneNumber = (phoneNumber) => {
+    // Simple regex for validating phone numbers (you can customize this)
+    const phoneRegex = /^[+]?[0-9\s-]{10,15}$/;
+    return phoneRegex.test(phoneNumber);
+  };
+
+  const phoneValidator = async (rule, value) => {
+    if (!value || isValidPhoneNumber(value)) {
+      return Promise.resolve();
+    } else {
+      return Promise.reject('The value is not a valid phone number');
+    }
+  };
   const SaveChanges = ()=>{
     form.validateFields().then(
     async()=>{
@@ -111,7 +122,7 @@ function EditProfile() {
         </Form.Item>
         <Form.Item name="dob" label="Date of Birth" rules={[{ required: true }]} ><DatePicker size='medium' onChange={(e, s) => setDate(s)}/></Form.Item>
         <Form.Item name="address" label="Address" rules={[{ required: true }]} ><Input size='medium'   /></Form.Item>
-        <Form.Item name="mobile" label="Mobile" rules={[{ required: true }]} ><Input size='medium'   /></Form.Item>
+        <Form.Item name="mobile" label="Mobile" rules={[{ required: true},{ validator: phoneValidator }]} ><Input size='medium'   /></Form.Item>
         </ConfigProvider>
        <Form.Item colon={false}  label="  "   >
        

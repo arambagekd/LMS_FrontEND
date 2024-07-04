@@ -1,12 +1,16 @@
 "use client";
 import { AppstoreOutlined, MailOutlined, LoginOutlined, PhoneOutlined, EnvironmentOutlined, HomeOutlined } from "@ant-design/icons";
-import { Button, Card, Layout, Menu, Row, Col, Form, Input } from "antd";
+import { FontWeight } from "@cloudinary/url-gen/qualifiers";
+import { Button, Card, Layout, Menu, Row, Col, Form, Input,notification } from "antd";
 import Link from "next/link";
 import React from "react";
+import { useState } from 'react';
+import Image from 'next/image';
 
 const { Header, Footer, Content } = Layout;
 
 const ContactUsPage = () => {
+  const [loading, setLoading] = useState(false);
     const items = [
         {
           label: <Link href="/Home">Home</Link>,
@@ -29,10 +33,21 @@ const ContactUsPage = () => {
           icon: <LoginOutlined />,
         },
       ];
-  const onFinish = (values) => {
-    console.log('Success:', values);
-  };
+  // const onFinish = (values) => {
+  //   console.log('Success:', values);
+  // };
 
+  const onFinish = (values) => {
+    setLoading(true);
+    // Simulate a request to a server
+    setTimeout(() => {
+      notification.success({
+        message: 'Success',
+        description: 'Your message has been sent successfully!',
+      });
+      setLoading(false);
+    }, 2000);
+  };
   const onFinishFailed = (errorInfo) => {
     console.log('Failed:', errorInfo);
   };
@@ -48,13 +63,15 @@ const ContactUsPage = () => {
       />
       <Content style={styles.container}>
         <section style={styles.contactSection}>
-          <h1 style={styles.heading}>Contact Us</h1>
+          <div ><h1 style={styles.heading}>Contact Us</h1></div>
           <div style={styles.textContainer}>
+            <div style={{backgroundImage:"url('library.jpeg')",padding:100 }}>
             <p style={styles.paragraph}>
-              We would love to hear from you! Whether you have a question about our system, need assistance, or just want to provide feedback, feel free to reach out to us.
-            </p>
-            <Row gutter={[16, 16]} justify="center">
-              <Col sm={12} xs={24}>
+
+We would love to hear from you!<br/> <br/> Whether you have a question about our system, need assistance, or just want to provide feedback, feel free to reach out to us.
+</p></div>
+            <Row gutter={[16, 16]} justify="center"style={{margin:"50px 0"}}>
+              <Col sm={12} xs={24} >
                 <Form
                   name="contact"
                   initialValues={{ remember: true }}
@@ -83,14 +100,16 @@ const ContactUsPage = () => {
                     <Input.TextArea rows={4} placeholder="Your Message" />
                   </Form.Item>
 
-                  <Form.Item>
-                    <Button type="primary" htmlType="submit">
+                  <Form.Item><center>
+                  <Button type="primary" htmlType="submit" loading={loading}>
                       Submit
                     </Button>
+                  </center>
+                    
                   </Form.Item>
                 </Form>
               </Col>
-              <Col sm={12} xs={24}>
+              <Col sm={8} xs={24}>
                 <Card style={styles.contactCard}>
                   <h3>Contact Information</h3>
                   <p><PhoneOutlined /> Phone: (123) 456-7890</p>
@@ -98,6 +117,7 @@ const ContactUsPage = () => {
                   <p><EnvironmentOutlined /> Address: 123 Library Lane, Booktown, BK 12345</p>
                 </Card>
               </Col>
+              <Col sm={4}><div><Image src="/contact.jpg" alt="Contact Image"layout="responsive" width={100} height={100} /></div></Col>
             </Row>
           </div>
         </section>
@@ -150,25 +170,28 @@ const styles = {
     borderRadius: "10px",
     boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.15)",
   },
-  heading: {
+   heading: {
     textAlign: "center",
     fontSize: "36px",
     color: "rgb(0,21,41)",
   },
   paragraph: {
-    textAlign: "justify",
+    textAlign: "center",
     margin: "20px 0",
-    fontSize: "18px",
-    color: "#333",
+    fontSize: "25px",
+    color: "white",
+    FontWeight:"200"
   },
   form: {
+    margin: "30px 0",
     maxWidth: "600px",
     margin: "0 auto",
   },
   contactCard: {
-    textAlign: "center",
     padding: "20px",
-    boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.15)",
+    boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.75)",
+   // backgroundImage:"url('/contact.jpg')",
+    //backgroundColor:"#93a8bc"
   },
   mapContainer: {
     marginTop: "20px",

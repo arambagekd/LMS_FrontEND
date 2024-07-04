@@ -147,7 +147,7 @@ function AboutCard({ username }) {
           </Col>
           <Col md={18} sm={24} xs={24}>
             <Descriptions
-              title={<div>User Details<Link href=" " onClick={openModal}><span><DeleteOutlined /></span></Link></div>}
+              title={<div>User Details</div>}
               layout="horizontal"
               column={{
                 xs: 1,

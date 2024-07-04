@@ -55,7 +55,20 @@ function EditProfile() {
         <Form form={form} style={{width:'75%'}} size='small'  name="nest-messages"  labelCol={{  span: 6,}} wrapperCol={{span:16}}  disabled={edit}>
         
         <Form.Item name="current" label="Current Password" rules={[{ required: true }]} ><Password size='medium'  /></Form.Item>
-        <Form.Item name="new" label="New Password" rules={[{ required: true }]} ><Password size='medium'  onChange={(e)=>setNewPassword(e.target.value)}/></Form.Item>
+        <Form.Item name="new" label="New Password" 
+         rules={[
+          {
+            required: true,
+            message: 'Please enter your password!',
+          },
+          {
+            pattern: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/,
+            message: 'Password must be at least 8 characters long and include at least one uppercase letter, one lowercase letter, one number, and one special character (!@#$%^&*).',
+          },
+        ]} >
+          <Password size='medium'  onChange={(e)=>setNewPassword(e.target.value)}/>
+
+          </Form.Item>
 
         <Form.Item name="new1" label="Confirm Password" rules={[{ required: true }, {
             validator: (_, value) =>

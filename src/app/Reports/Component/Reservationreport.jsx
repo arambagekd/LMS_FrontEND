@@ -1,3 +1,4 @@
+import { green } from '@cloudinary/url-gen/actions/adjust';
 import { center } from '@cloudinary/url-gen/qualifiers/textAlignment'
 import React from 'react'
 import { Chart } from "react-google-charts";
@@ -18,8 +19,8 @@ export default function Reservationreport({ data }) {
       title: "Reservation Quantity "+ data.total ,
      };
   return (
-    <div style={{marginLeft:200,borderRadius:5,marginTop:0,width:"100%",paddingRight:0}}>
-    <Chart
+    <div >
+    <Chart 
       chartType="PieChart"
       data={rep}
       options={options}

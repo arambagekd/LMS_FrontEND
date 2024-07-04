@@ -1,11 +1,12 @@
 'use client'
-import { Card, Space} from 'antd'
+import { Button, Card, Flex, Popconfirm, Space} from 'antd'
 import React, { useEffect } from 'react'
 import ResultTable from '../../Component/ResultTable'
-import {BellOutlined  } from '@ant-design/icons';
+import {BellFilled, BellOutlined, NotificationOutlined  } from '@ant-design/icons';
 import Link from 'next/link';
 import axioinstance from '../../Instance/api_instance';
 import { UserContext } from '@/app/Context/Context';
+import { showToastError, showToastSuccess } from '@/app/Component/NewToast';
 
 const columns = [
     {
@@ -78,12 +79,34 @@ function OverdueTable() {
     setLoading(false);
   }
 
+  const RemindOverdue = async () => {
+    try{
+      const response = await axioinstance.get('Reservation/RemindOverdue');
+      showToastSuccess( "Reminded Overdue successfully");
+    }catch(error){
+      console.log(error);
+      showToastError(error, "Sorry! Can't remind overdue");
+    }
+    setLoading(false);
+  
+  }
+
   useEffect(() => {GetReservations()},[])
 
   return (
     <Card>
     <div >
-        {user.userType==="admin" && <h4>Overdue List</h4>}
+        {user.userType==="admin" && <><Space style={{fontSize:20,fontWeight:600}}  >Overdue List</Space> 
+        <Popconfirm
+                title="Remind"
+                description="Are you sure to remind overdue"	
+                onConfirm={()=>RemindOverdue()}
+                okText="Yes"
+                cancelText="No"
+              >    
+        <Button type='link' size='large' icon={<BellFilled/>} danger></Button>
+        </Popconfirm></>
+        }
         {user.userType==="patron" && <h4>My Reservations</h4>}
          <ResultTable  loading={loading} dataset={reservation} columnset={user.userType==="admin"?columns:columnspatron} pagination={false}/>
     </div>

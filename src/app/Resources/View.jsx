@@ -80,16 +80,16 @@ function View({location}) {
       <SearchResult
       loading={loading}
         data={ascending?(
-          sort === "title"
-            ? books.sort((a, b) => b.title.localeCompare(a.title))
+          sort === "rating"
+            ? books.sort((a, b) =>   a.ratings - b.ratings)
             : sort === "popular"
             ? books.sort((a, b) => a.noOfRes - b.noOfRes)
             : sort === "latest"
             ? books.sort((a, b) => new Date(a.dateadded) - new Date(b.dateadded))
             : books):
             (
-              sort === "title"
-              ? books.sort((a, b) => a.title.localeCompare(b.title))
+              sort === "rating"
+              ? books.sort((a, b) =>   b.ratings - a.ratings)
               : sort === "popular"
               ? books.sort((a, b) => b.noOfRes - a.noOfRes)
               : sort === "latest"

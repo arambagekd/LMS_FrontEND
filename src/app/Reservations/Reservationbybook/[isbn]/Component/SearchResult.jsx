@@ -38,15 +38,11 @@ function SearchResult({isbn}) {
 
 
   const columnsAdimn  = [
-    {
-      title: 'Reservation',
-      dataIndex: 'reservationNo',
-      key: 'reservationNo',
-    },
+   
     {
       title: 'Resource',
-      dataIndex: 'resource',
-      key: 'resource',
+      dataIndex: 'resourceTitle',
+      key: 'resourceTitle',
     },
     {
       title: 'User Id',
@@ -81,9 +77,9 @@ function SearchResult({isbn}) {
 
   const columnsUser  = [
     {
-      title: 'Reservation',
-      dataIndex: 'reservationNo',
-      key: 'reservationNo',
+      title: 'Resource',
+      dataIndex: 'resourceTitle',
+      key: 'resourceTitle',
     },
     {
       title: 'Due Date',
@@ -143,11 +139,7 @@ function SearchResult({isbn}) {
       <SeachReservations func1={setStatus} isbn={isbn}/>
 
       <ResultTable loading={loading} nodata={false} dataset={status === "*" ? items : items.filter(book => book.status === status)} columnset={user.userType=="admin"?columnsAdimn:columnsUser} pagination={{ pageSize: 20 }} />
-        <ReturnModal fetchData={fetchData}  open={open} openFuntion={showModal} close={closeModal} recordData={recordData} />
-        {typeof window !== "undefined" && (
-                
-                <Chart topic="This week transitions" data={[]} />
-                    )}
+      <ReturnModal fetchData={fetchData}  open={open} openFuntion={showModal} close={closeModal} recordData={recordData} />
     </div>
   )
 }

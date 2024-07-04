@@ -101,6 +101,16 @@ function ChangePassword({spinning,setSpinning}) {
                 <Password
                   size="medium"
                   onChange={(e) => setNewPassword(e.target.value)}
+                  rules={[
+                    {
+                      required: true,
+                      message: 'Please enter your password!',
+                    },
+                    {
+                      pattern: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/,
+                      message: 'Password must be at least 8 characters long and include at least one uppercase letter, one lowercase letter, one number, and one special character (!@#$%^&*).',
+                    },
+                  ]}
                 />
               </Form.Item>
 

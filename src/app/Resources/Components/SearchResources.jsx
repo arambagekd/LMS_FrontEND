@@ -61,7 +61,7 @@ function SearchResources({ func1, func2, func3,func4,func5,ascending, search }) 
 
                     <Flex s wrap='wrap' align='center'>
                         <Radio.Group  size="large" value={placement} onChange={handlePlacementChange} style={{ margin: ' 0 15px 0 0' }}>
-                            <Radio.Button value="title">Title</Radio.Button>
+                            <Radio.Button value="rating">Ratings</Radio.Button>
                             <Radio.Button value="latest">Latest</Radio.Button>
                             <Radio.Button value="popular">Popular</Radio.Button>
                         </Radio.Group>

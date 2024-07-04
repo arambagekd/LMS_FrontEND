@@ -45,26 +45,27 @@ useEffect(() => {lastweek()}, []);
 
   return(
     <div>
-      <center><BarChart data={chart1} /></center>
-        <div>
-          <br /><br /><br />
-          <RangePicker onChange={(e,s)=>{setStartDate(s[0]);setEndDate(s[1])}}/><br/>
-          <Button type="primary" style={{ marginLeft:100 , marginTop:50}} onClick={genarate} >Generate</Button> <br />
-        </div>
-        <Row>
-        <Col sm={12} xs={24}>
-        {showUsegen || <Empty style={{paddingLeft:300 ,paddingBottom:200 }}/>}
-        {showUsegen && <Reportres style={{ marginTop: 0 }} data={data} />}
-      </Col>
-      
-     
-     
-        </Row>
-      
-      {/* <button type='primary' onClick={genarate} style={{ marginLeft:100 , marginTop:50}}>Genarate</button> */}
-      
-      
-      
+            <Flex wrap='wrap'>
+            <Row style={{ width: "100%"}} gutter={[5, 5]}>
+        <Col sm={6}>
+          <center>
+            <RangePicker onChange={(e, s) => { setStartDate(s[0]); setEndDate(s[1]); }}  style={{margin: '30px 0 0 0'}}/><br /><br/><br/>
+            <Button type="primary" onClick={genarate}>Generate</Button><br />
+          </center>
+        </Col>
+        <Col sm={18}>
+          <center>
+            {showUsegen ? <Reportres style={{ marginTop: 0 }} data={data} /> : <Empty  style={{ margin: '30px 200px 100px 0'}}/>}
+          </center>
+        </Col>
+      </Row>
+        <Row style={{ width: "100%", margin: '15px 0' }} gutter={[5, 5]}>
+        <Col sm={24} ><Skeleton active loading={chart1.length==0}><center><BarChart data={chart1} title="Last Week Reservation" /></center></Skeleton></Col>
+                    </Row>
+
+
+      </Flex>
+         
     </div>
   )
   

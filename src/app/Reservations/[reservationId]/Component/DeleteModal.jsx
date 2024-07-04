@@ -37,7 +37,7 @@ function DeleteModal({reservation}) {
     }
   >
   
-    <Button size='large' type='primary' style={{ margin: '0 10px 0 0' }} shape='circle'><DeleteOutlined /></Button>
+    <Button size='large' type='text' danger style={{ margin: '0 10px 0 0' }} shape='circle'><DeleteOutlined /></Button>
   </Popconfirm>
   )
 }

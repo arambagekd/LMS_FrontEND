@@ -23,7 +23,6 @@ const UploadImage = ({imagepath}) => {
     getUser();
     showToastSuccess("Profile picture updated successfully!");
     }catch(e){
-      console.log(e);
       showToastError(e,"Failed to update profile picture"); 
     }
   }
@@ -47,7 +46,6 @@ const UploadImage = ({imagepath}) => {
   });
 
   const myImage = cld.image(publicId);
-  console.log(imageUrl);
   return (
     <div >
       <Avatar  src={imageUrl!=""?imageUrl:imagepath!=""?imagepath:null} icon={<UserOutlined />} size={80} style={{width:120,height:120}}/>

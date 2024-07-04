@@ -33,15 +33,15 @@ function SearchResult() {
 
   const columnsAdimn = [
     {
-      title: "Reservation",
-      dataIndex: "reservationNo",
-      key: "reservationNo",
-    },
-    {
-      title: "Resource",
+      title: "ISBN",
       dataIndex: "resource",
       key: "resource",
       render: (isbn, record) => <Link href={`/Resources/${isbn}`}>{isbn}</Link>,
+    },
+    {
+      title: "Book",
+      dataIndex: "resourceTitle",
+      key: "resourceTitle",
     },
     {
       title: "User ID",
@@ -113,15 +113,15 @@ function SearchResult() {
 
   const columnsUser = [
     {
-      title: "Reservation",
-      dataIndex: "reservationNo",
-      key: "reservationNo",
-    },
-    {
-      title: "Resource",
+      title: "ISBN",
       dataIndex: "resource",
       key: "resource",
-      render: (isbn, record) => <Link href={`/Resources/${isbn}`}>{isbn}</Link>
+      render: (isbn, record) => <Link href={`/Resources/${isbn}`}>{isbn}</Link>,
+    },
+    {
+      title: "Book",
+      dataIndex: "resourceTitle",
+      key: "resourceTitle",
     },
 
     // title: 'User Name',
@@ -173,14 +173,12 @@ function SearchResult() {
       setItems(data); 
     } catch (error) {
       setLoading(false); // Setting loading to false if there's an error
-      console.error("Error fetching data:", error); // Logging error to console
     }
   }
 
   async function mydata() {
     try {
       const response = await axioinstance.post("User/GetMyData", null);
-      console.log(response.data);
     } catch (error) {
       console.log(error.data);
     }

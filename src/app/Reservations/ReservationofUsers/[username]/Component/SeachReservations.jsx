@@ -32,7 +32,7 @@ function SearchReservations({ func1,username }) {
             <Row style={{ margin: "0 0 20px 0" }} gutter={[10, 10]}>
                 <Col xs={24} sm={24}>
                     <Flex wrap='wrap' align='center' justify='space-between'>
-                        <div style={{fontSize:20,fontWeight:400}}>Reservations of {username}</div>
+                        <div style={{fontSize:20,fontWeight:700}}>Reservations of User - {username}</div>
                         <div>
                         <DatePicker style={{ width: '125px' ,margin: ' 0 15px 0 0' }} />
                         <Radio.Group  size="large" value={placement} onChange={handlePlacementChange} >

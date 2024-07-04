@@ -29,17 +29,6 @@ const columns = [
         dataIndex: 'dueDate',
         key: 'dueDate',
       },
-     
-    {
-      title: 'Remind',
-      dataIndex: '',
-      key: 'x',
-      render: () => (
-        <Space size="large">
-        <Link href="/" ><BellOutlined  style={{color:'red'}}/></Link>
-        </Space>
-      )
-    },
   
   ];
 
